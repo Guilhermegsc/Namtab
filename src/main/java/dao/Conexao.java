@@ -17,13 +17,13 @@ import java.util.logging.Logger;
  */
 public class Conexao {
 
-    private Connection obterConexao() throws SQLException, ClassNotFoundException {
+    public Connection obterConexao() throws SQLException, ClassNotFoundException {
         Connection conn = null;
         String connectionUrl = "jdbc:sqlserver://localhost:1433"
                 + "databaseName=Namtab";
         try {
             // Passo 1: Registrar driver JDBC.
-            Class.forName("com.microsoft,sqlserver.jdbc.SQLServerDriver").newInstance();
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
             // abrir conexao
             conn = DriverManager.getConnection(connectionUrl, "login", "senha");
 
