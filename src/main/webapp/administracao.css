@@ -1,0 +1,37 @@
+body{
+	font-family: "Srif", sans, verdana;
+	background-image: url(img/background_site.jpg);
+	background-repeat: no-repeat;
+}
+
+#nav{
+
+}
+
+#menu li{
+	display: inline-block;
+	margin-left: 30px;
+	
+}
+
+#menu li:hover{
+	cursor: pointer;
+	text-decoration: underline;
+	
+}
+a{
+	text-decoration: none;
+}
+a:link{
+	color: black;
+}
+
+span{
+	font-style: italic;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -165px;
+	margin-top: 380px;
+	font-size: 13px;
+}

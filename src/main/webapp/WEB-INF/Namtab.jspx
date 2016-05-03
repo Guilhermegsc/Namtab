@@ -10,7 +10,7 @@
     <jsp:output omit-xml-declaration="true" doctype-root-element="HTML" doctype-system="about:legacy-compact"/>
     <html>
         <head>
-            <title></title>
+            <title>maconha</title>
         </head>
         <body>
         <p><c:out value="${variavel}"/></p>

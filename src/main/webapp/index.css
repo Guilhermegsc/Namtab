@@ -1,0 +1,70 @@
+body{
+	background-image: url(img/background_site.jpg);
+	background-repeat: no-repeat;
+	font-family: "Serif", sans,verdana;
+}
+
+#formulariologin{
+	position: absolute;
+	width: 400px;
+	left: 50%;
+	top: 50%;
+	margin-left: -240px;
+	margin-top: -165px;
+	background: rgba(200,200,200,0.2);
+	padding: 50px;
+	
+}
+
+.loginlabel{
+	
+	display: inline-block;
+	width: 90px;
+	padding: 5px;
+}
+
+button{
+	position:relative;
+	left: 285px;
+	margin-bottom: 5px;
+
+}
+
+#logo{
+	position: absolute;
+	left: 50%;
+	top:50%;
+	margin-left: -85px;
+	margin-top: -375px;
+	background-image: url(img/icone.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	width:200px;
+	height:150px;
+	
+}
+
+.btn:hover{
+	background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.15));
+	cursor: pointer;
+	border-radius: 5px;
+	
+}
+
+.btn{
+	cursor: pointer;
+	border-radius: 5px;
+	border: #fff;
+	width: 80px;
+	height: 30px;
+}
+
+span{
+	font-style: italic;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -165px;
+	margin-top: 380px;
+	font-size: 13px;
+}
