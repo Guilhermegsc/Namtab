@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : Namtab.jspx
+    Created on : 29/04/2016, 01:12:51
+    Author     : silvana
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+
+    <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
+    <jsp:output omit-xml-declaration="true" doctype-root-element="HTML" doctype-system="about:legacy-compact"/>
+    <html>
+        <head>
+            <title>Posto - Login</title>
+            <link rel="stylesheet" type="text/css" href="index.css"/>
+        </head>
+
+        <body>
+
+
+            <div id="logo">
+
+            </div>
+
+
+
+
+            <form class="formulario" id="formulariologin" method="get" action="menu.html">
+                <fieldset id="dados" class="caixa">
+                    <legend> Dados de Usuario</legend>
+                    <label class="loginlabel"> Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" class="logincampo"/>
+                    <br/>
+                    <label class="loginlabel"> Senha:</label>
+                    <input type="password" id="senha" name="senha" class="logincampo"/>
+
+
+                </fieldset>
+
+                <fieldset id="dados" class="caixa">
+                    <legend>Opções</legend>
+
+                    <button type="submit" class="btn">Entrar</button>
+
+                </fieldset>
+            </form>
+
+            <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
+        </body>
+
+    </html>
+
+</jsp:root>
