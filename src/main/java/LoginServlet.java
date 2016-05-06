@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author silvana
  */
-public class NamtabServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +45,7 @@ public class NamtabServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
-        request.getRequestDispatcher("WEB-INF/menu.jspx").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/login.jspx").forward(request, response);
     }
 
     /**

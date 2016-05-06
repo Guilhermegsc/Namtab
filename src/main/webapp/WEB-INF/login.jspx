@@ -11,7 +11,7 @@
     <html>
         <head>
             <title>Posto - Login</title>
-            <link rel="stylesheet" type="text/css" href="index.css"/>
+            <link rel="stylesheet" type="text/css" href="css/index.css"/>
         </head>
 
         <body>
@@ -24,7 +24,7 @@
 
 
 
-            <form class="formulario" id="formulariologin" method="get" action="menu.html">
+            <form class="formulario" id="formulariologin" method="get" action="http://localhost:8080/Namtab/NamtabServlet">
                 <fieldset id="dados" class="caixa">
                     <legend> Dados de Usuario</legend>
                     <label class="loginlabel"> Usuario:</label>
