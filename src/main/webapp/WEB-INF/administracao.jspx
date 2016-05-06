@@ -18,10 +18,10 @@
 
             <div id="nav">
                 <ul id="menu">
-                    <a href="menu.html"><li>Home</li></a>
-                    <a href="relatorio.html"><li>Relatório</li></a>
-                    <a href="administracao.html"><li>Administração</li></a>
-                    <a href="venda.html"><li>Venda</li></a>
+                    <a href="menu.jspx"><li>Home</li></a>
+                    <a href="relatorio.jspx"><li>Relatório</li></a>
+                    <a href="administracao.jspx"><li>Administração</li></a>
+                    <a href="venda.jspx"><li>Venda</li></a>
 
                 </ul>
             </div>

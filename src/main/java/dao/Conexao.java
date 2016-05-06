@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class Conexao {
 
-    public Connection obterConexao() throws SQLException, ClassNotFoundException {
+    public static Connection obterConexao() throws SQLException, ClassNotFoundException {
         Connection conn = null;
         String connectionUrl = "jdbc:sqlserver://localhost:1433"
                 + "databaseName=Namtab";

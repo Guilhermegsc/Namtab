@@ -28,8 +28,7 @@ public class NamtabServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("variavel", "Ta vendo o que aconteceeu");
-        request.getRequestDispatcher("/Namtab.jspx").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -45,6 +44,8 @@ public class NamtabServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        request.setAttribute("variavel", "Ta vendo o que aconteceeu");
+        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
     }
 
     /**
@@ -59,6 +60,7 @@ public class NamtabServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
 
     }
 

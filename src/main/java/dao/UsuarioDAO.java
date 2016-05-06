@@ -20,11 +20,10 @@ public class UsuarioDAO {
     public void inserirUsuario(Usuario us) {
         Connection conn = null;
         Statement stmt = null;
-        Conexao cn = new Conexao();
 
         try {
             // conecta com o banco
-            conn = cn.obterConexao();
+            conn = Conexao.obterConexao();
 
             //executa a query
             stmt = conn.createStatement();
