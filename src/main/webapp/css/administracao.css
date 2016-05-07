@@ -35,3 +35,47 @@ span{
 	margin-top: 380px;
 	font-size: 13px;
 }
+.labelformulario{
+	display: inline-block;
+		padding: 5px;
+}
+#formulario{
+	position: absolute;
+	width: 600px;
+	left: 50%;
+	top: 50%;
+	margin-left: -350px;
+	margin-top: -185px;
+	background: rgba(200,200,200,0.2);
+	padding: 50px;
+	
+
+}
+
+button{
+	position:relative;
+	left: 470px;
+	cursor: pointer;
+	border-radius: 5px;
+	border: #fff;
+	width: 100px;
+	height: 30px;
+}
+
+button:hover{
+	background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.15));
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+#inputnome{
+    width: 280px;
+}
+
+#lblcpf{
+    width: 67px;
+}
+
+#lblcargo{
+    width: 67px;
+}
