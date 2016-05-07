@@ -26,7 +26,7 @@ public class UsuarioDAO {
 
         // Passo 2: Abrir a conexão
         conn = DriverManager.getConnection(
-                "jdbc:derby://localhost:1527/agendabd;SecurityMechanism=3",
+                "jdbc:derby://localhost:1527/posto;SecurityMechanism=3",
                 "app", // usuario
                 "app"); // senha
         return conn;
