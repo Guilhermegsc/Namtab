@@ -13,17 +13,23 @@ import java.sql.Date;
  */
 public class OleoLubrificante extends Produto{
     
-    private String categoria;
+    private String classe;
     private Date validade;
 
-    public OleoLubrificante(String categoria, Date validade, String nome, double preco, String idUsuario) {
-        super(nome, preco, idUsuario);
-        this.categoria = categoria;
+    public OleoLubrificante(String classe, Date validade, String nome, double preco, String idUsuario, int idFilial) {
+        super(nome, preco, idUsuario, idFilial);
+        this.classe = classe;
+        this.validade = validade;
+    }
+    
+    public OleoLubrificante(String classe, Date validade, String nome, double preco, String idUsuario, int idFilial, Date dtOcorrencia) {
+        super(nome, preco, idUsuario, idFilial, dtOcorrencia);
+        this.classe = classe;
         this.validade = validade;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getClasse() {
+        return classe;
     }
 
     public Date getValidade() {

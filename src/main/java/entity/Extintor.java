@@ -17,8 +17,22 @@ public class Extintor extends Produto {
     private String classe;
     private Date validade;
 
-    public Extintor(double tamanho, String classe, Date validade, String nome, double preco, String idUsuario) {
-        super(nome, preco, idUsuario);
+    public Extintor(double tamanho, String classe, Date validade, String nome, double preco) {
+        super(nome, preco);
+        this.tamanho = tamanho;
+        this.classe = classe;
+        this.validade = validade;
+    }
+    
+    public Extintor(double tamanho, String classe, Date validade, String nome, double preco, String idUsuario, int idFilial) {
+        super(nome, preco, idUsuario, idFilial);
+        this.tamanho = tamanho;
+        this.classe = classe;
+        this.validade = validade;
+    }
+    
+    public Extintor(double tamanho, String classe, Date validade, String nome, double preco, String idUsuario, int idFilial, Date dtOcorrencia) {
+        super(nome, preco, idUsuario, idFilial, dtOcorrencia);
         this.tamanho = tamanho;
         this.classe = classe;
         this.validade = validade;

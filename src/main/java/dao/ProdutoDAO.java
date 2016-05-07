@@ -5,8 +5,14 @@
  */
 package dao;
 
-import entity.Usuario;
-import java.sql.*;
+import entity.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +23,19 @@ import java.util.logging.Logger;
  *
  * @author Anderson
  */
-public class UsuarioDAO {
+public class ProdutoDAO {
+        private Connection obterConexao() throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        // Passo 1: Registrar driver JDBC.
+        Class.forName("org.apache.derby.jdbc.ClientDataSource");
+
+        // Passo 2: Abrir a conexão
+        conn = DriverManager.getConnection(
+                "jdbc:derby://localhost:1527/posto;SecurityMechanism=3",
+                "app", // usuario
+                "app"); // senha
+        return conn;
+    }
 
     public Usuario buscarUsuario(String idUsuario) {
         PreparedStatement stmt = null;
@@ -72,36 +90,36 @@ public class UsuarioDAO {
         return us;
     }
 
-    public ArrayList<Usuario> listarUsuarios() {
+    public ArrayList<Combustivel> listaCombustivel() {
         Statement stmt = null;
         Connection conn = null;
-        Usuario us = null;
+        Combustivel comb = null;
 
         String sql = "SELECT ID_CONTATO, NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL "
                 + "FROM TB_CONTATO";
 
-        ArrayList<Usuario> lista = new ArrayList();
+        ArrayList<Combustivel> lista = new ArrayList();
 
         try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
             stmt = conn.createStatement();
             ResultSet resultados = stmt.executeQuery(sql);
 
             DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
 
             while (resultados.next()) {
-                String id = resultados.getString("CPF");
                 String nome = resultados.getString("nome");
-                String senha = resultados.getString("senha");
+                double preco = resultados.getDouble("preco");
+                String idUsuario = resultados.getString("idUsuario");
+                double quantidade = resultados.getDouble("quantidade");
                 int idFilial = resultados.getInt("idFilial");
-                int perfil = resultados.getInt("perfil");
-                Date dataNasc = resultados.getDate("dataNasc");
                 String funcao = resultados.getString("funcao");
+                Date dtOcorrencia = resultados.getDate("dataOcorrencia");
+                             
 
-                us = new Usuario(id, nome, idFilial, perfil, dataNasc, funcao);
+                comb = new Combustivel(nome, preco, idUsuario, quantidade, idFilial, dtOcorrencia);
 
-                lista.add(us);
+                lista.add(comb);
             }
 
         } catch (SQLException ex) {
@@ -130,7 +148,7 @@ public class UsuarioDAO {
         return lista;
     }
 
-    public void incluirUsuario(Usuario us) {
+    public void atualizarCombustivel(Combustivel comb) {
         PreparedStatement stmt = null;
         Connection conn = null;
 
@@ -138,18 +156,126 @@ public class UsuarioDAO {
                 + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
                 + "VALUES (?, ?, ?, ?, ?)";
         try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
 
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, us.getIdUsuario());
-            stmt.setString(2, us.getNome());
-            stmt.setString(3, us.getSenha());
-            stmt.setInt(4, us.getIdFilial());
-            stmt.setInt(5, us.getTipoPerfil());
-            stmt.setDate(6, us.getDataNasc());
-            stmt.setString(7, us.getFuncao());
+            stmt.setDouble(1, comb.getPreco());
+            stmt.setDate(2, new java.sql.Date(System.currentTimeMillis()));
+
+            stmt.executeUpdate();
+            conn.commit();
+
+        } catch (SQLException ex) {
+            try {
+                // Caso ocorra algum erro, tenta desfazer todas as ações realizadas no BD.
+                if (conn != null & !conn.isClosed()) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex1) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            try {
+                // Caso ocorra algum erro, tenta desfazer todas as ações realizadas no BD.
+                if (conn != null & !conn.isClosed()) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex1) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    public void atualizarExtintor(Extintor ext) {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+
+        String sql = "INSERT INTO TB_CONTATO "
+                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        try {
+            conn = obterConexao();
+
+            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setDouble(1, ext.getPreco());
+            stmt.setDate(2, ext.getValidade());
+            stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
+
+            stmt.executeUpdate();
+            conn.commit();
+
+        } catch (SQLException ex) {
+            try {
+                // Caso ocorra algum erro, tenta desfazer todas as ações realizadas no BD.
+                if (conn != null & !conn.isClosed()) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex1) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            try {
+                // Caso ocorra algum erro, tenta desfazer todas as ações realizadas no BD.
+                if (conn != null & !conn.isClosed()) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex1) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    public void atualizarOleo(OleoLubrificante ol) {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+
+        String sql = "INSERT INTO TB_CONTATO "
+                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        try {
+            conn = obterConexao();
+
+            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
+            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setDouble(1, ol.getPreco());
+            stmt.setDate(2, ol.getValidade());
+            stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
 
             stmt.executeUpdate();
             conn.commit();
@@ -192,124 +318,4 @@ public class UsuarioDAO {
         }
     }
 
-    public void inativarUsuario(String idUsuario) {
-        PreparedStatement stmt = null;
-        Connection conn = null;
-
-        String sql = "UPDATE INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
-        try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
-            stmt = conn.prepareStatement(sql);
-            stmt.executeUpdate();
-            //System.out.println("Registro incluido com sucesso.");
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
-    public void alterarUsuario(Usuario us) {
-        PreparedStatement stmt = null;
-        Connection conn = null;
-
-        // inserir usuario a ser alterado 
-        String sql = "UPDATE INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
-        try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
-
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, us.getNome());
-            stmt.setInt(2, us.getIdFilial());
-            stmt.setInt(3, us.getTipoPerfil());
-            stmt.setString(4, us.getFuncao());
-
-            stmt.executeUpdate();
-            conn.commit();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
-    public void alterarSenha(String idUsuario, String novaSenha) {
-        PreparedStatement stmt = null;
-        Connection conn = null;
-
-        // inserir usuario a ser alterado 
-        String sql = "UPDATE INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
-        try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
-
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, novaSenha);
-
-            stmt.executeUpdate();
-            conn.commit();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
 }

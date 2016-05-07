@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class Conexao {
 
-    private Connection obterConexao() throws SQLException, ClassNotFoundException {
+    public Connection obterConexao() throws SQLException, ClassNotFoundException {
         Connection conn = null;
         // Passo 1: Registrar driver JDBC.
         Class.forName("org.apache.derby.jdbc.ClientDataSource");

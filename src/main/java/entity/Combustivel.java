@@ -5,22 +5,28 @@
  */
 package entity;
 
+import java.sql.Date;
+
 /**
  *
  * @author Anderson
  */
 public class Combustivel extends Produto {
-    
-    private String tipo;
+
     private double quantidade;
 
-    public Combustivel(String nome, double preco, String idUsuario, String tipo, double quantidade) {
-        super(nome, preco, idUsuario);
+    public Combustivel(String nome, double preco, String idUsuario, double quantidade, int idFilial) {
+        super(nome, preco, idUsuario, idFilial);
+    }
+    
+    public Combustivel(String nome, double preco, String idUsuario, double quantidade, int idFilial, Date dtOcorrencia) {
+        super(nome, preco, idUsuario, idFilial, dtOcorrencia);
+    }
+    
+    public Combustivel(String nome, double preco) {
+        super(nome, preco);
     }
 
-    public String getTipo() {
-        return tipo;
-    }
 
     public double getQuantidade() {
         return quantidade;
