@@ -12,27 +12,48 @@
     <html>
         <head>
             <title>Posto - Administração</title>
-            <link rel="stylesheet" type="text/css" href="css/administracao.css"/></head>
+            <link rel="stylesheet" type="text/css" href="css/administracao.css"/>
+        </head>
 
-        <body>
+    <body>
 
-            <div id="nav">
-                <ul id="menu">
-                    <a href="menu.jspx"><li>Home</li></a>
-                    <a href="relatorio.jspx"><li>Relatório</li></a>
-                    <a href="administracao.jspx"><li>Administração</li></a>
-                    <a href="venda.jspx"><li>Venda</li></a>
+<div id="nav">
+	<ul id="menu">
+		<a href="http://localhost:8080/Namtab/LoginServlet"><li>Home</li></a>
+		<a href="http://localhost:8080/Namtab/RelatorioServlet"><li>Relatório</li></a>
+		<a href="http://localhost:8080/Namtab/AdministracaoServlet"><li>Administração</li></a>
+		<a href="http://localhost:8080/Namtab/VendaServlet"><li>Venda</li></a>
 
-                </ul>
-            </div>
+	</ul>
+</div>
+        <form id="formulario" action="AdministracaoServlet" method="get">
+<fieldset>
+	<legend>Dados de Usuario</legend>
+	<label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome"> </input> <br></br>
+	<label class="labelformulario" id="lblcpf">CPF:</label> <input type="text" name="cpf"> </input><br></br>
+	<label class="labelformulario">Usuario: </label> <input type="text" name="usuario"> </input>
+	<label class="labelformulario">Senha: </label> <input type="password" name="senha"> </input><br></br>
+	<label class="labelformulario" id="lblcargo">Cargo: </label> 
+	<select name="cargo" >
+		<option>Gerente</option>
+		<option>Frentista</option>
+		<option>Vendedor</option>
+						
+	</select>
+	
+</fieldset>
+
+<fieldset>
+	<legend>Opções</legend>
+	<button type="submit" class="btn">Cadastrar</button>
+</fieldset>
+</form>
 
 
 
+<span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
 
-
-            <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
-
-        </body>
+</body>
 
     </html>
 
