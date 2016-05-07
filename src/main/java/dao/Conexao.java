@@ -17,20 +17,16 @@ import java.util.logging.Logger;
  */
 public class Conexao {
 
-    public static Connection obterConexao() throws SQLException, ClassNotFoundException {
+    private Connection obterConexao() throws SQLException, ClassNotFoundException {
         Connection conn = null;
-        String connectionUrl = "jdbc:sqlserver://localhost:1433"
-                + "databaseName=Namtab";
-        try {
-            // Passo 1: Registrar driver JDBC.
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-            // abrir conexao
-            conn = DriverManager.getConnection(connectionUrl, "login", "senha");
+        // Passo 1: Registrar driver JDBC.
+        Class.forName("org.apache.derby.jdbc.ClientDataSource");
 
-        } catch (Exception ex) {
-            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        // Passo 2: Abrir a conexão
+        conn = DriverManager.getConnection(
+                "jdbc:derby://localhost:1527/agendabd;SecurityMechanism=3",
+                "app", // usuario
+                "app"); // senha
         return conn;
     }
 

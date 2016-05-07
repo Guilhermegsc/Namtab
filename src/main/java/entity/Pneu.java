@@ -15,7 +15,7 @@ public class Pneu extends Produto{
     private String tipo;
     private String marca;
 
-    public Pneu(int aro, String tipo, String marca, String nome, double preco, int idUsuario) {
+    public Pneu(int aro, String tipo, String marca, String nome, double preco, String idUsuario) {
         super(nome, preco, idUsuario);
         this.aro = aro;
         this.tipo = tipo;

@@ -14,7 +14,7 @@ public class Combustivel extends Produto {
     private String tipo;
     private double quantidade;
 
-    public Combustivel(String nome, double preco, int idUsuario, String tipo, double quantidade) {
+    public Combustivel(String nome, double preco, String idUsuario, String tipo, double quantidade) {
         super(nome, preco, idUsuario);
     }
 

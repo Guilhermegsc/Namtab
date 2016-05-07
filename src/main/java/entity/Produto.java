@@ -12,9 +12,9 @@ package entity;
 public abstract class Produto {
     private String nome;
     private double preco;
-    private int idUsuario;
+    private String idUsuario;
 
-    public Produto(String nome, double preco, int idUsuario) {
+    public Produto(String nome, double preco, String idUsuario) {
         this.nome = nome;
         this.preco = preco;
         this.idUsuario = idUsuario;
@@ -28,7 +28,7 @@ public abstract class Produto {
         return preco;
     }
 
-    public int getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
     

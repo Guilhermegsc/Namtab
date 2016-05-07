@@ -5,7 +5,7 @@
  */
 package entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -13,23 +13,15 @@ import java.util.Date;
  */
 public class Extintor extends Produto {
     
-    private String tipo;
     private double tamanho;
     private String classe;
-    private String Marca;
     private Date validade;
 
-    public Extintor(String tipo, double tamanho, String classe, String Marca, Date validade, String nome, double preco, int idUsuario) {
+    public Extintor(double tamanho, String classe, Date validade, String nome, double preco, String idUsuario) {
         super(nome, preco, idUsuario);
-        this.tipo = tipo;
         this.tamanho = tamanho;
         this.classe = classe;
-        this.Marca = Marca;
         this.validade = validade;
-    }
-
-    public String getTipo() {
-        return tipo;
     }
 
     public double getTamanho() {
@@ -38,10 +30,6 @@ public class Extintor extends Produto {
 
     public String getClasse() {
         return classe;
-    }
-
-    public String getMarca() {
-        return Marca;
     }
 
     public Date getValidade() {

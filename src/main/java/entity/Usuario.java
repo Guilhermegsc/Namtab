@@ -5,43 +5,54 @@
  */
 package entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author Anderson
  */
 public class Usuario {
-    
-    private int idUsuario;
+
+    private String idUsuario;
+    private String senha;
     private String nome;
-    private String email;
     private int idFilial;
     private int tipoPerfil;
     private Date dataNasc;
     private String funcao;
 
-    public Usuario(int idUsuario, String nome, String email, int idFilial, int tipoPerfil, Date dataNasc, String funcao) {
+    public Usuario(String idUsuario, String nome, int idFilial, int tipoPerfil, Date dataNasc, String funcao) {
         this.idUsuario = idUsuario;
         this.nome = nome;
-        this.email = email;
         this.idFilial = idFilial;
         this.tipoPerfil = tipoPerfil;
         this.dataNasc = dataNasc;
         this.funcao = funcao;
     }
 
-    public int getIdUsuario() {
+    public Usuario(String idUsuario, String senha, String nome, int idFilial, int tipoPerfil, Date dataNasc, String funcao) {
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.idFilial = idFilial;
+        this.tipoPerfil = tipoPerfil;
+        this.dataNasc = dataNasc;
+        this.funcao = funcao;
+        this.senha = senha;
+    }
+
+    public String getIdUsuario() {
         return idUsuario;
+    }
+
+    public String getSenha() {
+
+        return senha;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
     public int getIdFilial() {
         return idFilial;
@@ -58,6 +69,5 @@ public class Usuario {
     public String getFuncao() {
         return funcao;
     }
-    
-    
+
 }

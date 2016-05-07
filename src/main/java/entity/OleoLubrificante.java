@@ -5,7 +5,7 @@
  */
 package entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -14,33 +14,20 @@ import java.util.Date;
 public class OleoLubrificante extends Produto{
     
     private String categoria;
-    private String classificacao;
     private Date validade;
-    private String marca;
 
-    public OleoLubrificante(String categoria, String classificacao, Date validade, String marca, String nome, double preco, int idUsuario) {
+    public OleoLubrificante(String categoria, Date validade, String nome, double preco, String idUsuario) {
         super(nome, preco, idUsuario);
         this.categoria = categoria;
-        this.classificacao = classificacao;
         this.validade = validade;
-        this.marca = marca;
     }
 
     public String getCategoria() {
         return categoria;
     }
 
-    public String getClassificacao() {
-        return classificacao;
-    }
-
     public Date getValidade() {
         return validade;
     }
-
-    public String getMarca() {
-        return marca;
-    }
-    
-    
+   
 }
