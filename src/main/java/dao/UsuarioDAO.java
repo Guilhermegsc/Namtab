@@ -24,8 +24,8 @@ public class UsuarioDAO {
         Connection conn = null;
         Usuario us = null;
 
-        String sql = "SELECT ID_CONTATO, NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL "
-                + "FROM TB_CONTATO WHERE ID_CONTATO = ?";
+        String sql = " SELECT CPF, NOME, ID_FILIAL, PERFIL, DATA_NASC, FUNCAO FROM USUARIO "
+                + "WHERE STATUS_USUARIO = TRUE AND CPF = '?' ";
         try {
 
             Conexao conexao = new Conexao();
@@ -37,12 +37,11 @@ public class UsuarioDAO {
 
             while (resultados.next()) {
                 String id = resultados.getString("CPF");
-                String nome = resultados.getString("nome");
-                String senha = resultados.getString("senha");
-                int idFilial = resultados.getInt("idFilial");
-                int perfil = resultados.getInt("perfil");
-                java.util.Date dataNasc = resultados.getDate("dataNasc");
-                String funcao = resultados.getString("funcao");
+                String nome = resultados.getString("NOME");
+                int idFilial = resultados.getInt("ID_FILIAL");
+                int perfil = resultados.getInt("PERFIL");
+                java.util.Date dataNasc = resultados.getDate("DATA_NASC");
+                String funcao = resultados.getString("FUNCAO");
                 us = new Usuario(idUsuario, nome, idFilial, perfil, null, funcao);
                 break;
             }
@@ -77,8 +76,8 @@ public class UsuarioDAO {
         Connection conn = null;
         Usuario us = null;
 
-        String sql = "SELECT ID_CONTATO, NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL "
-                + "FROM TB_CONTATO";
+        String sql = "SELECT CPF, NOME, ID_FILIAL, PERFIL, DATA_NASC, FUNCAO "
+                + "FROM USUARIO WHERE STATUS_USUARIO = TRUE";
 
         ArrayList<Usuario> lista = new ArrayList();
 
@@ -92,12 +91,11 @@ public class UsuarioDAO {
 
             while (resultados.next()) {
                 String id = resultados.getString("CPF");
-                String nome = resultados.getString("nome");
-                String senha = resultados.getString("senha");
-                int idFilial = resultados.getInt("idFilial");
-                int perfil = resultados.getInt("perfil");
-                Date dataNasc = resultados.getDate("dataNasc");
-                String funcao = resultados.getString("funcao");
+                String nome = resultados.getString("NOME");
+                int idFilial = resultados.getInt("ID_FILIAL");
+                int perfil = resultados.getInt("PERFIL");
+                Date dataNasc = resultados.getDate("DATA_NASC");
+                String funcao = resultados.getString("FUNCAO");
 
                 us = new Usuario(id, nome, idFilial, perfil, dataNasc, funcao);
 
@@ -130,13 +128,12 @@ public class UsuarioDAO {
         return lista;
     }
 
-    public void incluirUsuario(Usuario us) {
+    public static void incluirUsuario(Usuario us) {
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        String sql = "INSERT INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO USUARIO(CPF,NOME,SENHA,ID_FILIAL,PERFIL,DATA_NASC,FUNCAO,STATUS_USUARIO) "
+                + "     VALUES (?,?,?,?,?,'1995-10-30',?,true)";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
@@ -149,7 +146,7 @@ public class UsuarioDAO {
             stmt.setInt(4, us.getIdFilial());
             stmt.setInt(5, us.getTipoPerfil());
             stmt.setDate(6, us.getDataNasc());
-            stmt.setString(7, us.getFuncao());
+            stmt.setString(6, us.getFuncao());
 
             stmt.executeUpdate();
             conn.commit();
@@ -196,9 +193,7 @@ public class UsuarioDAO {
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        String sql = "UPDATE INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "UPDATE INTO USUARIO (STATUS_USUARIO) VALUES (FALSE) WHERE CPF = '" + idUsuario + "'";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
@@ -233,9 +228,8 @@ public class UsuarioDAO {
         Connection conn = null;
 
         // inserir usuario a ser alterado 
-        String sql = "UPDATE INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "UPDATE INTO USUARIO (NOME, ID_FILIAL, PERFIL, FUNCAO) "
+                + "VALUES ('?', ?, ?, '?') WHERE CPF = '?'";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
@@ -246,6 +240,7 @@ public class UsuarioDAO {
             stmt.setInt(2, us.getIdFilial());
             stmt.setInt(3, us.getTipoPerfil());
             stmt.setString(4, us.getFuncao());
+            stmt.setString(5, us.getIdUsuario());
 
             stmt.executeUpdate();
             conn.commit();
@@ -277,9 +272,7 @@ public class UsuarioDAO {
         Connection conn = null;
 
         // inserir usuario a ser alterado 
-        String sql = "UPDATE INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "UPDATE INTO USUARIO (SENHA) VALUES ('" + novaSenha + "') WHERE CPF = '" + idUsuario + "'";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
@@ -311,5 +304,14 @@ public class UsuarioDAO {
                 }
             }
         }
+    }
+    
+    public static void main(String[] args) {
+        
+       
+            
+        Usuario us = new Usuario("12345678901", "teste123", "FULANO", 1, 1, null , null);
+        incluirUsuario(us);
+        
     }
 }
