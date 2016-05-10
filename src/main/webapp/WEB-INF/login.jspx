@@ -2,7 +2,7 @@
 <!-- 
     Document   : Namtab.jspx
     Created on : 29/04/2016, 01:12:51
-    Author     : silvana
+    Author     : Guilherme Gomes
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" version="2.0">
 
@@ -13,18 +13,9 @@
             <title>Posto - Login</title>
             <link rel="stylesheet" type="text/css" href="css/index.css"/>
         </head>
-
         <body>
-
-
-            <div id="logo">
-
-            </div>
-
-
-
-
-            <form class="formulario" id="formulariologin" method="get" action="http://localhost:8080/Namtab/NamtabServlet">
+            <div id="logo"></div>
+            <form action="/Namtab/NamtabServlet" class="formulario" id="formulariologin" method="get" enctype="application/x-www-form-urlencoded">
                 <fieldset id="dados" class="caixa">
                     <legend> Dados de Usuario</legend>
                     <label class="loginlabel"> Usuario:</label>
@@ -32,21 +23,14 @@
                     <br/>
                     <label class="loginlabel"> Senha:</label>
                     <input type="password" id="senha" name="senha" class="logincampo"/>
-
-
                 </fieldset>
-
                 <fieldset id="dados" class="caixa">
                     <legend>Opções</legend>
-
-                    <button type="submit" class="btn">Entrar</button>
-
+                    <button type="submit" class="btn" value="Entrar">Entrar</button>
                 </fieldset>
             </form>
-
             <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
         </body>
-
     </html>
 
 </jsp:root>
