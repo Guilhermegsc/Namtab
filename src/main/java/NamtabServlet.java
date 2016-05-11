@@ -60,6 +60,8 @@ public class NamtabServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        request.setAttribute("variavel", "Ta vendo o que aconteceeu");
+        request.getRequestDispatcher("WEB-INF/menu.jspx").forward(request, response);
         
 
     }

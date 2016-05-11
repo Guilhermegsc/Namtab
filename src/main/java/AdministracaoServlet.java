@@ -46,6 +46,7 @@ public class AdministracaoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
         String idUsuario = request.getParameter("cpf");
         String nome = request.getParameter("nome");
         String senha = request.getParameter("senha");

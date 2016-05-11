@@ -18,10 +18,10 @@
 
             <div id="nav">
                 <ul id="menu">
-                    <a href="http://localhost:8080/Namtab/NamtabServlet"><li>Home</li></a>
-                    <a href="http://localhost:8080/Namtab/RelatorioServlet"><li>Relatório</li></a>
-                    <a href="http://localhost:8080/Namtab/AdministracaoServlet"><li>Administração</li></a>
-                    <a href="http://localhost:8080/Namtab/VendaServlet"><li>Venda</li></a>
+                    <a href="NamtabServlet"><li>Home</li></a>
+                    <a href="RelatorioServlet"><li>Relatório</li></a>
+                    <a href="AdministracaoServlet"><li>Administração</li></a>
+                    <a href="VendaServlet"><li>Venda</li></a>
 
                 </ul>
             </div>

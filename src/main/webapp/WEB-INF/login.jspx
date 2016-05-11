@@ -15,7 +15,7 @@
         </head>
         <body>
             <div id="logo"></div>
-            <form action="/Namtab/NamtabServlet" class="formulario" id="formulariologin" method="get" enctype="application/x-www-form-urlencoded">
+            <form action="LoginServlet" class="formulario" id="formulariologin" method="post" enctype="application/x-www-form-urlencoded">
                 <fieldset id="dados" class="caixa">
                     <legend> Dados de Usuario</legend>
                     <label class="loginlabel"> Usuario:</label>

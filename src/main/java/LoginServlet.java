@@ -73,6 +73,7 @@ public class LoginServlet extends HttpServlet {
         processRequest(request, response);
         String usuario = request.getParameter("usuario");
         String senha = request.getParameter("senha");
+        response.sendRedirect(request.getContextPath() + "/NamtabServlet");
         //response.sendRedirect(request.getContextPath() + "/NamtabServlet");
         // Validar nome de usuário e senha.
         //Usuario usuario = validar(usuario, senha);
