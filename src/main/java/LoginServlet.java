@@ -92,15 +92,7 @@ public class LoginServlet extends HttpServlet {
         AINDA SENDO IMPLEMENTADO**/
     }
 
-    // Implementar aqui a validação do usuário com os dados
-    // armazenados no banco de dados.
-    private UsuarioSistema validar(String nome, String senha) {
-        UsuarioSistema usuario = USUARIOS_CADASTRADOS.get(nome);
-        if (usuario != null && usuario.autenticar(nome, senha)) {
-            return usuario;
-        }
-        return null;
-    }
+ 
 
     /**
      * Returns a short description of the servlet.

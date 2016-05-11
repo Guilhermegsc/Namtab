@@ -61,7 +61,7 @@ public class ProdutoDAO {
                 int perfil = resultados.getInt("perfil");
                 java.util.Date dataNasc = resultados.getDate("dataNasc");
                 String funcao = resultados.getString("funcao");
-                us = new Usuario(idUsuario, nome, idFilial, perfil, null, funcao);
+                us = new Usuario(idUsuario, nome, idFilial, perfil, funcao);
                 break;
             }
         } catch (SQLException ex) {

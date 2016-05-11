@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import dao.UsuarioDAO;
+import entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -28,7 +30,7 @@ public class AdministracaoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,8 +46,16 @@ public class AdministracaoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        request.setAttribute("variavel", "Ta vendo o que aconteceeu");
-        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+        String idUsuario = request.getParameter("cpf");
+        String nome = request.getParameter("nome");
+        String senha = request.getParameter("senha");
+        int idFilial = Integer.parseInt(request.getParameter("idFilial"));
+        int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+        String funcao = request.getParameter("cargo");
+        
+        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.incluirUsuario(usuario);
     }
 
     /**
@@ -60,7 +70,7 @@ public class AdministracaoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
     }
 

@@ -38,7 +38,7 @@ public class UsuarioDAO {
                 int perfil = resultados.getInt("PERFIL");
                 java.util.Date dataNasc = resultados.getDate("DATA_NASC");
                 String funcao = resultados.getString("FUNCAO");
-                us = new Usuario(idUsuario, nome, idFilial, perfil, null, funcao);
+                us = new Usuario(idUsuario, nome, idFilial, perfil, funcao);
                 break;
             }
         } catch (SQLException ex) {
@@ -90,10 +90,9 @@ public class UsuarioDAO {
                 String nome = resultados.getString("NOME");
                 int idFilial = resultados.getInt("ID_FILIAL");
                 int perfil = resultados.getInt("PERFIL");
-                Date dataNasc = resultados.getDate("DATA_NASC");
                 String funcao = resultados.getString("FUNCAO");
 
-                us = new Usuario(id, nome, idFilial, perfil, dataNasc, funcao);
+                us = new Usuario(id, nome, idFilial, perfil, funcao);
 
                 lista.add(us);
             }
@@ -124,7 +123,7 @@ public class UsuarioDAO {
         return lista;
     }
 
-    public static void incluirUsuario(Usuario us) {
+    public void incluirUsuario(Usuario us) {
         PreparedStatement stmt = null;
         Connection conn = null;
 
@@ -141,7 +140,6 @@ public class UsuarioDAO {
             stmt.setString(3, us.getSenha());
             stmt.setInt(4, us.getIdFilial());
             stmt.setInt(5, us.getTipoPerfil());
-            stmt.setDate(6, us.getDataNasc());
             stmt.setString(6, us.getFuncao());
 
             stmt.executeUpdate();
@@ -306,8 +304,8 @@ public class UsuarioDAO {
         
        
             
-        Usuario us = new Usuario("12345678901", "teste123", "FULANO", 1, 1, null , null);
-        incluirUsuario(us);
+        Usuario us = new Usuario("12345678901", "teste123", "FULANO", 1, 1, null);
+        //incluirUsuario(us);
         
     }
 }

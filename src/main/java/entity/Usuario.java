@@ -18,24 +18,21 @@ public class Usuario {
     private String nome;
     private int idFilial;
     private int tipoPerfil;
-    private Date dataNasc;
     private String funcao;
 
-    public Usuario(String idUsuario, String nome, int idFilial, int tipoPerfil, Date dataNasc, String funcao) {
+    public Usuario(String idUsuario, String nome, int idFilial, int tipoPerfil, String funcao) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.idFilial = idFilial;
         this.tipoPerfil = tipoPerfil;
-        this.dataNasc = dataNasc;
         this.funcao = funcao;
     }
 
-    public Usuario(String idUsuario, String senha, String nome, int idFilial, int tipoPerfil, Date dataNasc, String funcao) {
+    public Usuario(String idUsuario, String senha, String nome, int idFilial, int tipoPerfil, String funcao) {
         this.idUsuario = idUsuario;
         this.nome = nome;
         this.idFilial = idFilial;
         this.tipoPerfil = tipoPerfil;
-        this.dataNasc = dataNasc;
         this.funcao = funcao;
         this.senha = senha;
     }
@@ -60,10 +57,6 @@ public class Usuario {
 
     public int getTipoPerfil() {
         return tipoPerfil;
-    }
-
-    public Date getDataNasc() {
-        return dataNasc;
     }
 
     public String getFuncao() {
