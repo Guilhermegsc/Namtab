@@ -26,13 +26,14 @@
                 </ul>
             </div>
 
-            <form id="formulario" action="venda.jsp" method="get">
+            <form id="formulario" action="VendaServlet" method="get">
                 <fieldset>
                     <legend>Informações da Venda</legend>
 
 
                     <label class="labelformulario">Tipo/Produto: </label>
                     <select name="Produto">
+                        <option></option>
                         <option>Óleo automotivo com troca</option>
                         <option>Óleo automotivo</option>
                         <option>Extintor automotivo</option>
@@ -45,6 +46,7 @@
 
                     <label class="labelformulario">Combustivel: </label>
                     <select name="combustivel">
+                        <option></option>
                         <option>Gasolina</option>
                         <option>G. Aditivada</option>
                         <option>Alcool</option>
@@ -53,7 +55,7 @@
                     <br/>
 
                     <label class="labelformulario">Quantidade - R$:</label>
-                    <input type="text" name="valor" id="valor" value="00,00 R$"></input>
+                    <input type="text" name="valor" id="valor" value="00,00"></input>
                     <br/>
 
                 </fieldset>

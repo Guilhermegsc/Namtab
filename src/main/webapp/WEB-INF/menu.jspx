@@ -22,6 +22,7 @@
                     <a href="RelatorioServlet"><li>Relatório</li></a>
                     <a href="AdministracaoServlet"><li>Administração</li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
+                    <a><li>Venda</li></a>
 
                 </ul>
             </div>

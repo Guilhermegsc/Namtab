@@ -46,6 +46,11 @@ public class VendaServlet extends HttpServlet {
         processRequest(request, response);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
+        
+        
+        
+        
+        
     }
 
     /**

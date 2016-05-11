@@ -57,6 +57,7 @@ public class AdministracaoServlet extends HttpServlet {
         Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.incluirUsuario(usuario);
+        System.out.println("aeeeee");
     }
 
     /**
