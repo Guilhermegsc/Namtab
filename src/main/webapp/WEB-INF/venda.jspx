@@ -10,9 +10,10 @@
     <jsp:output omit-xml-declaration="true" doctype-root-element="HTML" doctype-system="about:legacy-compact"/>
     <html>
         <head>
-            <title>Posto - Venda</title>
+            <title>Posto - Venda</title>   
             <link rel="stylesheet" type="text/css" href="css/venda.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            
         </head>
 
         <body>
@@ -34,12 +35,12 @@
 
 
                     <label class="labelformulario">Tipo/Produto: </label>
-                    <select name="Produto">
+                    <select name="Produto" id="produto">
                         <option></option>
                         <option>Óleo automotivo com troca</option>
                         <option>Óleo automotivo</option>
                         <option>Extintor automotivo</option>
-                        <option>Combustivel</option>
+                        <option selected="selected">Combustivel</option>
                         <option>Palleta de parabrisa</option>
 
                     </select>
@@ -47,7 +48,7 @@
 
 
                     <label class="labelformulario">Combustivel: </label>
-                    <select name="combustivel">
+                    <select name="combustivel" id="combustivel">
                         <option></option>
                         <option>Gasolina</option>
                         <option>G. Aditivada</option>
@@ -64,7 +65,7 @@
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button type="submit" class="btn">Efetuar Venda</button>
+                    <button type="submit" class="btn" id="efetuaVenda">Efetuar Venda</button>
                 </fieldset>
 
 
@@ -72,9 +73,9 @@
 
 
             <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
-
+              
         </body>
-
+             
     </html>
 
 </jsp:root>
