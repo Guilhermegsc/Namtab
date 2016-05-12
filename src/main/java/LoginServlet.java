@@ -6,12 +6,14 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 
 /**
  * https://github.com/ftsuda82/pi3-agenda-2016
@@ -73,6 +75,8 @@ public class LoginServlet extends HttpServlet {
         processRequest(request, response);
         String usuario = request.getParameter("usuario");
         String senha = request.getParameter("senha");
+        request.getSession().setAttribute("usuario", usuario);
+        
         response.sendRedirect(request.getContextPath() + "/NamtabServlet");
         //response.sendRedirect(request.getContextPath() + "/NamtabServlet");
         // Validar nome de usuário e senha.
@@ -91,6 +95,8 @@ public class LoginServlet extends HttpServlet {
         }
         response.sendRedirect(request.getContextPath() + "/erroLogin.jsp");
         AINDA SENDO IMPLEMENTADO**/
+        
+        
     }
 
  

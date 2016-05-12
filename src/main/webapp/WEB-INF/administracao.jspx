@@ -13,6 +13,7 @@
         <head>
             <title>Posto - Administração</title>
             <link rel="stylesheet" type="text/css" href="css/administracao.css"/>
+            <link rel="stylesheet" type="text/css" href="css/geral.css"/>
         </head>
 
         <body>
@@ -23,6 +24,7 @@
                     <a href="RelatorioServlet"><li>Relatório</li></a>
                     <a href="AdministracaoServlet"><li>Administração</li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
+                    <p id="varUsuario">Welcome, <c:out value="${usuario}"/></p>
 
                 </ul>
             </div>
