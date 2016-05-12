@@ -15,20 +15,20 @@ import java.util.logging.Logger;
  */
 public class UsuarioDAO {
 
-    public Usuario buscarUsuario(String idUsuario) {
+    public Usuario buscarUsuario(String nomeUsuario) {
         PreparedStatement stmt = null;
         Connection conn = null;
         Usuario us = null;
 
         String sql = " SELECT CPF, NOME, ID_FILIAL, PERFIL, DATA_NASC, FUNCAO FROM USUARIO "
-                + "WHERE STATUS_USUARIO = TRUE AND CPF = '?' ";
+                + "WHERE STATUS_USUARIO = TRUE AND NOME = '?' ";
         try {
 
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
 
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, idUsuario);
+            stmt.setString(1, nomeUsuario);
             ResultSet resultados = stmt.executeQuery();
 
             while (resultados.next()) {
@@ -38,7 +38,7 @@ public class UsuarioDAO {
                 int perfil = resultados.getInt("PERFIL");
                 java.util.Date dataNasc = resultados.getDate("DATA_NASC");
                 String funcao = resultados.getString("FUNCAO");
-                us = new Usuario(idUsuario, nome, idFilial, perfil, funcao);
+                us = new Usuario(id, nome, idFilial, perfil, funcao);
                 break;
             }
         } catch (SQLException ex) {
