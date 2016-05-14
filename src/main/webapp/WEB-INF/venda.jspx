@@ -40,11 +40,11 @@
                     <label class="labelformulario">Tipo/Produto: </label>
                     <select name="produto" id="produto" class="combustivel">
                         <option></option>
-                        <option>Óleo automotivo</option>
-                        <option>Extintor automotivo</option>
-                        <option>Gasolina</option>
-                        <option>G. Aditivada</option>
-                        <option>Alcool</option>
+                        <option>Oleo Automotivo</option>
+                        <option>Extintor Automotivo</option>
+                        <option>Gasolina Comum</option>
+                        <option>Gasolina Aditivada</option>
+                        <option>Etanol</option>
                         <option>Diesel</option>
                         
 

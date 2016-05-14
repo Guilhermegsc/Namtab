@@ -76,18 +76,18 @@ public class VendaServlet extends HttpServlet {
         // criar venda
         VendaDAO venda = new VendaDAO();
 
-        if (request.getParameter("produto").equals("Óleo automotivo")) {
+        if (request.getParameter("produto").equals("Oleo Automotivo")) {
             idProduto = 1;
             OleoLubrificante ol = new OleoLubrificante(idProduto, user.getIdUsuario(), user.getIdFilial(), quantidade);
             venda.vendaOleo(ol);
 
-        } else if (request.getParameter("produto").equals("Extintor automotivo")) {
+        } else if (request.getParameter("produto").equals("Extintor Automotivo")) {
             idProduto = 2;
-        } else if (request.getParameter("produto").equals("Gasolina")) {
+        } else if (request.getParameter("produto").equals("Gasolina Comum")) {
          
-        } else if (request.getParameter("produto").equals("G. Aditivada")) {
+        } else if (request.getParameter("produto").equals("Gasolina Aditivada")) {
             idProduto = 4;
-        } else if (request.getParameter("produto").equals("Alcool")) {
+        } else if (request.getParameter("produto").equals("Etanol")) {
             idProduto = 5;
         } else if (request.getParameter("produto").equals("Diesel")) {
             idProduto = 6;
