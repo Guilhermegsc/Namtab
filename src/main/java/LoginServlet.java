@@ -5,10 +5,12 @@
  */
 
 import dao.UsuarioDAO;
-import entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -75,49 +77,43 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String idUsuario = request.getParameter("usuario");
+        String usuario = request.getParameter("usuario");
         String senha = request.getParameter("senha");
+        request.getSession().setAttribute("usuario", usuario);
 
-        try {
-            //buca no bd
-            UsuarioDAO user = new UsuarioDAO();
-            Usuario usuario = user.buscarUsuario(idUsuario);
+        UsuarioDAO user = new UsuarioDAO();
 
-            if (usuario.getSenha().equals(senha)) {
-                
-                request.getSession().setAttribute("usuario", usuario);
-                response.sendRedirect(request.getContextPath() + "/NamtabServlet");
-            } else {
-            // TRATAR LOGIN INVALIDO
-            }
-
-        } catch (Exception e) {
-            // TRATAR ERRO NO BANCO
+        boolean logado = user.efetuaLogin(usuario, senha);
+        if (logado == true) {
+            response.sendRedirect(request.getContextPath() + "/NamtabServlet");
+        }else{
+             response.sendRedirect(request.getContextPath() + "/AdministracaoServlet");
+        }
+        //response.sendRedirect(request.getContextPath() + "/NamtabServlet");
+            // Validar nome de usuário e senha.
+            //Usuario usuario = validar(usuario, senha);
+            /**
+             * if (usuario != null) { HttpSession sessao =
+             * request.getSession(false); if (sessao != null) { // Força
+             * invalidação da sessão anterior. sessao.invalidate(); } sessao =
+             * request.getSession(true); sessao.setAttribute("usuario",
+             * usuario); response.sendRedirect(request.getContextPath() +
+             * "/NamtabServlet"); return; // FIM CASO SUCESSO }
+             * response.sendRedirect(request.getContextPath() +
+             * "/erroLogin.jsp"); AINDA SENDO IMPLEMENTADO*
+             */
         }
 
-        //response.sendRedirect(request.getContextPath() + "/NamtabServlet");
-        // Validar nome de usuário e senha.
-        //Usuario usuario = validar(usuario, senha);
         /**
-         * if (usuario != null) { HttpSession sessao =
-         * request.getSession(false); if (sessao != null) { // Força invalidação
-         * da sessão anterior. sessao.invalidate(); } sessao =
-         * request.getSession(true); sessao.setAttribute("usuario", usuario);
-         * response.sendRedirect(request.getContextPath() + "/NamtabServlet");
-         * return; // FIM CASO SUCESSO }
-         * response.sendRedirect(request.getContextPath() + "/erroLogin.jsp");
-         * AINDA SENDO IMPLEMENTADO*
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
          */
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+    }

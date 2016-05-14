@@ -6,7 +6,7 @@ import java.sql.Date;
  *
  * @author Anderson
  */
-public abstract class Produto {
+public class Produto {
     private int idProduto;
     private String nomeUsuario;
     private String nomeProduto;
@@ -54,6 +54,8 @@ public abstract class Produto {
         this.nomeUsuario = nomeUsuario.toUpperCase();
     }
 
+    
+    
     public int getIdProduto() {
         return idProduto;
     }

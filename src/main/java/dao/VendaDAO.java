@@ -227,9 +227,10 @@ public class VendaDAO extends Conexao {
                 double quantidade = resultados.getDouble("QUANTIDADE");
                 double precoProd = resultados.getDouble("PRECO_PRODUTO");
 
-                // us = new Usuario(id, nome, idFilial, perfil, funcao);
+                Produto prod = new Produto(idVenda, idProduto, idFilial, idProduto, idUsuario, idUsuario, 
+                        precoProd, null, quantidade, valorVenda);
 
-                // lista.add(us);
+                lista.add(us);
             }
 
         } catch (SQLException ex) {
