@@ -185,7 +185,7 @@ public class UsuarioDAO {
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        String sql = "UPDATE INTO USUARIO (STATUS_USUARIO) VALUES (FALSE) WHERE CPF = '" + idUsuario + "'";
+        String sql = "UPDATE USUARIO SET STATUS_USUARIO = FALSE WHERE CPF = '" + idUsuario + "'";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
@@ -220,8 +220,12 @@ public class UsuarioDAO {
         Connection conn = null;
 
         // inserir usuario a ser alterado 
-        String sql = "UPDATE INTO USUARIO (NOME, ID_FILIAL, PERFIL, FUNCAO) "
-                + "VALUES ('?', ?, ?, '?') WHERE CPF = '?'";
+        String sql = "UPDATE USUARIO SET"
+                + " NOME = '?', "
+                + " ID_FILIAL = ?, "
+                + " PERFIL = ?, "
+                + " FUNCAO = '?' "
+                + " WHERE CPF = '?' ";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
@@ -264,7 +268,7 @@ public class UsuarioDAO {
         Connection conn = null;
 
         // inserir usuario a ser alterado 
-        String sql = "UPDATE INTO USUARIO (SENHA) VALUES ('" + novaSenha + "') WHERE CPF = '" + idUsuario + "'";
+        String sql = "UPDATE USUARIO SET SENHA = '" + novaSenha + "' WHERE CPF = '" + idUsuario + "'";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();

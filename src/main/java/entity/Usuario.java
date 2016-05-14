@@ -22,18 +22,18 @@ public class Usuario {
 
     public Usuario(String idUsuario, String nome, int idFilial, int tipoPerfil, String funcao) {
         this.idUsuario = idUsuario;
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
         this.idFilial = idFilial;
         this.tipoPerfil = tipoPerfil;
-        this.funcao = funcao;
+        this.funcao = funcao.toUpperCase();
     }
 
     public Usuario(String idUsuario, String senha, String nome, int idFilial, int tipoPerfil, String funcao) {
         this.idUsuario = idUsuario;
-        this.nome = nome;
+        this.nome = nome.toUpperCase();
         this.idFilial = idFilial;
         this.tipoPerfil = tipoPerfil;
-        this.funcao = funcao;
+        this.funcao = funcao.toUpperCase();
         this.senha = senha;
     }
 
