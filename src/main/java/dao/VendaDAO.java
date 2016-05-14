@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -200,14 +201,21 @@ public class VendaDAO extends Conexao {
             }
         }
     }
-    
-    public ArrayList<Produto> listarProdutos() {
+
+    public ArrayList<Produto> listarProdutos(Date dataUm, Date dataDois) {
         Statement stmt = null;
         Connection conn = null;
-        Usuario us = null;
+        
+        // trasforma datas em string
+        SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");
+        String dataOne = formataData.format(dataUm);
+        String dataTwo = formataData.format(dataDois);
 
-        String sql = "SELECT ID_VENDA, ID_FILIAL, CPF, ID_PRODUTO, DATA_VENDA, "
-                + "VALOR_VENDA, QUANTIDADE, PRECO_PRODUTO FROM VENDA WHERE STATUS_VENDA = TRUE";
+        String sql = "SELECT V.ID_VENDA, V.ID_FILIAL, V.CPF, V.ID_PRODUTO, V.DATA_VENDA, V.VALOR_VENDA, "
+                + " V.QUANTIDADE, V.PRECO_PRODUTO, P.NOME_PRODUTO, U.NOME, F.NOME_FILIAL "
+                + " FROM VENDA V, PRODUTO P, USUARIO U, FILIAL F WHERE V.STATUS_VENDA = TRUE "
+                + " AND V.ID_PRODUTO = P.ID_PRODUTO AND V.ID_FILIAL = F.ID_FILIAL AND U.CPF = V.CPF "
+                + "AND V.DATA_VENDA BETWEEN '" + dataOne + "' AND '" + dataTwo + "'";
 
         ArrayList<Produto> lista = new ArrayList();
 
@@ -218,19 +226,22 @@ public class VendaDAO extends Conexao {
             ResultSet resultados = stmt.executeQuery(sql);
 
             while (resultados.next()) {
-                int idVenda = resultados.getInt("ID_VENDA");
-                int idFilial = resultados.getInt("ID_FILIAL");
-                String idUsuario = resultados.getString("CPF");
-                int idProduto = resultados.getInt("ID_PRODUTO");
-                Date dataVenda = resultados.getDate("DATA_VENDA");
-                double valorVenda = resultados.getDouble("VALOR_VENDA");
-                double quantidade = resultados.getDouble("QUANTIDADE");
-                double precoProd = resultados.getDouble("PRECO_PRODUTO");
+                int idVenda = resultados.getInt("V.ID_VENDA");
+                int idFilial = resultados.getInt("V.ID_FILIAL");
+                long idUsuario = resultados.getLong("V.CPF");
+                int idProduto = resultados.getInt("V.ID_PRODUTO");
+                Date dataVenda = resultados.getDate("V.DATA_VENDA");
+                double valorVenda = resultados.getDouble("V.VALOR_VENDA");
+                double quantidade = resultados.getDouble("V.QUANTIDADE");
+                double precoProd = resultados.getDouble("V.PRECO_PRODUTO");
+                String nomeProduto = resultados.getString("P.NOME_PRODUTO");
+                String nomeUsuario = resultados.getString("U.NOME");
+                String nomeFilial = resultados.getString("F.NOME_FILIAL");
 
-                Produto prod = new Produto(idVenda, idProduto, idFilial, idProduto, idUsuario, idUsuario, 
-                        precoProd, null, quantidade, valorVenda);
+                Produto prod = new Produto(idVenda, idProduto, idFilial, idUsuario, nomeUsuario, nomeProduto,
+                        precoProd, dataVenda, quantidade, valorVenda, nomeFilial);
 
-                lista.add(us);
+                lista.add(prod);
             }
 
         } catch (SQLException ex) {

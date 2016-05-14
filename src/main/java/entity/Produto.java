@@ -1,6 +1,6 @@
 package entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -10,6 +10,7 @@ public class Produto {
     private int idProduto;
     private String nomeUsuario;
     private String nomeProduto;
+    private String nomeFilial;
     private double preco;
     private int idVenda;
     private long idUsuario;
@@ -41,7 +42,7 @@ public class Produto {
         }
 
     public Produto(int idVenda, int idProduto, int idFilial, long idUsuario, String nomeUsuario, String nomeProduto, 
-                            double preco, Date dataVenda, double quantidade, double valorVenda) {
+                            double preco, Date dataVenda, double quantidade, double valorVenda, String nomeFilial) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto.toUpperCase();
         this.preco = preco;
@@ -52,6 +53,7 @@ public class Produto {
         this.quantidade = quantidade;
         this.valorVenda = valorVenda;
         this.nomeUsuario = nomeUsuario.toUpperCase();
+        this.nomeFilial = nomeFilial;
     }
 
     
