@@ -90,7 +90,7 @@ public class ProdutoDAO {
         return us;
     }
 
-    public ArrayList<Combustivel> listaCombustivel() {
+    public ArrayList<Combustivel> listaProduto() {
         Statement stmt = null;
         Connection conn = null;
         Combustivel comb = null;
@@ -148,20 +148,20 @@ public class ProdutoDAO {
         return lista;
     }
 
-    public void atualizarCombustivel(Combustivel comb) {
+    public void atualizarProduto(Produto prod) {
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        String sql = "INSERT INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql = " UPDATE INTO PRODUTO (PRECO, DATA_MODIFICACAO) "
+                + " VALUES (?, ?) WHERE ID_PRODUTO = '?' ";
         try {
             conn = obterConexao();
 
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setDouble(1, comb.getPreco());
+            stmt.setDouble(1, prod.getPreco());
             stmt.setDate(2, new java.sql.Date(System.currentTimeMillis()));
+            stmt.setInt(1, prod.getIdProduto());
 
             stmt.executeUpdate();
             conn.commit();
@@ -204,118 +204,4 @@ public class ProdutoDAO {
         }
     }
     
-    public void atualizarExtintor(Extintor ext) {
-        PreparedStatement stmt = null;
-        Connection conn = null;
-
-        String sql = "INSERT INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
-        try {
-            conn = obterConexao();
-
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setDouble(1, ext.getPreco());
-            stmt.setDate(2, ext.getValidade());
-            stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
-
-            stmt.executeUpdate();
-            conn.commit();
-
-        } catch (SQLException ex) {
-            try {
-                // Caso ocorra algum erro, tenta desfazer todas as ações realizadas no BD.
-                if (conn != null & !conn.isClosed()) {
-                    conn.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            try {
-                // Caso ocorra algum erro, tenta desfazer todas as ações realizadas no BD.
-                if (conn != null & !conn.isClosed()) {
-                    conn.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-    
-    public void atualizarOleo(OleoLubrificante ol) {
-        PreparedStatement stmt = null;
-        Connection conn = null;
-
-        String sql = "INSERT INTO TB_CONTATO "
-                + "(NM_CONTATO, DT_NASCIMENTO, VL_TELEFONE, VL_EMAIL, DT_CADASTRO) "
-                + "VALUES (?, ?, ?, ?, ?)";
-        try {
-            conn = obterConexao();
-
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setDouble(1, ol.getPreco());
-            stmt.setDate(2, ol.getValidade());
-            stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
-
-            stmt.executeUpdate();
-            conn.commit();
-
-        } catch (SQLException ex) {
-            try {
-                // Caso ocorra algum erro, tenta desfazer todas as ações realizadas no BD.
-                if (conn != null & !conn.isClosed()) {
-                    conn.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            try {
-                // Caso ocorra algum erro, tenta desfazer todas as ações realizadas no BD.
-                if (conn != null & !conn.isClosed()) {
-                    conn.rollback();
-                }
-            } catch (SQLException ex1) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
 }

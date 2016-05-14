@@ -15,20 +15,20 @@ import java.util.logging.Logger;
  */
 public class UsuarioDAO {
 
-    public Usuario buscarUsuario(String nomeUsuario) {
+    public Usuario buscarUsuario(String cpf) {
         PreparedStatement stmt = null;
         Connection conn = null;
         Usuario us = null;
 
         String sql = " SELECT CPF, NOME, ID_FILIAL, PERFIL, DATA_NASC, FUNCAO FROM USUARIO "
-                + "WHERE STATUS_USUARIO = TRUE AND NOME = '?' ";
+                + "WHERE STATUS_USUARIO = TRUE AND CPF = '?' ";
         try {
 
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
 
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, nomeUsuario);
+            stmt.setString(1, cpf);
             ResultSet resultados = stmt.executeQuery();
 
             while (resultados.next()) {
@@ -83,8 +83,6 @@ public class UsuarioDAO {
             stmt = conn.createStatement();
             ResultSet resultados = stmt.executeQuery(sql);
 
-            DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
-
             while (resultados.next()) {
                 String id = resultados.getString("CPF");
                 String nome = resultados.getString("NOME");
@@ -127,8 +125,8 @@ public class UsuarioDAO {
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        String sql = "INSERT INTO USUARIO(CPF,NOME,SENHA,ID_FILIAL,PERFIL,DATA_NASC,FUNCAO,STATUS_USUARIO) "
-                + "     VALUES (?,?,?,?,?,'1995-10-30',?,true)";
+        String sql = "INSERT INTO USUARIO(CPF,NOME,SENHA,ID_FILIAL,PERFIL,FUNCAO,STATUS_USUARIO) "
+                + "     VALUES (?,?,?,?,?,?,true)";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
@@ -300,12 +298,5 @@ public class UsuarioDAO {
         }
     }
     
-    public static void main(String[] args) {
-        
-       
-            
-        Usuario us = new Usuario("12345678901", "teste123", "FULANO", 1, 1, null);
-        //incluirUsuario(us);
-        
-    }
+
 }

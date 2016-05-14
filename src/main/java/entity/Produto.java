@@ -11,7 +11,8 @@ import java.sql.Date;
  *
  * @author Anderson
  */
-public abstract class Produto {
+public class Produto {
+    private int idProduto;
     private String nome;
     private double preco;
     private String idUsuario;
@@ -32,6 +33,13 @@ public abstract class Produto {
         this.idFilial = idFilial;
         this.dtOcorrencia = dtOcorrencia;
     }
+
+    public Produto(int idProduto, double preco, Date dtOcorrencia) {
+        this.idProduto = idProduto;
+        this.preco = preco;
+        this.dtOcorrencia = dtOcorrencia;
+    }
+    
     
     public Produto(String nome, double preco) {
         this.nome = nome;
@@ -49,6 +57,14 @@ public abstract class Produto {
     public String getIdUsuario() {
         return idUsuario;
     }
+
+    public int getIdProduto() {
+        return idProduto;
+    }
+
+    public int getIdFilial() {
+        return idFilial;
+    }
     
-    
+      
 }
