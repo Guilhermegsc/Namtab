@@ -5,7 +5,7 @@ body{
 }
 
 #nav{
-	
+
 }
 
 #menu li{
@@ -35,7 +35,10 @@ span{
 	margin-top: 380px;
 	font-size: 13px;
 }
-
+.labelformulario{
+	display: inline-block;
+		padding: 5px;
+}
 #formulario{
 	position: absolute;
 	width: 600px;
@@ -65,16 +68,14 @@ button:hover{
 	border-radius: 5px;
 }
 
-.labelformulario{
-	display: inline-block;
-	width: 150px;
-	padding: 5px;
+#inputnome{
+    width: 280px;
 }
 
-#valor{
-	width: 90px;
+#lblcpf{
+    width: 67px;
 }
 
-.inputs{
-    width: 80px;
+#lblcargo{
+    width: 67px;
 }

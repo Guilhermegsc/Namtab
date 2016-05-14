@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>LoginServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>NamtabServlet</servlet-name>
         <servlet-class>NamtabServlet</servlet-class>
     </servlet>
-  
     <servlet>
         <servlet-name>AdministracaoServlet</servlet-name>
         <servlet-class>AdministracaoServlet</servlet-class>
@@ -22,6 +19,14 @@
     <servlet>
         <servlet-name>VendaServlet</servlet-name>
         <servlet-class>VendaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdministracaoAlteraSenhaServlet</servlet-name>
+        <servlet-class>AdministracaoAlteraSenhaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdministracaoAlteraUsuarioServlet</servlet-name>
+        <servlet-class>AdministracaoAlteraProdutoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NamtabServlet</servlet-name>
@@ -46,6 +51,14 @@
     <servlet-mapping>
         <servlet-name>VendaServlet</servlet-name>
         <url-pattern>/VendaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdministracaoAlteraSenhaServlet</servlet-name>
+        <url-pattern>/AdministracaoAlteraSenhaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdministracaoAlteraUsuarioServlet</servlet-name>
+        <url-pattern>/AdministracaoAlteraUsuarioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
