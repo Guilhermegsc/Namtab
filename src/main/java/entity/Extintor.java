@@ -10,13 +10,13 @@ public class Extintor extends Produto {
    private String categoria;
    private double tamanho;
 
-    public Extintor(int idUsuario, int idFilial, int idProduto, double valorVenda, String categoria, double tamanho) {
+    public Extintor(long idUsuario, int idFilial, int idProduto, double valorVenda, String categoria, double tamanho) {
         super(idUsuario, idFilial, idProduto, valorVenda);
         this.categoria = categoria.toUpperCase();
         this.tamanho = tamanho;
     }
 
-    public Extintor(int idVenda, int idProduto, int idFilial, int idUsuario, String nomeUsuario, String nomeProduto, 
+    public Extintor(int idVenda, int idProduto, int idFilial, long idUsuario, String nomeUsuario, String nomeProduto, 
             double preco, Date dataVenda, double quantidade, double valorVenda, String categoria, double tamanho) {
         super(idVenda, idProduto, idFilial, idUsuario, nomeUsuario, nomeProduto, preco, dataVenda, quantidade, valorVenda);
         this.categoria = categoria.toUpperCase();

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @author Anderson
  */
 public class ProdutoDAO {
-        private Connection obterConexao() throws SQLException, ClassNotFoundException {
+    private Connection obterConexao() throws SQLException, ClassNotFoundException {
         Connection conn = null;
         // Passo 1: Registrar driver JDBC.
         Class.forName("org.apache.derby.jdbc.ClientDataSource");
@@ -158,6 +158,50 @@ public class ProdutoDAO {
                 }
             }
         }
+    }
+    
+    public double buscaPreco(int idProduto) {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        double preco = 0;
+
+        String sql = " SELECT PRECO FROM PRODUTO WHERE ID_PRODUTO = '?' ";
+        try {
+
+            Conexao conexao = new Conexao();
+            conn = conexao.obterConexao();
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idProduto);
+            ResultSet resultados = stmt.executeQuery();
+            
+                preco = resultados.getDouble("PRECO");
+                
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Código colocado aqui para garantir que a conexão com o banco
+            // seja sempre fechada, independentemente se executado com sucesso
+            // ou erro.
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return preco;
     }
     
 }

@@ -7,10 +7,6 @@
 import dao.VendaDAO;
 import entity.*;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +63,8 @@ public class VendaServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
+        Object obj = request.getSession().getAttribute("usuario");
+        Usuario user = (Usuario) obj;
 
         int idProduto = -1;
         double valor = 0;
@@ -74,37 +72,25 @@ public class VendaServlet extends HttpServlet {
         String aux = request.getParameter("valor");
         valor = Double.parseDouble(aux);
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+        
+        // criar venda
+        VendaDAO venda = new VendaDAO();
 
         if (request.getParameter("produto").equals("Óleo automotivo")) {
             idProduto = 1;
+            OleoLubrificante ol = new OleoLubrificante(idProduto, user.getIdUsuario(), user.getIdFilial(), quantidade);
+            venda.vendaOleo(ol);
 
         } else if (request.getParameter("produto").equals("Extintor automotivo")) {
             idProduto = 2;
         } else if (request.getParameter("produto").equals("Gasolina")) {
-            
-            idProduto = 3;
-            Combustivel comb = new Combustivel(null, valor, null, quantidade, idProduto);
-            VendaDAO dao = new VendaDAO();
-            dao.vendaCombustivel(comb);
-            
+         
         } else if (request.getParameter("produto").equals("G. Aditivada")) {
             idProduto = 4;
         } else if (request.getParameter("produto").equals("Alcool")) {
             idProduto = 5;
         } else if (request.getParameter("produto").equals("Diesel")) {
             idProduto = 6;
-        }
-
-        Date data = new Date(2016, 05, 05);
-
-        VendaDAO dao = new VendaDAO();
-
-        try {
-            dao.efetuaVenda("13456789101", 1, idProduto, data, valor);
-        } catch (SQLException ex) {
-            Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

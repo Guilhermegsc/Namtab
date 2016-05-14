@@ -12,7 +12,7 @@ public abstract class Produto {
     private String nomeProduto;
     private double preco;
     private int idVenda;
-    private int idUsuario;
+    private long idUsuario;
     private int idFilial;
     private Date dataVenda;
     private double quantidade;
@@ -23,17 +23,24 @@ public abstract class Produto {
         this.nomeProduto = nomeProduto;
         this.preco = preco;
     }
+
+    public Produto(int idProduto, long idUsuario, int idFilial, double quantidade) {
+        this.idProduto = idProduto;
+        this.idUsuario = idUsuario;
+        this.idFilial = idFilial;
+        this.quantidade = quantidade;
+    }
     
    
     
-    public Produto (int idUsuario, int idFilial, int idProduto, double valorVenda) {
+    public Produto (long idUsuario, int idFilial, int idProduto, double valorVenda) {
         this.idUsuario = idUsuario;
         this. idFilial = idFilial;
         this.idProduto = idProduto;
         this.valorVenda = valorVenda;   
         }
 
-    public Produto(int idVenda, int idProduto, int idFilial, int idUsuario, String nomeUsuario, String nomeProduto, 
+    public Produto(int idVenda, int idProduto, int idFilial, long idUsuario, String nomeUsuario, String nomeProduto, 
                             double preco, Date dataVenda, double quantidade, double valorVenda) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto.toUpperCase();
@@ -63,7 +70,7 @@ public abstract class Produto {
         return idVenda;
     }
 
-    public int getIdUsuario() {
+    public long getIdUsuario() {
         return idUsuario;
     }
 

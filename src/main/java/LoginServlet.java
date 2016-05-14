@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import dao.UsuarioDAO;
+import entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
@@ -73,33 +75,40 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String usuario = request.getParameter("usuario");
+        String idUsuario = request.getParameter("usuario");
         String senha = request.getParameter("senha");
-        request.getSession().setAttribute("usuario", usuario);
-        
-        response.sendRedirect(request.getContextPath() + "/NamtabServlet");
+
+        try {
+            //buca no bd
+            UsuarioDAO user = new UsuarioDAO();
+            Usuario usuario = user.buscarUsuario(idUsuario);
+
+            if (usuario.getSenha().equals(senha)) {
+                
+                request.getSession().setAttribute("usuario", usuario);
+                response.sendRedirect(request.getContextPath() + "/NamtabServlet");
+            } else {
+            // TRATAR LOGIN INVALIDO
+            }
+
+        } catch (Exception e) {
+            // TRATAR ERRO NO BANCO
+        }
+
         //response.sendRedirect(request.getContextPath() + "/NamtabServlet");
         // Validar nome de usuário e senha.
         //Usuario usuario = validar(usuario, senha);
- /**       if (usuario != null) {
-            HttpSession sessao = request.getSession(false);
-            if (sessao != null) {
-                // Força invalidação da sessão anterior.
-                sessao.invalidate();
-            }
-            sessao = request.getSession(true);
-            sessao.setAttribute("usuario", usuario);
-            response.sendRedirect(request.getContextPath() + "/NamtabServlet");
-            return;
-            // FIM CASO SUCESSO
-        }
-        response.sendRedirect(request.getContextPath() + "/erroLogin.jsp");
-        AINDA SENDO IMPLEMENTADO**/
-        
-        
+        /**
+         * if (usuario != null) { HttpSession sessao =
+         * request.getSession(false); if (sessao != null) { // Força invalidação
+         * da sessão anterior. sessao.invalidate(); } sessao =
+         * request.getSession(true); sessao.setAttribute("usuario", usuario);
+         * response.sendRedirect(request.getContextPath() + "/NamtabServlet");
+         * return; // FIM CASO SUCESSO }
+         * response.sendRedirect(request.getContextPath() + "/erroLogin.jsp");
+         * AINDA SENDO IMPLEMENTADO*
+         */
     }
-
- 
 
     /**
      * Returns a short description of the servlet.
