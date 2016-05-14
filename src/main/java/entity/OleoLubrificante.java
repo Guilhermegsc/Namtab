@@ -8,7 +8,7 @@ import java.sql.Date;
  */
 public class OleoLubrificante extends Produto{
 
-    private double tamanho;
+    private double tamanho = 0;
 
     public OleoLubrificante(long idUsuario, int idFilial, int idProduto, double valorVenda, double tamanho) {
         super(idUsuario, idFilial, idProduto, valorVenda);

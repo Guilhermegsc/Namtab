@@ -8,12 +8,10 @@ import java.sql.Date;
  */
 public class Extintor extends Produto {
    private String categoria;
-   private double tamanho;
+   private double tamanho = 0;
 
-    public Extintor(long idUsuario, int idFilial, int idProduto, double valorVenda, String categoria, double tamanho) {
+    public Extintor(long idUsuario, int idFilial, int idProduto, double valorVenda) {
         super(idUsuario, idFilial, idProduto, valorVenda);
-        this.categoria = categoria.toUpperCase();
-        this.tamanho = tamanho;
     }
 
     public Extintor(int idVenda, int idProduto, int idFilial, long idUsuario, String nomeUsuario, String nomeProduto, 
@@ -24,7 +22,11 @@ public class Extintor extends Produto {
     }
 
     public String getCategoria() {
-        return categoria;
+        if (categoria.isEmpty()) {
+            return "";
+        } else {
+            return categoria;
+        }
     }
 
     public double getTamanho() {

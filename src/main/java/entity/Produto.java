@@ -59,7 +59,11 @@ public abstract class Produto {
     }
 
     public String getNomeProduto() {
-        return nomeProduto;
+        if (nomeProduto.isEmpty()) {
+            return "";
+        } else {
+            return nomeProduto;
+        }
     }
 
     public double getPreco() {
@@ -91,7 +95,11 @@ public abstract class Produto {
     }
 
     public String getNomeUsuario() {
-        return nomeUsuario;
+        if (nomeUsuario.isEmpty()) {
+            return "";
+        } else {
+            return nomeUsuario;
+        }
     }
     
     
