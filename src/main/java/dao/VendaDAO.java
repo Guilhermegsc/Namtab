@@ -3,8 +3,11 @@ package dao;
 import entity.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -197,8 +200,63 @@ public class VendaDAO extends Conexao {
             }
         }
     }
-
     
+    public ArrayList<Produto> listarProdutos() {
+        Statement stmt = null;
+        Connection conn = null;
+        Usuario us = null;
+
+        String sql = "SELECT ID_VENDA, ID_FILIAL, CPF, ID_PRODUTO, DATA_VENDA, "
+                + "VALOR_VENDA, QUANTIDADE, PRECO_PRODUTO FROM VENDA WHERE STATUS_VENDA = TRUE";
+
+        ArrayList<Produto> lista = new ArrayList();
+
+        try {
+            Conexao conexao = new Conexao();
+            conn = conexao.obterConexao();
+            stmt = conn.createStatement();
+            ResultSet resultados = stmt.executeQuery(sql);
+
+            while (resultados.next()) {
+                int idVenda = resultados.getInt("ID_VENDA");
+                int idFilial = resultados.getInt("ID_FILIAL");
+                String idUsuario = resultados.getString("CPF");
+                int idProduto = resultados.getInt("ID_PRODUTO");
+                Date dataVenda = resultados.getDate("DATA_VENDA");
+                double valorVenda = resultados.getDouble("VALOR_VENDA");
+                double quantidade = resultados.getDouble("QUANTIDADE");
+                double precoProd = resultados.getDouble("PRECO_PRODUTO");
+
+                // us = new Usuario(id, nome, idFilial, perfil, funcao);
+
+                // lista.add(us);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Código colocado aqui para garantir que a conexão com o banco
+            // seja sempre fechada, independentemente se executado com sucesso
+            // ou erro.
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return lista;
+    }
 
     public void inativarVenda(int idVenda) {
         PreparedStatement stmt = null;

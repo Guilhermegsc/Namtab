@@ -120,6 +120,58 @@ public class UsuarioDAO {
         }
         return lista;
     }
+    
+       public boolean efetuaLogin(String cpf, String senha) {
+        Statement stmt = null;
+        Connection conn = null;
+
+        String sql = " SELECT CPF, SENHA FROM USUARIO "
+                + "WHERE STATUS_USUARIO = TRUE AND CPF = '" + cpf + "' AND SENHA = '" + senha + "' ";
+        try {
+
+            Conexao conexao = new Conexao();
+            conn = conexao.obterConexao();
+            stmt = conn.createStatement();
+            ResultSet resultados = stmt.executeQuery(sql);
+
+            while (resultados.next()) {
+                String cpfBd = resultados.getString("CPF");
+                String senhaBd = resultados.getString("SENHA");
+
+                if (cpfBd.equals(cpf) && senhaBd.equals(senha)) {
+                    return true;
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Código colocado aqui para garantir que a conexão com o banco
+            // seja sempre fechada, independentemente se executado com sucesso
+            // ou erro.
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return false;
+    }
+
+
+
 
     public void incluirUsuario(Usuario us) {
         PreparedStatement stmt = null;
