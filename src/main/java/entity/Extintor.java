@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.sql.Date;
@@ -12,44 +7,35 @@ import java.sql.Date;
  * @author Anderson
  */
 public class Extintor extends Produto {
-    
-    private double tamanho;
-    private String classe;
-    private Date validade;
+   private String categoria;
+   private double tamanho;
 
-    public Extintor(double tamanho, String classe, Date validade, String nome, double preco) {
-        super(nome, preco);
+    public Extintor(int idUsuario, int idFilial, int idProduto, double valorVenda, String categoria, double tamanho) {
+        super(idUsuario, idFilial, idProduto, valorVenda);
+        this.categoria = categoria.toUpperCase();
         this.tamanho = tamanho;
-        this.classe = classe;
-        this.validade = validade;
     }
-    
-    public Extintor(double tamanho, String classe, Date validade, String nome, double preco, String idUsuario, int idFilial) {
-        super(nome, preco, idUsuario, idFilial);
+
+    public Extintor(int idVenda, int idProduto, int idFilial, int idUsuario, String nomeUsuario, String nomeProduto, 
+            double preco, Date dataVenda, double quantidade, double valorVenda, String categoria, double tamanho) {
+        super(idVenda, idProduto, idFilial, idUsuario, nomeUsuario, nomeProduto, preco, dataVenda, quantidade, valorVenda);
+        this.categoria = categoria.toUpperCase();
         this.tamanho = tamanho;
-        this.classe = classe;
-        this.validade = validade;
     }
-    
-    public Extintor(double tamanho, String classe, Date validade, String nome, double preco, String idUsuario, int idFilial, Date dtOcorrencia) {
-        super(nome, preco, idUsuario, idFilial, dtOcorrencia);
-        this.tamanho = tamanho;
-        this.classe = classe;
-        this.validade = validade;
+
+    public String getCategoria() {
+        return categoria;
     }
 
     public double getTamanho() {
         return tamanho;
     }
 
-    public String getClasse() {
-        return classe;
+    public Extintor(int idProduto, String nomeProduto, double preco, String categoria, double tamanho) {
+        super(idProduto, nomeProduto, preco);
+        this.categoria = categoria.toUpperCase();
+        this.tamanho = tamanho;
     }
-
-    public Date getValidade() {
-        return validade;
-    }
-
-    
-    
+   
+   
 }

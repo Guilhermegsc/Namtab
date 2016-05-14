@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.sql.Date;
@@ -12,19 +7,27 @@ import java.sql.Date;
  * @author Anderson
  */
 public class Combustivel extends Produto {
+    private String tipo;
 
-    private double quantidade;
+    public Combustivel(int idUsuario, int idFilial, int idProduto, double valorVenda, String tipo) {
+        super(idUsuario, idFilial, idProduto, valorVenda);
+        this.tipo = tipo.toUpperCase();
+    }
 
-    public Combustivel(String idUsuario, int idFilial, int id produto,) {
+    public Combustivel(int idVenda, int idProduto, int idFilial, int idUsuario, String nomeUsuario, String nomeProduto, double preco, 
+                        Date dataVenda, double quantidade, double valorVenda, String tipo) {
+        super(idVenda, idProduto, idFilial, idUsuario, nomeUsuario, nomeProduto, preco, dataVenda, quantidade, valorVenda);
+        this.tipo = tipo.toUpperCase();
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public Combustivel(int idProduto, String nomeProduto, double preco, String tipo) {
+        super(idProduto, nomeProduto, preco);
+        this.tipo = tipo.toUpperCase();
+    }
+
     
-    }
-
-    public Combustivel(String nome, double preco, String idUsuario, double quantidade, int idFilial, Date dtOcorrencia) {
-        super(nome, preco, idUsuario, idFilial, dtOcorrencia);
-    }
-
-    public double getQuantidade() {
-        return quantidade;
-    }
-
 }
