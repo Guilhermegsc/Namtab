@@ -33,6 +33,7 @@
 
             <form id="formulario" action="VendaServlet" method="post">
                 <fieldset>
+                   
                     <legend>Informações da Venda</legend>
 
 
@@ -66,9 +67,10 @@
                     </select>!-->
                    
 
-                    <label class="labelformulario">Quantidade - R$:</label>
+                    <label class="labelformulario">Quantidade R$:</label>
                     <input type="text" name="valor" id="valor" value="00,00" class="inputs"></input>
                     <br/>
+                    
 
                 </fieldset>
 
