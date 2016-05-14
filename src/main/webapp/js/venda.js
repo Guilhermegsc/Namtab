@@ -2,7 +2,7 @@ function iniciar() {
     alert("ok");
 
 }
-
+window.addEventListener("load", iniciar);
 function validar() {
     cmpProduto = document.getElementById("#Produto");
     cmpComb = document.getElementById("#combustivel");
@@ -19,5 +19,5 @@ function validar() {
 }
 
 
-window.addEventListener("load", iniciar);
+
 document.querySelector("#efetuaVenda").addEventListener("click", validar());

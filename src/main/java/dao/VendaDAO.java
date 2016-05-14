@@ -12,57 +12,12 @@ public class VendaDAO extends Conexao {
 
     Conexao conecta = new Conexao();
 
-    public int efetuaVenda(String CPF, int idFilial, int idProduto,
-            java.sql.Date dataVenda,
-            float valorVenda
-    ) throws SQLException, ClassNotFoundException {
-                    String comandoSQL = "INSERT INTO VENDA(CPF, idFilial, idProduto,"
-                    + "dataVenda,valorVenda, statusVenda ) VALUES("
-                    + CPF + "'," + idFilial + "'," + idProduto
-                    + "'," + dataVenda + "'," + valorVenda + "'," + true + ");";
-
-        try {   
-            insertSQL(comandoSQL);
-            return 1;
-        } catch (Exception e) {
-            return 0;
-        } finally {
-            conecta.obterConexao().close();
-        }
-
-    }
-
-    public void insertSQL(String comandoSQL) throws Exception {
-
-        try {           
-            Statement st = null;
-            st = conecta.obterConexao().createStatement();
-            st.executeUpdate(comandoSQL);
-
-        } catch (Exception e) {
-            System.out.println("Erro ao inserir: " + e.getMessage());
-        }
-    }
-    
-    public void inativarVenda(int idVenda){
-        String comandoSql = "UPDATE VENDA SET statusVenda = false WHERE "
-                + "idVenda = "+idVenda;
-        
-        try {
-            insertSQL(comandoSql);
-        } catch (Exception e) {
-            System.out.println("Erro ao inativar: " + e.getMessage());
-        }
-        
-        
-    }
-    
-     public void vendaCombustivel (Combustivel com) {
+ public void vendaCombustivel(Combustivel comb) {
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        String sql = "INSERT INTO USUARIO(CPF,NOME,SENHA,ID_FILIAL,PERFIL,FUNCAO,STATUS_USUARIO) "
-                + "     VALUES (?,?,?,?,?,?,true)";
+        String sql = "INSERT INTO VENDA (CPF, ID_FILIAL, ID_PRODUTO, DATA_VENDA, PRECO_PRODUTO, VALOR_VENDA, QUANTIDADE, STATUS_VENDA)"
+                + "VALUES ('?', ?, ?, '?', ?, ?, ?, TRUE)";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
@@ -117,4 +72,29 @@ public class VendaDAO extends Conexao {
         }
     }
 
+    public void insertSQL(String comandoSQL) throws Exception {
+
+        try {           
+            Statement st = null;
+            st = conecta.obterConexao().createStatement();
+            st.executeUpdate(comandoSQL);
+
+        } catch (Exception e) {
+            System.out.println("Erro ao inserir: " + e.getMessage());
+        }
+    }
+    
+    public void inativarVenda(int idVenda){
+        String comandoSql = "UPDATE VENDA SET statusVenda = false WHERE "
+                + "idVenda = "+idVenda;
+        
+        try {
+            insertSQL(comandoSql);
+        } catch (Exception e) {
+            System.out.println("Erro ao inativar: " + e.getMessage());
+        }
+        
+        
+    }
+   
 }

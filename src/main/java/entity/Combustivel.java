@@ -15,8 +15,8 @@ public class Combustivel extends Produto {
 
     private double quantidade;
 
-    public Combustivel(String nome, double preco, String idUsuario, double quantidade, int idFilial) {
-        super(nome, preco, idUsuario, idFilial);
+    public Combustivel(String idUsuario, int idFilial, int id produto,) {
+    
     }
 
     public Combustivel(String nome, double preco, String idUsuario, double quantidade, int idFilial, Date dtOcorrencia) {
