@@ -21,7 +21,7 @@ public class Produto {
 
     public Produto(int idProduto, String nomeProduto, double preco) {
         this.idProduto = idProduto;
-        this.nomeProduto = nomeProduto;
+        this.nomeProduto = nomeProduto.toUpperCase();
         this.preco = preco;
     }
 
@@ -53,7 +53,7 @@ public class Produto {
         this.quantidade = quantidade;
         this.valorVenda = valorVenda;
         this.nomeUsuario = nomeUsuario.toUpperCase();
-        this.nomeFilial = nomeFilial;
+        this.nomeFilial = nomeFilial.toUpperCase();
     }
 
     
@@ -103,6 +103,14 @@ public class Produto {
             return "";
         } else {
             return nomeUsuario;
+        }
+    }
+
+    public String getNomeFilial() {
+        if (nomeFilial.isEmpty()) {
+            return "";
+        } else {
+            return nomeFilial;
         }
     }
     
