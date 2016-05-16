@@ -54,7 +54,7 @@
                     
                     <label id="quantidadeProduto" class="labelformulario">Quatidade-Un/Lt:</label>
                     <input type="number" min="1" id="quantidade" class="inputs" name="quantidade" disabled="true"
-                           onchange="calcValor(this.value)" ></input>
+                           value="0" onchange="calcValor(this.value)" ></input>
                     <br/>
 
 
@@ -70,7 +70,7 @@
                    
 
                     <label class="labelformulario">Quantidade R$:</label>
-                    <input type="text" name="valor" id="valor" class="inputs"
+                    <input type="text" name="valor" id="valor" class="inputs" value="0"
                            onkeypress="return(MascaraMoeda(this, '.', ',', event))" disabled="true"></input>
                     <br/>
                     
@@ -79,7 +79,8 @@
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button type="submit" class="btn" id="efetuaVenda" disabled="true">Efetuar Venda</button>
+                    <button type="submit" class="btn" id="efetuaVenda" onclick="validar()">
+                        Efetuar Venda</button>
                 </fieldset>
 
 
