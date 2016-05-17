@@ -8,6 +8,7 @@ import dao.UsuarioDAO;
 import entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,18 +47,12 @@ public class AdministracaoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        String idUser = request.getParameter("cpf");
+        UsuarioDAO userDAO = new UsuarioDAO();
+        Usuario user = userDAO.buscarUsuario(idUser);
+        request.setAttribute("users", user);
         request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
-        String idUsuario = request.getParameter("cpf");
-        String nome = request.getParameter("nome");
-        String senha = request.getParameter("senha");
-        int idFilial = Integer.parseInt(request.getParameter("idFilial"));
-        int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-        String funcao = request.getParameter("cargo");
-        
-        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.incluirUsuario(usuario);
-        System.out.println("aeeeee");
+
     }
 
     /**
@@ -72,6 +67,19 @@ public class AdministracaoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+        String idUsuario = request.getParameter("cpf");
+        String nome = request.getParameter("nome");
+        String senha = request.getParameter("senha");
+        int idFilial = Integer.parseInt(request.getParameter("idFilial"));
+        int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+        String funcao = request.getParameter("cargo");
+
+        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.incluirUsuario(usuario);
+        System.out.println("aeeeee");
+
         request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
     }

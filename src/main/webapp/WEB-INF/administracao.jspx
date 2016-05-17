@@ -29,13 +29,14 @@
 
                 </ul>
             </div>
-            <form id="formulario" action="AdministracaoServlet" method="get">
-                <label class="labelformulario">ID Usuário: </label> <input type="number" name="nome" id="inputnome"> </input>
+            <form id="formulario" action="AdministracaoServlet" method="post">
                 <fieldset>
                     <legend>Dados de Usuario</legend>
-                    <label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome"> </input> <br></br>
+                    <label class="labelformulario" id="lblcpf">CPF: </label> <input type="text" name="cpf">${user.idUsuario}</input><!--<button id="btnCPF"></button>--><br></br>
+                    <label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome">${user.nome}</input> <br></br>
                     <label class="labelformulario" id="lblcargo">Cargo: </label> 
                     <select name="cargo" >
+                        <option>${user.funcao}</option>
                         <option>Gerente</option>
                         <option>Frentista</option>
                         <option>Vendedor</option>
@@ -43,12 +44,12 @@
                     </select>
                     <label class="labelformulario" id="lblPerfil">Perfil: </label> 
                     <select name="perfil" >
+                        <option>${user.tipoPerfil}</option>
                         <option>1</option>
                         <option>2</option>
                     </select>
-                    <label class="labelformulario" id="lblFilial">Filial: </label> <input type="text" name="idFilial"> </input><br></br>
-                    <label class="labelformulario" id="lblcpf">CPF:</label> <input type="text" name="cpf"> </input><br></br>
-                    <label class="labelformulario">Senha: </label> <input type="password" name="senha"> </input><br></br>
+                    <label class="labelformulario" id="lblFilial">Filial: </label> <input type="text" name="idFilial">${user.idFilial}</input><br></br>
+                    <label class="labelformulario">Senha: </label> <input type="password" name="senha">${user.senha}</input><br></br>
 
                 </fieldset>
 
