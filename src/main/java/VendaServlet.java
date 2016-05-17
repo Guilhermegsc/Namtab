@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import dao.ProdutoDAO;
 import dao.VendaDAO;
 import entity.*;
 import java.io.IOException;
@@ -45,8 +46,17 @@ public class VendaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         ProdutoDAO produto = new ProdutoDAO();
+        String nomeProduto = request.getParameter("produto");           
+        double preco = produto.buscaPreco(1);
+        request.setAttribute("preco", preco);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
+        
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
+        
+       
+        
+        System.out.println(preco);
 
     }
 

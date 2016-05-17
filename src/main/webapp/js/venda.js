@@ -22,7 +22,7 @@ function limpaCampos() {
     document.getElementById("valor").value = "";
 }
 
-function calcValor(x, preco) {
+function calcValor(x) {
     preco = 10;
     document.getElementById("valor").value = preco * x;
 }
@@ -58,7 +58,8 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
     if (strCheck.indexOf(key) == -1)
         return false; // Chave inválida
     len = objTextBox.value.length;
-    for (i = 0; i < len; i++)
+    if(len <= 5){
+         for (i = 0; i < len; i++)
         if ((objTextBox.value.charAt(i) != '0') && (objTextBox.value.charAt(i) != SeparadorDecimal))
             break;
     aux = '';
@@ -91,4 +92,11 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
     }
     calcLitros(parseFloat(objTextBox.value));
     return false;
+    }else{
+        alert("O valor maximo é de R$999,99.");
+    }   
+}
+
+function teste(){
+   alert( parseFloat(document.getElementById("valor").value.replace("," , ".")) + 1 );
 }

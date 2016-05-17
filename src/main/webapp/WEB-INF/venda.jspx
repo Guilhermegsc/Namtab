@@ -27,12 +27,12 @@
                     <a href="RelatorioServlet"><li>Relatório</li></a>
                     <a href="AdministracaoServlet"><li>Administração</li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
-                    <p id="varUsuario">Welcome, <c:out value="${usuario}"/></p>
+                    <p id="varUsuario">PRECO AQUI<c:out value="${preco}"/></p>
 
                 </ul>
             </div>
 
-            <form id="formulario" action="VendaServlet" method="post">
+            <form id="formulario" action="VendaServlet" method="get">
                 <fieldset>
                    
                     <legend>Informações da Venda</legend>
@@ -47,7 +47,7 @@
                         <option value="comb">G. Aditivada</option>
                         <option value="comb">Alcool</option>
                         <option value="comb">Diesel</option>
-                        
+                     
 
 
                     </select>
@@ -69,8 +69,8 @@
                     </select>!-->
                    
 
-                    <label class="labelformulario">Quantidade R$:</label>
-                    <input type="text" name="valor" id="valor" class="inputs" value="0"
+                    <label class="labelformulario">Valor R$:</label>
+                    <input type="text" maxlength="6" name="valor" id="valor" class="inputs" value="0"
                            onkeypress="return(MascaraMoeda(this, '.', ',', event))" disabled="true"></input>
                     <br/>
                     
@@ -79,7 +79,7 @@
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button type="submit" class="btn" id="efetuaVenda" onclick="validar()">
+                    <button type="submit" class="btn" id="efetuaVenda" onclick="teste()">
                         Efetuar Venda</button>
                 </fieldset>
 
