@@ -16,7 +16,7 @@
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
             <script src="${pathResources}/Namtab/js/venda.js"><jsp:text /></script>
 
-                
+
         </head>
 
         <body>
@@ -27,53 +27,40 @@
                     <a href="RelatorioServlet"><li>Relatório</li></a>
                     <a href="AdministracaoServlet"><li>Administração</li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
-                    <p id="varUsuario">PRECO AQUI<c:out value="${preco}"/></p>
 
                 </ul>
             </div>
 
-            <form id="formulario" action="VendaServlet" method="get">
+            <form id="formulario" action="VendaServlet" method="post">
                 <fieldset>
-                   
+
                     <legend>Informações da Venda</legend>
 
 
                     <label class="labelformulario">Tipo/Produto: </label>
-                    <select name="produto" id="produto" class="combustivel" onchange="habilitaCampo(this.value)">
+                    <select name="produto" id="produto" class="combustivel" onchange="${preco},habilitaCampo(this.value)">
                         <option></option>
-                        <option value="prod">Óleo automotivo</option>
-                        <option value="prod">Extintor automotivo</option>
-                        <option value="comb">Gasolina</option>
-                        <option value="comb">G. Aditivada</option>
-                        <option value="comb">Alcool</option>
-                        <option value="comb">Diesel</option>
-                     
+                        <option value="oleo">Óleo automotivo</option>
+                        <option value="extintor">Extintor automotivo</option>
+                        <option value="gas">Gasolina</option>
+                        <option value="gadt">G. Aditivada</option>
+                        <option value="etanol">Etanol</option>
+                        <option value="diesel">Diesel</option>
+
 
 
                     </select>
-                    
+
                     <label id="quantidadeProduto" class="labelformulario">Quatidade-Un/Lt:</label>
                     <input type="number" min="1" id="quantidade" class="inputs" name="quantidade" disabled="true"
-                           value="0" onchange="calcValor(this.value)" ></input>
+                           value="0" onchange="calcValor(this.value, ${preco})" ></input>
                     <br/>
-
-
-                    <!--<label class="labelformulario">Combustivel: </label>
-                    <select name="combustivel" id="tipocombustivel" class="inputs">
-                        <option></option>
-                        <option>Gasolina</option>
-                        <option>G. Aditivada</option>
-                        <option>Alcool</option>
-                        <option>Diesel</option>
-                     <br/>
-                    </select>!-->
-                   
 
                     <label class="labelformulario">Valor R$:</label>
                     <input type="text" maxlength="6" name="valor" id="valor" class="inputs" value="0"
                            onkeypress="return(MascaraMoeda(this, '.', ',', event))" disabled="true"></input>
                     <br/>
-                    
+
 
                 </fieldset>
 
@@ -81,15 +68,17 @@
                     <legend>Opções</legend>
                     <button type="submit" class="btn" id="efetuaVenda" onclick="teste()">
                         Efetuar Venda</button>
-                </fieldset>
 
+
+                </fieldset>
+          
 
             </form>
 
 
             <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
 
-         
+
         </body>
 
     </html>

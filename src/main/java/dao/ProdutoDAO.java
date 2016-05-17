@@ -161,23 +161,23 @@ public class ProdutoDAO {
     }
     
     public double buscaPreco(int idProduto) {
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         Connection conn = null;
         double preco = 0;
 
-        String sql = " SELECT PRECO FROM PRODUTO WHERE ID_PRODUTO = '?' ";
+        String sql = " SELECT PRECO FROM PRODUTO WHERE ID_PRODUTO = "+idProduto;
         try {
 
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
 
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idProduto);
-            ResultSet resultados = stmt.executeQuery();
-            
-                preco = resultados.getDouble("PRECO");
-                
-            
+            stmt = conn.createStatement();
+                    
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+               preco = rs.getDouble("PRECO"); 
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

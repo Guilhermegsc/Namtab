@@ -46,16 +46,30 @@ public class VendaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-         ProdutoDAO produto = new ProdutoDAO();
-        String nomeProduto = request.getParameter("produto");           
-        double preco = produto.buscaPreco(1);
+        ProdutoDAO produto = new ProdutoDAO();
+        String nomeProduto = request.getParameter("produto");
+        int id = 1;
+
+       /* if (nomeProduto.equals("oleo")) {
+            id = 2;
+        } else if (nomeProduto.equals("extintor")) {
+            id = 2;
+        } else if (nomeProduto.equals("gas")) {
+            id = 3;
+        } else if (nomeProduto.equals("gadt")) {
+            id = 4;
+        } else if (nomeProduto.equals("etanol")) {
+            id = 5;
+        } else if (nomeProduto.equals("diesel")) {
+            id = 6;
+        }*/
+
+        double preco = produto.buscaPreco(id);
         request.setAttribute("preco", preco);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
-        
+
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
-        
-       
-        
+
         System.out.println(preco);
 
     }
@@ -82,7 +96,7 @@ public class VendaServlet extends HttpServlet {
         String aux = request.getParameter("valor");
         valor = Double.parseDouble(aux);
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-        
+
         // criar venda
         VendaDAO venda = new VendaDAO();
 
@@ -94,7 +108,7 @@ public class VendaServlet extends HttpServlet {
         } else if (request.getParameter("produto").equals("Extintor Automotivo")) {
             idProduto = 2;
         } else if (request.getParameter("produto").equals("Gasolina Comum")) {
-         
+
         } else if (request.getParameter("produto").equals("Gasolina Aditivada")) {
             idProduto = 4;
         } else if (request.getParameter("produto").equals("Etanol")) {
@@ -102,7 +116,12 @@ public class VendaServlet extends HttpServlet {
         } else if (request.getParameter("produto").equals("Diesel")) {
             idProduto = 6;
         }
+        
+        //  --------
 
+        
+        
+        
     }
 
     /**
