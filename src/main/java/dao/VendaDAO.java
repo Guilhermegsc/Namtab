@@ -30,7 +30,7 @@ public class VendaDAO extends Conexao {
 
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setLong(1, comb.getIdUsuario());
+            stmt.setString(1, comb.getIdUsuario());
             stmt.setInt(2, comb.getIdFilial());
             stmt.setInt(3, comb.getIdProduto());
             stmt.setDouble(4, precoProd);
@@ -92,7 +92,7 @@ public class VendaDAO extends Conexao {
 
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setLong(1, ext.getIdUsuario());
+            stmt.setString(1, ext.getIdUsuario());
             stmt.setInt(2, ext.getIdFilial());
             stmt.setInt(3, ext.getIdProduto());
             stmt.setDouble(4, precoProd);
@@ -154,7 +154,7 @@ public class VendaDAO extends Conexao {
 
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setLong(1, comb.getIdUsuario());
+            stmt.setString(1, comb.getIdUsuario());
             stmt.setInt(2, comb.getIdFilial());
             stmt.setInt(3, comb.getIdProduto());
             stmt.setDouble(4, precoProd);
@@ -202,7 +202,7 @@ public class VendaDAO extends Conexao {
         }
     }
 
-    public ArrayList<Produto> listarProdutos(Date dataUm, Date dataDois) {
+    public ArrayList<Produto> listarVenda(Date dataUm, Date dataDois) {
         Statement stmt = null;
         Connection conn = null;
         
@@ -228,7 +228,7 @@ public class VendaDAO extends Conexao {
             while (resultados.next()) {
                 int idVenda = resultados.getInt("V.ID_VENDA");
                 int idFilial = resultados.getInt("V.ID_FILIAL");
-                long idUsuario = resultados.getLong("V.CPF");
+                String idUsuario = resultados.getString("V.CPF");
                 int idProduto = resultados.getInt("V.ID_PRODUTO");
                 Date dataVenda = resultados.getDate("V.DATA_VENDA");
                 double valorVenda = resultados.getDouble("V.VALOR_VENDA");
