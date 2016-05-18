@@ -50,20 +50,19 @@ public class VendaServlet extends HttpServlet {
         String nomeProduto = request.getParameter("produto");
         int id = 1;
 
-       /* if (nomeProduto.equals("oleo")) {
-            id = 2;
-        } else if (nomeProduto.equals("extintor")) {
-            id = 2;
-        } else if (nomeProduto.equals("gas")) {
-            id = 3;
-        } else if (nomeProduto.equals("gadt")) {
-            id = 4;
-        } else if (nomeProduto.equals("etanol")) {
-            id = 5;
-        } else if (nomeProduto.equals("diesel")) {
-            id = 6;
-        }*/
-
+        /* if (nomeProduto.equals("oleo")) {
+         id = 2;
+         } else if (nomeProduto.equals("extintor")) {
+         id = 2;
+         } else if (nomeProduto.equals("gas")) {
+         id = 3;
+         } else if (nomeProduto.equals("gadt")) {
+         id = 4;
+         } else if (nomeProduto.equals("etanol")) {
+         id = 5;
+         } else if (nomeProduto.equals("diesel")) {
+         id = 6;
+         }*/
         double preco = produto.buscaPreco(id);
         request.setAttribute("preco", preco);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
@@ -85,43 +84,44 @@ public class VendaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
         Object obj = request.getSession().getAttribute("usuario");
         Usuario user = (Usuario) obj;
-
-        int idProduto = -1;
-        double valor = 0;
-
-        String aux = request.getParameter("valor");
-        valor = Double.parseDouble(aux);
+        String cpf = user.getIdUsuario();
+        int idFilial = user.getIdFilial();
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+        String aux = request.getParameter("valor");
+        double valor = Double.parseDouble(aux);
 
         // criar venda
         VendaDAO venda = new VendaDAO();
-
-        if (request.getParameter("produto").equals("Oleo Automotivo")) {
-            idProduto = 1;
-            OleoLubrificante ol = new OleoLubrificante(idProduto, user.getIdUsuario(), user.getIdFilial(), quantidade);
-            venda.vendaOleo(ol);
-
-        } else if (request.getParameter("produto").equals("Extintor Automotivo")) {
-            idProduto = 2;
-        } else if (request.getParameter("produto").equals("Gasolina Comum")) {
-
-        } else if (request.getParameter("produto").equals("Gasolina Aditivada")) {
-            idProduto = 4;
-        } else if (request.getParameter("produto").equals("Etanol")) {
-            idProduto = 5;
-        } else if (request.getParameter("produto").equals("Diesel")) {
-            idProduto = 6;
+        int idProduto;
+        switch (request.getParameter("produto")) {
+            case "Oleo Automotivo":
+                idProduto = 1;
+                OleoLubrificante ol = new OleoLubrificante(idProduto, user.getIdUsuario(), user.getIdFilial(), quantidade);
+                venda.vendaOleo(ol);
+                break;
+            case "Extintor Automotivo":
+                idProduto = 2;
+                Extintor ex = new Extintor(idProduto, user.getIdUsuario(), user.getIdFilial(), quantidade);
+                venda.vendaExtintor(ex);
+                break;
+            case "Gasolina Comum":
+                break;
+            case "Gasolina Aditivada":
+                idProduto = 4;
+                break;
+            case "Etanol":
+                idProduto = 5;
+                break;
+            case "Diesel":
+                idProduto = 6;
+                break;
         }
-        
         //  --------
+        processRequest(request, response);
+        request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
 
-        
-        
-        
     }
 
     /**

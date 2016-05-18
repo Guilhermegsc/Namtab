@@ -10,8 +10,8 @@ public class Extintor extends Produto {
    private String categoria;
    private double tamanho = 0;
 
-    public Extintor(long idUsuario, int idFilial, int idProduto, double valorVenda) {
-        super(idUsuario, idFilial, idProduto, valorVenda);
+    public Extintor(int idProduto, long idUsuario, int idFilial, double quantidade) {
+        super(idProduto, idUsuario, idFilial, quantidade);
     }
 
     public Extintor(int idVenda, int idProduto, int idFilial, long idUsuario, String nomeUsuario, String nomeProduto, 
