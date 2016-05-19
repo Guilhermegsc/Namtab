@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet {
         if (logado == true) {
             response.sendRedirect(request.getContextPath() + "/NamtabServlet");
         }else{
-             response.sendRedirect(request.getContextPath() + "/AdministracaoServlet");
+             response.sendRedirect(request.getContextPath() + "/ErroLoginServlet");
         }
         //response.sendRedirect(request.getContextPath() + "/NamtabServlet");
             // Validar nome de usuário e senha.
