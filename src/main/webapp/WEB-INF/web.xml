@@ -5,6 +5,10 @@
         <servlet-class>LoginServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ErroLoginServlet</servlet-name>
+        <servlet-class>ErroLoginServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>NamtabServlet</servlet-name>
         <servlet-class>NamtabServlet</servlet-class>
     </servlet>
@@ -40,6 +44,11 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/index.html</url-pattern>
     </servlet-mapping>
+      <servlet-mapping>
+        <servlet-name>ErroLoginServlet</servlet-name>
+        <url-pattern>/ErroLoginServlet</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AdministracaoServlet</servlet-name>
         <url-pattern>/AdministracaoServlet</url-pattern>
@@ -48,7 +57,7 @@
         <servlet-name>RelatorioServlet</servlet-name>
         <url-pattern>/RelatorioServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+       <servlet-mapping>
         <servlet-name>VendaServlet</servlet-name>
         <url-pattern>/VendaServlet</url-pattern>
     </servlet-mapping>
