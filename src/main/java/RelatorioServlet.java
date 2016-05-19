@@ -100,7 +100,7 @@ public class RelatorioServlet extends HttpServlet {
         response.setContentType("application/ms-excel");
         response.setContentLength(outArray.length);
         response.setHeader("Expires:", "0");
-        response.setHeader("Content-Disposition", "attachment; filename=Demo1.xls");
+        response.setHeader("Content-Disposition", "attachment; filename=vendas.xls");
         OutputStream outStream = response.getOutputStream();
         outStream.write(outArray);
         outStream.flush();
