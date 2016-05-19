@@ -4,12 +4,21 @@
  * and open the template in the editor.
  */
 
+import entity.Relatorio;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStream;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  *
@@ -28,7 +37,7 @@ public class RelatorioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,6 +55,9 @@ public class RelatorioServlet extends HttpServlet {
         processRequest(request, response);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
         request.getRequestDispatcher("WEB-INF/relatorio.jspx").forward(request, response);
+
+   
+
     }
 
     /**
@@ -61,6 +73,37 @@ public class RelatorioServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
+             String dtInicial = request.getParameter("pInicial");
+        String dtFinal = request.getParameter("pFinal");
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date dataInicial = null;
+
+        try {
+            dataInicial = (Date) formatter.parse(dtInicial);
+        } catch (ParseException ex) {
+            Logger.getLogger(RelatorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Date dataFinal = null;
+        try {
+            dataFinal = (Date) formatter.parse(dtFinal);
+        } catch (ParseException ex) {
+            Logger.getLogger(RelatorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Relatorio relatorio = new Relatorio();
+        HSSFWorkbook wb = relatorio.relatorioVenda(dataInicial, dataFinal);
+
+        ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+        wb.write(outByteStream);
+        byte[] outArray = outByteStream.toByteArray();
+        response.setContentType("application/ms-excel");
+        response.setContentLength(outArray.length);
+        response.setHeader("Expires:", "0");
+        response.setHeader("Content-Disposition", "attachment; filename=Demo1.xls");
+        OutputStream outStream = response.getOutputStream();
+        outStream.write(outArray);
+        outStream.flush();
 
     }
 

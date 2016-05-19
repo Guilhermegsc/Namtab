@@ -28,16 +28,14 @@ import org.apache.poi.ss.util.CellRangeAddress;
  */
 public class Relatorio {
 
-    public void relatorioVenda(String nomeArquivo, Date dtInicio, Date dtFim) {
+public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim) {
 
         //cria planilha
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet firstSheet = workbook.createSheet("VENDAS");
 
-        FileOutputStream fos = null;
 
         try {
-            fos = new FileOutputStream(new File(nomeArquivo + ".xls"));
 
             //Formatando a fonte
             HSSFFont fonte = workbook.createFont();
@@ -96,20 +94,15 @@ public class Relatorio {
             } // fim do for
 
             firstSheet.setAutoFilter(CellRangeAddress.valueOf("A1:K" + i));
-            workbook.write(fos);
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erro ao exportar arquivo");
-        } finally {
-            try {
-                fos.flush();
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        } 
+        
+        return workbook;
     }
+
 
     public void relatorioUsuario(String nomeArquivo) {
 

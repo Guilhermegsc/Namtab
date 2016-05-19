@@ -28,23 +28,25 @@
 
                 </ul>
             </div>
-                    
-                    <form id="formulario" action="RelatorioServelet" method="get">
-                        <fieldset>
-                            <legend>Dados de Relatorio</legend>
-                            <label class="infoPeriodo">Período: </label>
-                            <input type="month" name="periodo" class="infoPeriodo"></input>
-                                                
-                        
-                        </fieldset>
-                        
-                        <fieldset>
-                            <legend>Opções</legend>
-                            
-                            <button type="submit" class="btn">Extrair</button>                   
-                        
-                        </fieldset>
-                    </form>
+
+            <form id="formulario" action="RelatorioServlet" method="post">
+                <fieldset>
+                    <legend>Dados de Relatorio</legend>
+                    <label class="infoPeriodo">Período Inicial: </label>
+                    <input type="date" name="pInicial" class="infoPeriodo"></input> <br></br>
+                    <label class="infoPeriodo">Período Final :    </label>
+                    <input type="date" name="pFinal" class="infoPeriodo"></input>
+
+
+                </fieldset>
+
+                <fieldset>
+                    <legend>Opções</legend>
+
+                    <button type="submit" class="btn">Extrair</button>                   
+
+                </fieldset>
+            </form>
 
 
 
