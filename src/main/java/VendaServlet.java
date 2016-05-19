@@ -5,6 +5,7 @@
  */
 
 import dao.ProdutoDAO;
+import dao.UsuarioDAO;
 import dao.VendaDAO;
 import entity.*;
 import java.io.IOException;
@@ -47,30 +48,23 @@ public class VendaServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         ProdutoDAO produto = new ProdutoDAO();
-        String nomeProduto = request.getParameter("produto");
-        int id = 1;
-
-        /* if (nomeProduto.equals("oleo")) {
-         id = 2;
-         } else if (nomeProduto.equals("extintor")) {
-         id = 2;
-         } else if (nomeProduto.equals("gas")) {
-         id = 3;
-         } else if (nomeProduto.equals("gadt")) {
-         id = 4;
-         } else if (nomeProduto.equals("etanol")) {
-         id = 5;
-         } else if (nomeProduto.equals("diesel")) {
-         id = 6;
-         }*/
-        double preco = produto.buscaPreco(id);
+        //String nomeProduto = request.getParameter("produto");
+        int idProduto = 1;
+        /**
+         * switch (request.getParameter("produto")) { case "Oleo Automotivo":
+         * idProduto = 1; break; case "Extintor Automotivo": idProduto = 2;
+         * break; case "Gasolina Comum": idProduto = 3; break; case "Gasolina
+         * Aditivada": idProduto = 4; break; case "Etanol": idProduto = 5;
+         * break; case "Diesel": idProduto = 6; break; }
+         *
+         */
+        double preco = produto.buscaPreco(idProduto);
         request.setAttribute("preco", preco);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
 
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
 
-        System.out.println(preco);
-
+        //System.out.println(preco);
     }
 
     /**
@@ -84,42 +78,50 @@ public class VendaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Object obj = request.getSession().getAttribute("usuario");
-        Usuario user = (Usuario) obj;
-        String cpf = user.getIdUsuario();
-        int idFilial = user.getIdFilial();
+        processRequest(request, response);
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        
+        String cpf = usuario.getIdUsuario();
+        int idFilial = usuario.getIdFilial();
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-        String aux = request.getParameter("valor");
-        double valor = Double.parseDouble(aux);
+        double valor = 5;//hardcooode
 
         // criar venda
         VendaDAO venda = new VendaDAO();
         int idProduto;
         switch (request.getParameter("produto")) {
-            case "Oleo Automotivo":
+            case "Oleo Lubrificante":
                 idProduto = 1;
-                OleoLubrificante ol = new OleoLubrificante(idProduto, user.getIdUsuario(), user.getIdFilial(), quantidade);
+                OleoLubrificante ol = new OleoLubrificante(idProduto, cpf, idFilial, quantidade);
                 venda.vendaOleo(ol);
                 break;
             case "Extintor Automotivo":
                 idProduto = 2;
-                Extintor ex = new Extintor(idProduto, user.getIdUsuario(), user.getIdFilial(), quantidade);
+                Extintor ex = new Extintor(idProduto, cpf, idFilial, quantidade);
                 venda.vendaExtintor(ex);
                 break;
             case "Gasolina Comum":
+                idProduto = 3;
+                Combustivel gComum = new Combustivel(idProduto, cpf, idFilial, valor);
+                venda.vendaCombustivel(gComum);
                 break;
             case "Gasolina Aditivada":
                 idProduto = 4;
+                Combustivel gAditv = new Combustivel(idProduto, cpf, idFilial, valor);
+                venda.vendaCombustivel(gAditv);
                 break;
             case "Etanol":
                 idProduto = 5;
+                Combustivel etanol = new Combustivel(idProduto, cpf, idFilial, valor);
+                venda.vendaCombustivel(etanol);
                 break;
             case "Diesel":
                 idProduto = 6;
+                Combustivel diesel = new Combustivel(idProduto, cpf, idFilial, valor);
+                venda.vendaCombustivel(diesel);
                 break;
         }
         //  --------
-        processRequest(request, response);
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
 
     }

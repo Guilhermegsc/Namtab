@@ -5,6 +5,7 @@
  */
 
 import dao.UsuarioDAO;
+import entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -77,13 +78,13 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String usuario = request.getParameter("usuario");
+        String user = request.getParameter("usuario");
         String senha = request.getParameter("senha");
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        Usuario usuario = usuarioDAO.buscarUsuario(user);
         request.getSession().setAttribute("usuario", usuario);
 
-        UsuarioDAO user = new UsuarioDAO();
-
-        boolean logado = user.efetuaLogin(usuario, senha);
+        boolean logado = usuarioDAO.efetuaLogin(user, senha);
         if (logado == true) {
             response.sendRedirect(request.getContextPath() + "/NamtabServlet");
         }else{

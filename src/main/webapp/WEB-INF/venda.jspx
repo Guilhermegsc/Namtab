@@ -27,23 +27,22 @@
                     <a href="RelatorioServlet"><li>Relatório</li></a>
                     <a href="AdministracaoServlet"><li>Administração</li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
+                    <p id="varUsuario" name="user"><c:out value="${usuario.idUsuario}"/></p>
 
                 </ul>
             </div>
 
             <form id="formulario" action="VendaServlet" method="post">
                 <fieldset>
-
                     <legend>Informações da Venda</legend>
-
 
                     <label class="labelformulario">Tipo/Produto: </label>
                     <select name="produto" id="produto" class="combustivel" onchange="${preco},habilitaCampo(this.value)">
                         <option></option>
-                        <option value="oleo">Óleo automotivo</option>
+                        <option value="oleo">Oleo Lubrificante</option>
                         <option value="extintor">Extintor automotivo</option>
-                        <option value="gas">Gasolina</option>
-                        <option value="gadt">G. Aditivada</option>
+                        <option value="gas">Gasolina Comum</option>
+                        <option value="gadt">Gasolina Aditivada</option>
                         <option value="etanol">Etanol</option>
                         <option value="diesel">Diesel</option>
 
@@ -57,7 +56,7 @@
                     <br/>
 
                     <label class="labelformulario">Valor R$:</label>
-                    <input type="text" maxlength="6" name="valor" id="valor" class="inputs" value="0"
+                    <input type="text" maxlength="6" name="valor" id="valor" class="inputs" value="5"
                            onkeypress="return(MascaraMoeda(this, '.', ',', event))" disabled="true"></input>
                     <br/>
 

@@ -20,15 +20,14 @@ public class UsuarioDAO {
         Connection conn = null;
         Usuario us = null;
 
-        String sql = " SELECT CPF, NOME, ID_FILIAL, PERFIL, DATA_NASC, FUNCAO FROM USUARIO "
-                + "WHERE STATUS_USUARIO = TRUE AND CPF = '?' ";
+        String sql = " SELECT CPF, NOME, ID_FILIAL, PERFIL, FUNCAO FROM USUARIO "
+                + "WHERE STATUS_USUARIO = TRUE AND CPF = '" + cpf + "' ";
         try {
 
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
 
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, cpf);
             ResultSet resultados = stmt.executeQuery();
 
             while (resultados.next()) {
@@ -36,7 +35,6 @@ public class UsuarioDAO {
                 String nome = resultados.getString("NOME");
                 int idFilial = resultados.getInt("ID_FILIAL");
                 int perfil = resultados.getInt("PERFIL");
-                java.util.Date dataNasc = resultados.getDate("DATA_NASC");
                 String funcao = resultados.getString("FUNCAO");
                 us = new Usuario(id, nome, idFilial, perfil, funcao);
                 break;
