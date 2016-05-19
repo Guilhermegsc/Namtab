@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  * @author Anderson
  */
 public class ProdutoDAO {
+
     private Connection obterConexao() throws SQLException, ClassNotFoundException {
         Connection conn = null;
         // Passo 1: Registrar driver JDBC.
@@ -39,7 +40,7 @@ public class ProdutoDAO {
         Connection conn = null;
         Combustivel comb = null;
 
-        String sql = "SELECT ID_PRODUTO, NOME_PRODUTO, PRECO, CATEGORIA, TAMANHO"
+        String sql = "SELECT ID_PRODUTO, NOME_PRODUTO, PRECO, TIPO, CATEGORIA, TAMANHO"
                 + " FROM PRODUTO WHERE STATUS_PRODUTO = TRUE ";
 
         ArrayList<Produto> lista = new ArrayList();
@@ -49,30 +50,30 @@ public class ProdutoDAO {
             stmt = conn.createStatement();
             ResultSet resultados = stmt.executeQuery(sql);
 
-
             while (resultados.next()) {
                 int idProduto = resultados.getInt("ID_PRODUTO");
                 String nome = resultados.getString("NOME_PRODUTO");
                 double preco = resultados.getDouble("PRECO");
+                String tipo = resultados.getString("TIPO");
                 String categoria = resultados.getString("CATEGORIA");
                 double tamanho = resultados.getDouble("TAMANHO");
-                            
-                switch (idProduto) {
-                    // lista oleo
-                    case 1:
-                        OleoLubrificante ol = new OleoLubrificante(idProduto, nome, preco, tamanho);
-                        lista.add(ol);
-                        break;
-                    // lista extintor    
-                    case 2:
-                        Extintor ext = new Extintor(idProduto, nome, preco, categoria, tamanho);
-                        lista.add(ext);
-                        break;
-                    // lista combustivel    
-                    default:
+
+                switch (tipo) {
+
+                    case "COMB":  // lista combustivel   
                         Produto com = new Produto(idProduto, nome, preco);
                         lista.add(com);
                         break;
+                    case "PROD":
+                        if (idProduto == 5) {  // lista oleo 
+                            OleoLubrificante ol = new OleoLubrificante(idProduto, nome, preco, tamanho);
+                            lista.add(ol);
+                            break;
+                        } else if (idProduto == 6) {  // lista extintor
+                            Extintor ext = new Extintor(idProduto, nome, preco, tipo ,categoria, tamanho);
+                            lista.add(ext);
+                            break;
+                        }
                 }
 
             }
@@ -158,23 +159,23 @@ public class ProdutoDAO {
             }
         }
     }
-    
+
     public double buscaPreco(int idProduto) {
         Statement stmt = null;
         Connection conn = null;
         double preco = 0;
 
-        String sql = " SELECT PRECO FROM PRODUTO WHERE ID_PRODUTO = "+idProduto;
+        String sql = " SELECT PRECO FROM PRODUTO WHERE ID_PRODUTO = " + idProduto;
         try {
 
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
 
             stmt = conn.createStatement();
-                    
+
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
-               preco = rs.getDouble("PRECO"); 
+            while (rs.next()) {
+                preco = rs.getDouble("PRECO");
             }
 
         } catch (SQLException ex) {
@@ -202,5 +203,5 @@ public class ProdutoDAO {
         }
         return preco;
     }
-    
+
 }

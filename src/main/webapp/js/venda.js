@@ -1,18 +1,19 @@
 
-function habilitaCampo(x) {
-    if (x == "oleo" || x == "extintor") {
-        document.getElementById("quantidade").disabled = false;
-        document.getElementById("valor").disabled = true;
-        document.getElementById("quantidade").focus();
-    } else if (x == "gas" || x == "gadt" || x == "etanol" || x == "diesel") {
+function habilitaCampo(campo) {
+    x = campo.value;
+
+    if (x >= 1 && x <= 4) {
         document.getElementById("valor").disabled = false;
         document.getElementById("quantidade").disabled = true;
         document.getElementById("valor").focus();
+    } else if (x >= 5 && x <= 6) {
+        document.getElementById("quantidade").disabled = false;
+        document.getElementById("valor").disabled = true;
+        document.getElementById("quantidade").focus();
     } else {
         document.getElementById("valor").disabled = true;
         document.getElementById("quantidade").disabled = true;
     }
-    limpaCampos();
 
 
 }
@@ -22,16 +23,18 @@ function limpaCampos() {
     document.getElementById("valor").value = "";
 }
 
-function calcValor(valor, preco) {
-    document.getElementById("valor").value = preco * valor;
+function calcValor(qtd, campo) {
+    preco = campo.selectedOptions[0].getAttribute("data-preco");
+
+    document.getElementById("valor").value = preco * qtd;
 }
 
 function calcLitros(valor, preco) {
 
     valor = converte(valor);
 
-    result = document.getElementById("quantidade").value = valor/2;
-    
+    result = document.getElementById("quantidade").value = valor / 2;
+
 }
 
 function validar() {
@@ -99,15 +102,19 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
     }
 }
 
-function converte(n){
+function converte(n) {
     n = parseFloat(document.getElementById("valor").value.replace(",", "."));
     return n;
 }
 
-function teste() {
-    alert(parseFloat(document.getElementById("valor").value.replace(",", ".")) + 1);
+function teste(campo) {
+    var x = campo.value;
+    var preco = campo.selectedOptions[0].getAttribute("data-preco");
+    alert(campo.value);
+    alert(preco);
 }
 
 function teste2(preco) {
     alert(preco);
+
 }

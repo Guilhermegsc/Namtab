@@ -27,7 +27,7 @@
                     <a href="RelatorioServlet"><li>Relatório</li></a>
                     <a href="AdministracaoServlet"><li>Administração</li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
-                    <p id="varUsuario" name="user"><c:out value="${usuario.idUsuario}"/></p>
+                    <p id="varUsuario" name="user"><c:out value="${usuario.nome}"/></p>
 
                 </ul>
             </div>
@@ -37,21 +37,23 @@
                     <legend>Informações da Venda</legend>
 
                     <label class="labelformulario">Tipo/Produto:</label>
-                    <select name="produto" id="produto" class="combustivel" onchange="habilitaCampo(this.value)">
+                    <select name="produto" id="produto" class="combustivel" onchange="habilitaCampo(this)">
                         <option></option>
                         <c:forEach items="${produto}" var="prod">
-                            <option value="${prod.idProduto}" data-preco="${prod.preco}"><c:out value="${prod.nomeProduto}"/></option>
+                            <option value="${prod.idProduto}" data-preco="${prod.preco}"> 
+                                <c:out value="${prod.nomeProduto}"/></option>
+
                         </c:forEach>
                     </select>
 
                     <label id="quantidadeProduto" class="labelformulario">Quatidade-Un/Lt:</label>
-                    <input type="number" min="1" id="quantidade" class="inputs" name="quantidade" disabled="true"
-                           value="0" onchange="calcValor(this.value, ${preco})" ></input>
+                    <input type="number" min="1" id="quantidade" class="inputs" name="quantidade" 
+                           value="0" onchange="calcValor(this.value, produto)" ></input>
                     <br/>
 
                     <label class="labelformulario">Valor R$:</label>
                     <input type="text" maxlength="6" name="valor" id="valor" class="inputs" value="5"
-                           onkeypress="return(MascaraMoeda(this, '.', ',', event))" disabled="true"></input>
+                           onkeypress="return(MascaraMoeda(this, '.', ',', event))" ></input>
                     <br/>
 
 

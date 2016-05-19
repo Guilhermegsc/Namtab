@@ -51,17 +51,7 @@ public class VendaServlet extends HttpServlet {
         ProdutoDAO produto = new ProdutoDAO();        
         ArrayList<Produto> prod = new ArrayList<Produto>();     
         prod = produto.listaProduto();
-        
-        //String nomeProduto = request.getParameter("produto");
-        /**
-         * switch (request.getParameter("produto")) { case "Oleo Automotivo":
-         * idProduto = 1; break; case "Extintor Automotivo": idProduto = 2;
-         * break; case "Gasolina Comum": idProduto = 3; break; case "Gasolina
-         * Aditivada": idProduto = 4; break; case "Etanol": idProduto = 5;
-         * break; case "Diesel": idProduto = 6; break; }
-         *
-         */
-  
+          
         request.setAttribute("produto", prod);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
 
