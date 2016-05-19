@@ -36,18 +36,12 @@
                 <fieldset>
                     <legend>Informações da Venda</legend>
 
-                    <label class="labelformulario">Tipo/Produto: </label>
-                    <select name="produto" id="produto" class="combustivel" onchange="${preco},habilitaCampo(this.value)">
+                    <label class="labelformulario">Tipo/Produto:</label>
+                    <select name="produto" id="produto" class="combustivel" onchange="habilitaCampo(this.value)">
                         <option></option>
-                        <option value="oleo">Oleo Lubrificante</option>
-                        <option value="extintor">Extintor automotivo</option>
-                        <option value="gas">Gasolina Comum</option>
-                        <option value="gadt">Gasolina Aditivada</option>
-                        <option value="etanol">Etanol</option>
-                        <option value="diesel">Diesel</option>
-
-
-
+                        <c:forEach items="${produto}" var="prod">
+                            <option value="${prod.idProduto}" data-preco="${prod.preco}"><c:out value="${prod.nomeProduto}"/></option>
+                        </c:forEach>
                     </select>
 
                     <label id="quantidadeProduto" class="labelformulario">Quatidade-Un/Lt:</label>
@@ -70,7 +64,7 @@
 
 
                 </fieldset>
-          
+
 
             </form>
 

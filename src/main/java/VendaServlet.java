@@ -9,6 +9,7 @@ import dao.UsuarioDAO;
 import dao.VendaDAO;
 import entity.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,9 +48,11 @@ public class VendaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        ProdutoDAO produto = new ProdutoDAO();
+        ProdutoDAO produto = new ProdutoDAO();        
+        ArrayList<Produto> prod = new ArrayList<Produto>();     
+        prod = produto.listaProduto();
+        
         //String nomeProduto = request.getParameter("produto");
-        int idProduto = 1;
         /**
          * switch (request.getParameter("produto")) { case "Oleo Automotivo":
          * idProduto = 1; break; case "Extintor Automotivo": idProduto = 2;
@@ -58,8 +61,8 @@ public class VendaServlet extends HttpServlet {
          * break; case "Diesel": idProduto = 6; break; }
          *
          */
-        double preco = produto.buscaPreco(idProduto);
-        request.setAttribute("preco", preco);
+  
+        request.setAttribute("produto", prod);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
 
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);

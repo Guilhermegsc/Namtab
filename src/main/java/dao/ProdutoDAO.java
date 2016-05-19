@@ -39,7 +39,7 @@ public class ProdutoDAO {
         Connection conn = null;
         Combustivel comb = null;
 
-        String sql = "SELECT ID_PRODUTO, NOME_PROODUTO, PRECO, CATEGORIA, TAMANHO, TIPO"
+        String sql = "SELECT ID_PRODUTO, NOME_PRODUTO, PRECO, CATEGORIA, TAMANHO"
                 + " FROM PRODUTO WHERE STATUS_PRODUTO = TRUE ";
 
         ArrayList<Produto> lista = new ArrayList();
@@ -52,11 +52,10 @@ public class ProdutoDAO {
 
             while (resultados.next()) {
                 int idProduto = resultados.getInt("ID_PRODUTO");
-                String nome = resultados.getString("NOME_PROODUTO");
+                String nome = resultados.getString("NOME_PRODUTO");
                 double preco = resultados.getDouble("PRECO");
                 String categoria = resultados.getString("CATEGORIA");
                 double tamanho = resultados.getDouble("TAMANHO");
-                String tipo = resultados.getString("TIPO");
                             
                 switch (idProduto) {
                     // lista oleo
@@ -71,7 +70,7 @@ public class ProdutoDAO {
                         break;
                     // lista combustivel    
                     default:
-                        Combustivel com = new Combustivel(idProduto, nome, preco, tipo);
+                        Produto com = new Produto(idProduto, nome, preco);
                         lista.add(com);
                         break;
                 }
