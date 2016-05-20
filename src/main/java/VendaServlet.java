@@ -44,13 +44,14 @@ public class VendaServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+  
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
         ProdutoDAO produto = new ProdutoDAO();        
         ArrayList<Produto> prod = new ArrayList<Produto>();     
         prod = produto.listaProduto();
+        request.getSession().setAttribute("prod", prod);
           
         request.setAttribute("produto", prod);
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
@@ -68,52 +69,23 @@ public class VendaServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        Produto prod = (Produto) request.getSession().getAttribute("prod");
         
         String cpf = usuario.getIdUsuario();
         int idFilial = usuario.getIdFilial();
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-        double valor = 5;//hardcooode
-
+        double valor = Double.parseDouble(request.getParameter("valor").replace(",", "."));//hardcooode
+        String produto = request.getParameter("produto");
+        
         // criar venda
         VendaDAO venda = new VendaDAO();
         int idProduto;
-        switch (request.getParameter("produto")) {
-            case "Oleo Lubrificante":
-                idProduto = 1;
-                OleoLubrificante ol = new OleoLubrificante(idProduto, cpf, idFilial, quantidade);
-                venda.vendaOleo(ol);
-                break;
-            case "Extintor Automotivo":
-                idProduto = 2;
-                Extintor ex = new Extintor(idProduto, cpf, idFilial, quantidade);
-                venda.vendaExtintor(ex);
-                break;
-            case "Gasolina Comum":
-                idProduto = 3;
-                Combustivel gComum = new Combustivel(idProduto, cpf, idFilial, valor);
-                venda.vendaCombustivel(gComum);
-                break;
-            case "Gasolina Aditivada":
-                idProduto = 4;
-                Combustivel gAditv = new Combustivel(idProduto, cpf, idFilial, valor);
-                venda.vendaCombustivel(gAditv);
-                break;
-            case "Etanol":
-                idProduto = 5;
-                Combustivel etanol = new Combustivel(idProduto, cpf, idFilial, valor);
-                venda.vendaCombustivel(etanol);
-                break;
-            case "Diesel":
-                idProduto = 6;
-                Combustivel diesel = new Combustivel(idProduto, cpf, idFilial, valor);
-                venda.vendaCombustivel(diesel);
-                break;
-        }
+
         //  --------
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
 
@@ -124,7 +96,6 @@ public class VendaServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
 
     public String getServletInfo() {
         return "Short description";

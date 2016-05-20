@@ -33,7 +33,7 @@ public class Combustivel extends Produto {
     }
 
     public Combustivel(int idProduto, String nomeProduto, double preco, String tipo) {
-        super(idProduto, nomeProduto, preco);
+        super(idProduto, nomeProduto, preco, tipo);
         this.tipo = tipo.toUpperCase();
     }
 

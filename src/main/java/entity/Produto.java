@@ -18,11 +18,13 @@ public class Produto {
     private Date dataVenda;
     private double quantidade;
     private double valorVenda;
+    private String tipo;
 
-    public Produto(int idProduto, String nomeProduto, double preco) {
+    public Produto(int idProduto, String nomeProduto, double preco, String tipo) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto.toUpperCase();
         this.preco = preco;
+        this.tipo = tipo.toUpperCase();
     }
 
     public Produto(int idProduto, String idUsuario, int idFilial, double quantidade) {
@@ -38,7 +40,7 @@ public class Produto {
         this.idUsuario = idUsuario;
         this. idFilial = idFilial;
         this.idProduto = idProduto;
-        this.valorVenda = valorVenda;   
+        this.valorVenda = valorVenda;  
         }
 
     public Produto(int idVenda, int idProduto, int idFilial, String idUsuario, String nomeUsuario, String nomeProduto, 
@@ -54,6 +56,7 @@ public class Produto {
         this.valorVenda = valorVenda;
         this.nomeUsuario = nomeUsuario.toUpperCase();
         this.nomeFilial = nomeFilial.toUpperCase();
+        
     }
 
     public Produto() {
@@ -117,6 +120,9 @@ public class Produto {
         }
     }
     
+    public String getTipo(){
+        return this.tipo;
+    }
     
     
 }

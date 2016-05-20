@@ -1,12 +1,13 @@
 
 function habilitaCampo(campo) {
     x = campo.value;
+    tamanho = campo.length;
 
     if (x >= 1 && x <= 4) {
         document.getElementById("valor").disabled = false;
         document.getElementById("quantidade").disabled = true;
         document.getElementById("valor").focus();
-    } else if (x >= 5 && x <= 6) {
+    } else if (x >= 5 && x < tamanho) {
         document.getElementById("quantidade").disabled = false;
         document.getElementById("valor").disabled = true;
         document.getElementById("quantidade").focus();
@@ -15,7 +16,7 @@ function habilitaCampo(campo) {
         document.getElementById("quantidade").disabled = true;
     }
 
-
+    limpaCampos();
 }
 
 function limpaCampos() {
@@ -25,31 +26,18 @@ function limpaCampos() {
 
 function calcValor(qtd, campo) {
     preco = campo.selectedOptions[0].getAttribute("data-preco");
-
-    document.getElementById("valor").value = preco * qtd;
+    result = parseFloat(preco * qtd).toFixed(2);
+    document.getElementById("valor").value = result.replace(".", ",");
 }
 
-function calcLitros(valor, preco) {
-
+function calcLitros(valor, campo) {
     valor = converte(valor);
-
-    result = document.getElementById("quantidade").value = valor / 2;
-
+    preco = campo.selectedOptions[0].getAttribute("data-preco");
+    result = parseFloat(valor / preco).toFixed(3);
+    document.getElementById("quantidade").value = result;
 }
 
-function validar() {
-    campoQtd = document.getElementById("quantidade");
-    campoValor = document.getElementById("valor");
-    if (campoQtd.value = "0") {
-        alert("Favor, prenncher os campos pendentes.");
-        campoQtd.focus();
-    } else if (campoValor.value = "0") {
-        alert("Favor, prenncher os campos pendentes.");
-        document.getElementById("valor").focus();
-    }
-}
-
-function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
+function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e, campo) {
     var sep = 0;
     var key = '';
     var i = j = 0;
@@ -95,7 +83,7 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
                 objTextBox.value += aux2.charAt(i);
             objTextBox.value += SeparadorDecimal + aux.substr(len - 2, len);
         }
-        calcLitros(parseFloat(objTextBox.value));
+        calcLitros(objTextBox.value, campo);
         return false;
     } else {
         alert("O valor maximo é de R$999,99.");
@@ -112,9 +100,4 @@ function teste(campo) {
     var preco = campo.selectedOptions[0].getAttribute("data-preco");
     alert(campo.value);
     alert(preco);
-}
-
-function teste2(preco) {
-    alert(preco);
-
 }

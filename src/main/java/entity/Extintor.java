@@ -36,8 +36,8 @@ public class Extintor extends Produto {
         return tamanho;
     }
 
-    public Extintor(int idProduto, String nomeProduto, double preco, String tipo , String categoria, double tamanho) {
-        super(idProduto, nomeProduto, preco);
+    public Extintor(int idProduto, String nomeProduto, double preco, String tipo , String categoria, double tamanho ) {
+        super(idProduto, nomeProduto, preco, tipo);
         this.categoria = categoria.toUpperCase();
         this.tamanho = tamanho;
     }

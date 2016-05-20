@@ -61,19 +61,23 @@ public class ProdutoDAO {
                 switch (tipo) {
 
                     case "COMB":  // lista combustivel   
-                        Produto com = new Produto(idProduto, nome, preco);
+                        Produto com = new Produto(idProduto, nome, preco, tipo);
                         lista.add(com);
                         break;
                     case "PROD":
                         if (idProduto == 5) {  // lista oleo 
-                            OleoLubrificante ol = new OleoLubrificante(idProduto, nome, preco, tamanho);
+                            OleoLubrificante ol = new OleoLubrificante(idProduto, nome, preco, tamanho, tipo);
                             lista.add(ol);
                             break;
                         } else if (idProduto == 6) {  // lista extintor
-                            Extintor ext = new Extintor(idProduto, nome, preco, tipo ,categoria, tamanho);
+                            Extintor ext = new Extintor(idProduto, nome, preco, tipo, categoria, tamanho);
                             lista.add(ext);
                             break;
                         }
+                    default:
+                        Produto outro = new Produto(idProduto, nome, preco, tipo);
+                        lista.add(outro);
+                        break;
                 }
 
             }

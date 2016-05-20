@@ -78,3 +78,12 @@ button:hover{
 .inputs{
     width: 80px;
 }
+#produto{
+    position: relative;
+    left: -30px;
+}
+#quantidade{
+    position: relative;
+    top: -25px;
+    left: 400px;
+}

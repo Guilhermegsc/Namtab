@@ -21,8 +21,8 @@ public class OleoLubrificante extends Produto{
         this.tamanho = tamanho;
     }
 
-    public OleoLubrificante(int idProduto, String nomeProduto, double preco, double tamanho) {
-        super(idProduto, nomeProduto, preco);
+    public OleoLubrificante(int idProduto, String nomeProduto, double preco, double tamanho, String tipo) {
+        super(idProduto, nomeProduto, preco, tipo);
         this.tamanho = tamanho;
     }
 
