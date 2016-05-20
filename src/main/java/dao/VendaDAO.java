@@ -151,15 +151,15 @@ public class VendaDAO extends Conexao {
             conn = conexao.obterConexao();
             ProdutoDAO prod = new ProdutoDAO();
             double precoProd = prod.buscaPreco(comb.getIdProduto());
-
+            double valorVenda = comb.getValorVenda();
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, comb.getIdUsuario());
             stmt.setInt(2, comb.getIdFilial());
             stmt.setInt(3, comb.getIdProduto());
             stmt.setDouble(4, precoProd);
-            stmt.setDouble(5, comb.getValorVenda() / precoProd);
-            stmt.setDouble(6, (comb.getValorVenda()));
+            stmt.setDouble(5, (valorVenda / precoProd));
+            stmt.setDouble(6, valorVenda);
 
             stmt.executeUpdate();
             conn.commit();

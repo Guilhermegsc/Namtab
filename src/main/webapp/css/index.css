@@ -10,8 +10,6 @@ body{
 	left: 50%;
 	top: 50%;
 	margin-left: -240px;
-        //Guilherme - comentado para pegar em porcentagem.
-	//margin-top: -165px;
         margin-top: 50%;
 	background: rgba(200,200,200,0.2);
 	padding: 50px;

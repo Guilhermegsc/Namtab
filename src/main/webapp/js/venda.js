@@ -100,4 +100,6 @@ function teste(campo) {
     var preco = campo.selectedOptions[0].getAttribute("data-preco");
     alert(campo.value);
     alert(preco);
+    
+    
 }

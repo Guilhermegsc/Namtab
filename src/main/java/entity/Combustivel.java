@@ -10,9 +10,9 @@ public class Combustivel extends Produto {
 
     private String tipo;
 
-    public Combustivel(String idUsuario, int idFilial, int idProduto, double valorVenda, String tipo) {
+    public Combustivel(String idUsuario, int idFilial, int idProduto, double valorVenda) {
         super(idUsuario, idFilial, idProduto, valorVenda);
-        this.tipo = tipo.toUpperCase();
+        
     }
 
     public Combustivel(int idVenda, int idProduto, int idFilial, String idUsuario, String nomeUsuario, String nomeProduto, double preco,
