@@ -226,17 +226,17 @@ public class VendaDAO extends Conexao {
             ResultSet resultados = stmt.executeQuery(sql);
 
             while (resultados.next()) {
-                int idVenda = resultados.getInt("V.ID_VENDA");
-                int idFilial = resultados.getInt("V.ID_FILIAL");
-                String idUsuario = resultados.getString("V.CPF");
-                int idProduto = resultados.getInt("V.ID_PRODUTO");
-                Date dataVenda = resultados.getDate("V.DATA_VENDA");
-                double valorVenda = resultados.getDouble("V.VALOR_VENDA");
-                double quantidade = resultados.getDouble("V.QUANTIDADE");
-                double precoProd = resultados.getDouble("V.PRECO_PRODUTO");
-                String nomeProduto = resultados.getString("P.NOME_PRODUTO");
-                String nomeUsuario = resultados.getString("U.NOME");
-                String nomeFilial = resultados.getString("F.NOME_FILIAL");
+                int idVenda = resultados.getInt("ID_VENDA");
+                int idFilial = resultados.getInt("ID_FILIAL");
+                String idUsuario = resultados.getString("CPF");
+                int idProduto = resultados.getInt("ID_PRODUTO");
+                Date dataVenda = resultados.getDate("DATA_VENDA");
+                double valorVenda = resultados.getDouble("VALOR_VENDA");
+                double quantidade = resultados.getDouble("QUANTIDADE");
+                double precoProd = resultados.getDouble("PRECO_PRODUTO");
+                String nomeProduto = resultados.getString("NOME_PRODUTO");
+                String nomeUsuario = resultados.getString("NOME");
+                String nomeFilial = resultados.getString("NOME_FILIAL");
 
                 Produto prod = new Produto(idVenda, idProduto, idFilial, idUsuario, nomeUsuario, nomeProduto,
                         precoProd, dataVenda, quantidade, valorVenda, nomeFilial);
