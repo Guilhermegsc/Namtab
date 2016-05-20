@@ -20,6 +20,9 @@
         </head>
 
         <body>
+            
+            
+            <input type="hidden" id="mensagem" value="${mensagem}"/>
 
             <div id="nav">
                 <ul id="menu">
@@ -60,7 +63,7 @@
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button type="submit" class="btn" id="efetuaVenda" onclick="teste()">
+                    <button type="submit" class="btn" id="efetuaVenda">
                         Efetuar Venda</button>
 
 

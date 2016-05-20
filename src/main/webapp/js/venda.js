@@ -1,8 +1,19 @@
+window.addEventListener("load", iniciar);
+function iniciar() {
+    msg = document.getElementById("mensagem").value;
+    if (msg != "") {
+        alert(msg);
+        document.getElementById("mensagem").value = "";
+    }
+}
+
+
 window.onkeydown = function (event) {
-    if (event.which == 8 || event.which == 46 || event.which == 37 || event.which == 39   ) { 
+    if (event.which == 8 || event.which == 46 || event.which == 37 || event.which == 39) {
         limpaCampos();
-        }; 
-}; 
+    }
+    ;
+};
 function habilitaCampo(campo) {
     x = campo.value;
     tamanho = campo.length;
@@ -104,6 +115,6 @@ function teste(campo) {
     var preco = campo.selectedOptions[0].getAttribute("data-preco");
     alert(campo.value);
     alert(preco);
-    
-    
+
+
 }

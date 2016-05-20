@@ -10,10 +10,12 @@ import dao.VendaDAO;
 import entity.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -53,7 +55,6 @@ public class VendaServlet extends HttpServlet {
         request.getSession().setAttribute("prod", prod);
 
         request.setAttribute("produto", prod);
-        request.setAttribute("variavel", "Ta vendo o que aconteceeu");
 
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
 
@@ -95,10 +96,35 @@ public class VendaServlet extends HttpServlet {
             Extintor ext = new Extintor(idProduto, cpf, idFilial, quantidade);
             venda.vendaExtintor(ext);
         }
-        //  --------
+
+        // -----
+        request.setAttribute("mensagem", "Venda efetuada com sucesso!");
+        ProdutoDAO produto = new ProdutoDAO();
+        ArrayList<Produto> prod = new ArrayList<Produto>();
+        prod = produto.listaProduto();
+        request.getSession().setAttribute("prod", prod);
+
+        request.setAttribute("produto", prod);
+        request.setAttribute("variavel", "Ta vendo o que aconteceeu");
+
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
+        
 
     }
+    
+     /*   public void preencheProdutos(HttpServletRequest request, 
+            HttpServletResponse response) throws ServletException, IOException{
+        ProdutoDAO produto = new ProdutoDAO();
+        ArrayList<Produto> prod = new ArrayList<Produto>();
+        prod = produto.listaProduto();
+        request.getSession().setAttribute("prod", prod);
+
+        request.setAttribute("produto", prod);
+        request.setAttribute("variavel", "Ta vendo o que aconteceeu");
+
+        request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
+        
+    } */
 
     /**
      * Returns a short description of the servlet.
