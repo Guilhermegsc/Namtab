@@ -83,8 +83,8 @@ public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim) {
                 row.createCell(3).setCellValue(pro.getNomeProduto());
                 row.createCell(4).setCellValue(pro.getPreco());
                 row.createCell(5).setCellValue(pro.getQuantidade());
-                row.createCell(6).setCellValue(data);
-                row.createCell(7).setCellValue(pro.getDataVenda());
+                row.createCell(6).setCellValue(pro.getValorVenda());
+                row.createCell(7).setCellValue(data);
                 row.createCell(8).setCellValue(pro.getIdFilial());
                 row.createCell(9).setCellValue(pro.getIdUsuario());
                 row.createCell(10).setCellValue(pro.getIdProduto());

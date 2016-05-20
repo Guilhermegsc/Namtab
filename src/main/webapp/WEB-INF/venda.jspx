@@ -63,7 +63,7 @@
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button type="submit" class="btn" id="efetuaVenda">
+                    <button type="submit" class="btn" id="efetuaVenda" onclick="return validar()">
                         Efetuar Venda</button>
 
 

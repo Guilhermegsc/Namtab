@@ -7,13 +7,11 @@ function iniciar() {
     }
 }
 
-
 window.onkeydown = function (event) {
     if (event.which == 8 || event.which == 46 || event.which == 37 || event.which == 39) {
         limpaCampos();
     }
-    ;
-};
+}
 function habilitaCampo(campo) {
     x = campo.value;
     tamanho = campo.length;
@@ -22,7 +20,7 @@ function habilitaCampo(campo) {
         document.getElementById("valor").disabled = false;
         document.getElementById("quantidade").disabled = true;
         document.getElementById("valor").focus();
-    } else if (x >= 5 && x < tamanho) {
+    } else if (x >= 5 && x <= tamanho) {
         document.getElementById("quantidade").disabled = false;
         document.getElementById("valor").disabled = true;
         document.getElementById("quantidade").focus();
@@ -42,7 +40,12 @@ function limpaCampos() {
 function calcValor(qtd, campo) {
     preco = campo.selectedOptions[0].getAttribute("data-preco");
     result = parseFloat(preco * qtd).toFixed(2);
-    document.getElementById("valor").value = result.replace(".", ",");
+    if (result >= 1000) {
+        alert("O valor maximo é de R$999,99.");
+        document.getElementById("quantidade").value--;
+    } else {
+        document.getElementById("valor").value = result.replace(".", ",");
+    }
 }
 
 function calcLitros(valor, campo) {
@@ -110,11 +113,19 @@ function converte(n) {
     return n;
 }
 
-function teste(campo) {
-    var x = campo.value;
-    var preco = campo.selectedOptions[0].getAttribute("data-preco");
-    alert(campo.value);
-    alert(preco);
+function validar() {
+    prod = document.getElementById("produto").value;
+    valor = document.getElementById("valor").value;
+    qtd = document.getElementById("quantidade").value;
+    if (prod == "") {
+        alert("Por favor, selecione o produto");
+        return false;
+    } else if (valor == "" || qtd == "") {
+        alert("Por favor, preencha os campos");
+        return false;
+    } else{
+        return true;
+    }
 
 
 }

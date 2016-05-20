@@ -23,7 +23,7 @@
                     <a href="RelatorioServlet"><li>Relatório</li></a>
                     <a href="AdministracaoServlet"><li>Administração</li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
-                    <p id="varUsuario">Welcome, <c:out value="${usuario}"/></p>
+                    <p id="varUsuario" name="user">Bem-vindo, <br></br><c:out value="${usuario.nome}"/></p>
 
                 </ul>
             </div>
