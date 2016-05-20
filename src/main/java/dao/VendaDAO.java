@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,29 +17,26 @@ public class VendaDAO extends Conexao {
 
     Conexao conecta = new Conexao();
 
-    public void vendaOleo(OleoLubrificante comb) {
-        PreparedStatement stmt = null;
+    public void vendaOleo(OleoLubrificante oleo) {
+        Statement stmt = null;
         Connection conn = null;
 
-        String sql = "INSERT INTO VENDA (CPF, ID_FILIAL, ID_PRODUTO, PRECO_PRODUTO, QUANTIDADE, VALOR_VENDA, STATUS_VENDA)"
-                + " VALUES ('?', ?, ?, ?, ?, ?, TRUE)";
+        ProdutoDAO prod = new ProdutoDAO();
+        double precoProd = prod.buscaPreco(oleo.getIdProduto());
+        double qtd = oleo.getQuantidade();
+        double valorVenda = qtd * precoProd;
+
+        String sql = "INSERT INTO VENDA (CPF, ID_FILIAL, ID_PRODUTO, PRECO_PRODUTO,"
+                + " QUANTIDADE, VALOR_VENDA, STATUS_VENDA)"
+                + " VALUES ('" + oleo.getIdUsuario() + "',"
+                + oleo.getIdFilial() + "," + oleo.getIdProduto() + ","
+                + precoProd + "," + qtd + "," + valorVenda + ", true)";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
-            ProdutoDAO prod = new ProdutoDAO();
-            double precoProd = prod.buscaPreco(comb.getIdProduto());
-
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, comb.getIdUsuario());
-            stmt.setInt(2, comb.getIdFilial());
-            stmt.setInt(3, comb.getIdProduto());
-            stmt.setDouble(4, precoProd);
-            stmt.setDouble(5, comb.getQuantidade());
-            stmt.setDouble(6, (comb.getQuantidade() * precoProd));
-
-            stmt.executeUpdate();
-            conn.commit();
+            //         conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
 
         } catch (SQLException ex) {
             try {
@@ -79,28 +77,25 @@ public class VendaDAO extends Conexao {
     }
 
     public void vendaExtintor(Extintor ext) {
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         Connection conn = null;
 
-        String sql = "INSERT INTO VENDA (CPF, ID_FILIAL, ID_PRODUTO, PRECO_PRODUTO, QUANTIDADE, VALOR_VENDA, STATUS_VENDA)"
-                + " VALUES ('?', ?, ?, ?, ?, ?, TRUE) ";
+        ProdutoDAO prod = new ProdutoDAO();
+        double precoProd = prod.buscaPreco(ext.getIdProduto());
+        double qtd = ext.getQuantidade();
+        double valorVenda = qtd * precoProd;
+
+        String sql = "INSERT INTO VENDA (CPF, ID_FILIAL, ID_PRODUTO, PRECO_PRODUTO,"
+                + " QUANTIDADE, VALOR_VENDA, STATUS_VENDA)"
+                + " VALUES ('" + ext.getIdUsuario() + "',"
+                + ext.getIdFilial() + "," + ext.getIdProduto() + ","
+                + precoProd + "," + qtd + "," + valorVenda + ", true)";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
-            ProdutoDAO prod = new ProdutoDAO();
-            double precoProd = prod.buscaPreco(ext.getIdProduto());
-
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, ext.getIdUsuario());
-            stmt.setInt(2, ext.getIdFilial());
-            stmt.setInt(3, ext.getIdProduto());
-            stmt.setDouble(4, precoProd);
-            stmt.setDouble(5, ext.getQuantidade());
-            stmt.setDouble(6, (ext.getQuantidade() * precoProd));
-
-            stmt.executeUpdate();
-            conn.commit();
+            //         conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
 
         } catch (SQLException ex) {
             try {
@@ -139,30 +134,34 @@ public class VendaDAO extends Conexao {
             }
         }
     }
+    public double formataQtd(double x) {
+        double numero = x;
+        DecimalFormat formato = new DecimalFormat("#.###");
+        numero = Double.valueOf(formato.format(numero).replace(",", "."));
+        x = numero;
 
+        return x;
+    }
     public void vendaCombustivel(Combustivel comb) {
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         Connection conn = null;
 
-        String sql = "INSERT INTO VENDA (CPF, ID_FILIAL, ID_PRODUTO, PRECO_PRODUTO, QUANTIDADE, VALOR_VENDA, STATUS_VENDA)"
-                + " VALUES ('?', ?, ?, ?, ?, ?, TRUE)";
+        ProdutoDAO prod = new ProdutoDAO();
+        double precoProd = prod.buscaPreco(comb.getIdProduto());
+        double valorVenda = comb.getValorVenda();
+        double qtd = formataQtd(valorVenda / precoProd);
+
+        String sql = "INSERT INTO VENDA (CPF, ID_FILIAL, ID_PRODUTO, PRECO_PRODUTO,"
+                + " QUANTIDADE, VALOR_VENDA, STATUS_VENDA)"
+                + " VALUES ('" + comb.getIdUsuario() + "',"
+                + comb.getIdFilial() + "," + comb.getIdProduto() + ","
+                + precoProd + "," + qtd + "," + valorVenda + ", true)";
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
-            ProdutoDAO prod = new ProdutoDAO();
-            double precoProd = prod.buscaPreco(comb.getIdProduto());
-            double valorVenda = comb.getValorVenda();
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, comb.getIdUsuario());
-            stmt.setInt(2, comb.getIdFilial());
-            stmt.setInt(3, comb.getIdProduto());
-            stmt.setDouble(4, precoProd);
-            stmt.setDouble(5, (valorVenda / precoProd));
-            stmt.setDouble(6, valorVenda);
-
-            stmt.executeUpdate();
-            conn.commit();
+            //         conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
 
         } catch (SQLException ex) {
             try {
@@ -205,7 +204,7 @@ public class VendaDAO extends Conexao {
     public ArrayList<Produto> listarVenda(Date dataUm, Date dataDois) {
         Statement stmt = null;
         Connection conn = null;
-        
+
         // trasforma datas em string
         SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");
         String dataOne = formataData.format(dataUm);

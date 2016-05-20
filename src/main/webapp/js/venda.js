@@ -1,4 +1,8 @@
-
+window.onkeydown = function (event) {
+    if (event.which == 8 || event.which == 46 || event.which == 37 || event.which == 39   ) { 
+        limpaCampos();
+        }; 
+}; 
 function habilitaCampo(campo) {
     x = campo.value;
     tamanho = campo.length;
