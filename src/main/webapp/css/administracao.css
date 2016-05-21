@@ -51,6 +51,30 @@ span{
 	
 
 }
+#psq{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -350px;
+	margin-top: -185px;
+	z-index: 4;
+        	padding: 50px;
+
+}
+#psqCampo{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -205px;
+	margin-top: -135px;
+	
+}
+#btnCPF{
+    position: fixed;
+    width: 25px;
+    height: 23px;
+    z-index: 4;
+}
 
 button{
 	position:relative;
@@ -79,9 +103,4 @@ button:hover{
 #lblcargo{
     width: 67px;
 }
-#btnCPF{
-    position: relative;
-    width: 25px;
-    height: 23px;
-    
-}
+

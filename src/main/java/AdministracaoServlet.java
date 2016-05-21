@@ -46,6 +46,13 @@ public class AdministracaoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (request.getParameter("guiTeste") != null) {
+            doPost(request,response);
+        }
+         else {
+                 System.out.println("");
+        }
+
         processRequest(request, response);
         String idUser = request.getParameter("cpf");
         UsuarioDAO userDAO = new UsuarioDAO();
@@ -53,6 +60,7 @@ public class AdministracaoServlet extends HttpServlet {
         request.setAttribute("users", user);
         request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
+        
     }
 
     /**
