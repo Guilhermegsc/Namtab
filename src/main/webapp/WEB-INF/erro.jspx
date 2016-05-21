@@ -8,11 +8,10 @@
 
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <jsp:output omit-xml-declaration="true" doctype-root-element="HTML" doctype-system="about:legacy-compact"/>
-
     <html>
         <head>
-            <title>Posto - Relatorio</title>
-            <link rel="stylesheet" type="text/css" href="css/relatorio.css"/>
+            <title>Posto - Erro</title>
+            <link rel="stylesheet" type="text/css" href="css/erro.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
         </head>
 
@@ -40,37 +39,14 @@
                             <li>Alt Usuario</li>
                         </ul>
                     </li>
-                    
+
                 </ul>
-                
+
             </div>
-            
-            <p id="varUsuario" name="user">Bem-vindo, <br></br><c:out value="${usuario.nome}"/></p>
+            <div id="erro"></div>
+            <div id="msgerro"></div>
 
-            <form id="formulario" action="RelatorioServlet" method="post">
-                <fieldset>
-                    <legend>Dados de Relatorio</legend>
-                    <label class="infoPeriodo">Período Inicial: </label>
-                    <input type="date" name="pInicial" class="infoPeriodo"></input> <br></br>
-                    <label class="infoPeriodo">Período Final :    </label>
-                    <input type="date" name="pFinal" class="infoPeriodo"></input>
-
-
-                </fieldset>
-
-                <fieldset>
-                    <legend>Opções</legend>
-
-                    <button type="submit" class="btn">Extrair</button>                   
-
-                </fieldset>
-            </form>
-
-
-
-
-
-            <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
+        <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
 
         </body>
 

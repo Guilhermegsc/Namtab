@@ -1,0 +1,129 @@
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: "Srif", sans, verdana;
+    background-image: url(background_site.jpg);
+    background-repeat: repeat;
+}
+
+#menu {
+    position: relative;
+    width: 100%;
+    margin-top: -8px;
+    margin-left: -30px;
+    padding: 21px 70px;
+    background-color: rgba(0, 0, 0, 0.05);
+
+}
+#menu ul{
+    list-style:none;
+    margin: 0px;
+    padding: 0px;
+}
+
+#menu ul li{
+    text-align: center; 
+    margin-top: -20px;
+    margin-left: -45px;
+    margin-right: 45px;
+    float:left;
+    padding: 10px 40px;
+    border-top: 1px solid #ffffff;
+    cursor: pointer;
+    position: relative;
+    width: 100px;
+    color: rgba(0, 0, 0, 0.7);
+
+}
+#menu ul li a{
+
+}
+p#menu {
+    padding: 6px 40px;
+    margin-left: -60000px;
+
+}
+p#menu ul {
+    margin-top: 1000000px;
+
+}
+p#menu ul li{
+    margin-top: 0px;
+
+}
+p#menu li{
+    margin-top: 1000000px;
+
+}
+#menu ul li ul{
+    position: absolute;
+    top: 39px;
+    left: 45px;
+    display: none;
+}
+#menu ul li ul li{
+    margin-top: 0px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+#menu ul li:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 1);
+}
+#menu ul li:hover ul{
+    display: block;
+    margin-bottom: 200px;
+
+
+}
+#erro {
+
+    position: absolute;
+    margin-left: 40%;
+    margin-top:4%;
+    background-image: url(erro.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    width:300px;
+    height:300px;
+
+}
+#msgerro {
+
+    position: absolute;
+    margin-left: -33%;
+    margin-top:100%;
+    background-image: url(msgErro.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    width:500px;
+    height:70px;
+
+}
+#menu li{
+    display: inline-block;
+    margin-left: 30px;
+
+}
+
+#menu li:hover{
+    cursor: pointer;
+    text-decoration: underline;
+
+}
+a{
+    text-decoration: none;
+}
+a:link{
+    color: black;
+}
+
+span{
+    font-style: italic;
+    position: absolute;
+    left: 50.5%;
+    top: -52%;
+    margin-left: -165px;
+    margin-top: 380px;
+    font-size: 13px;
+}
+

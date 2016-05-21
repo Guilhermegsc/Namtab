@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author Anderson
  */
-public class UsuarioDAO {
+public class UsuarioDAO extends Conexao{
 
     public Usuario buscarUsuario(String cpf) {
         PreparedStatement stmt = null;
@@ -24,8 +24,7 @@ public class UsuarioDAO {
                 + "WHERE STATUS_USUARIO = TRUE AND CPF = '" + cpf + "' ";
         try {
 
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
 
             stmt = conn.prepareStatement(sql);
             ResultSet resultados = stmt.executeQuery();
@@ -76,8 +75,7 @@ public class UsuarioDAO {
         ArrayList<Usuario> lista = new ArrayList();
 
         try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
             stmt = conn.createStatement();
             ResultSet resultados = stmt.executeQuery(sql);
 
@@ -119,7 +117,7 @@ public class UsuarioDAO {
         return lista;
     }
     
-       public boolean efetuaLogin(String cpf, String senha) {
+    public boolean efetuaLogin(String cpf, String senha) {
         Statement stmt = null;
         Connection conn = null;
 
@@ -127,8 +125,7 @@ public class UsuarioDAO {
                 + "WHERE STATUS_USUARIO = TRUE AND CPF = '" + cpf + "' AND SENHA = '" + senha + "' ";
         try {
 
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
             stmt = conn.createStatement();
             ResultSet resultados = stmt.executeQuery(sql);
 
@@ -168,9 +165,6 @@ public class UsuarioDAO {
         return false;
     }
 
-
-
-
     public void incluirUsuario(Usuario us) {
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -178,8 +172,7 @@ public class UsuarioDAO {
         String sql = "INSERT INTO USUARIO(CPF,NOME,SENHA,ID_FILIAL,PERFIL,FUNCAO,STATUS_USUARIO) "
                 + "     VALUES (?,?,?,?,?,?,true)";
         try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
 
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -237,8 +230,7 @@ public class UsuarioDAO {
 
         String sql = "UPDATE USUARIO SET STATUS_USUARIO = FALSE WHERE CPF = '" + idUsuario + "'";
         try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
             //System.out.println("Registro incluido com sucesso.");
@@ -277,8 +269,7 @@ public class UsuarioDAO {
                 + " FUNCAO = '?' "
                 + " WHERE CPF = '?' ";
         try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
 
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -320,8 +311,7 @@ public class UsuarioDAO {
         // inserir usuario a ser alterado 
         String sql = "UPDATE USUARIO SET SENHA = '" + novaSenha + "' WHERE CPF = '" + idUsuario + "'";
         try {
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
 
             conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

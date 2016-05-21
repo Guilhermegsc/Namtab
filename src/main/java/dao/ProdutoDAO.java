@@ -20,20 +20,8 @@ import java.util.logging.Logger;
  *
  * @author Anderson
  */
-public class ProdutoDAO {
+public class ProdutoDAO extends Conexao{
 
-    private Connection obterConexao() throws SQLException, ClassNotFoundException {
-        Connection conn = null;
-        // Passo 1: Registrar driver JDBC.
-        Class.forName("org.apache.derby.jdbc.ClientDataSource");
-
-        // Passo 2: Abrir a conexão
-        conn = DriverManager.getConnection(
-                "jdbc:derby://localhost:1527/posto;SecurityMechanism=3",
-                "app", // usuario
-                "app"); // senha
-        return conn;
-    }
 
     public ArrayList<Produto> listaProduto() {
         Statement stmt = null;
@@ -171,9 +159,7 @@ public class ProdutoDAO {
 
         String sql = " SELECT PRECO FROM PRODUTO WHERE ID_PRODUTO = " + idProduto;
         try {
-
-            Conexao conexao = new Conexao();
-            conn = conexao.obterConexao();
+            conn = obterConexao();
 
             stmt = conn.createStatement();
 
