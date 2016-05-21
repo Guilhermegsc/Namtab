@@ -15,6 +15,7 @@
             <link rel="stylesheet" type="text/css" href="css/administracao.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
             <link rel="stylesheet" type="text/css" href="css/seta.css"/>
+            <script src="${pathResources}/Namtab/js/administracao.js"><jsp:text /></script>
         </head>
 
         <body>
@@ -29,10 +30,13 @@
 
                 </ul>
             </div>
-            <form id="formulario" action="AdministracaoServlet" method="post">
+            <form name="form" id="formulario" action="AdministracaoServlet">
+                <label class="labelformulario" id="psq">Pesquisar: </label> <input type="text" name="pesquisa" id="psqCampo" onblur="pesquisa();">${user.idUsuario}</input>
+                <br></br>
+                <br></br>
                 <fieldset>
                     <legend>Dados de Usuario</legend>
-                    <label class="labelformulario" id="lblcpf">CPF: </label> <input type="text" name="cpf">${user.idUsuario}</input><!--<button id="btnCPF"></button>--><br></br>
+                    <label class="labelformulario" id="lblcpf">CPF: </label> <input type="text" name="cpf">${user.idUsuario}</input><br></br>
                     <label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome">${user.nome}</input> <br></br>
                     <label class="labelformulario" id="lblcargo">Cargo: </label> 
                     <select name="cargo" >
@@ -55,8 +59,9 @@
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button id="novo" class="novo">Novo Usuário</button>
-                    <button type="submit" class="btn">Cadastrar</button>
+                    <button id="novo" class="novo" type="submit" formaction="AdministracaoServlet" method="get">Pesquisar</button>
+                    <button id="novo" class="novo" value="novo">Novo Usuário</button>
+                    <button name="guiTeste" type="submit" class="btn" value="pesquisa">Cadastrar</button>
                 </fieldset>
             </form>
 
