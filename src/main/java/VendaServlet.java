@@ -8,6 +8,7 @@ import dao.ProdutoDAO;
 import dao.VendaDAO;
 import entity.*;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,17 +46,18 @@ public class VendaServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        ProdutoDAO produto = new ProdutoDAO();
-        ArrayList<Produto> prod = new ArrayList<Produto>();
-        prod = produto.listaProduto();
-        request.getSession().setAttribute("prod", prod);
 
-        request.setAttribute("produto", prod);
+        preencheProdutos(request, response);
 
-        request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
+    }
 
-        //System.out.println(preco);
+    public double formataQtd(double x) {
+        double numero = x;
+        DecimalFormat formato = new DecimalFormat("#.###");
+        numero = Double.valueOf(formato.format(numero).replace(",", "."));
+        x = numero;
+
+        return x;
     }
 
     /**
@@ -70,61 +72,64 @@ public class VendaServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        //Produto prod = (Produto) request.getSession().getAttribute("prod");
-        int idProduto = Integer.parseInt(request.getParameter("produto"));
-        String cpf = usuario.getIdUsuario();
-        int idFilial = usuario.getIdFilial();
-
-        //double valor = Double.parseDouble(request.getParameter("valor").replace(",", "."));//hardcooode
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        double preco = produtoDAO.buscaPreco(idProduto);
-        // criar venda
-        VendaDAO venda = new VendaDAO();
-        if (idProduto <= 4) {
-            double valor = Double.parseDouble(request.getParameter("valor").replace(",", "."));
-            Combustivel com = new Combustivel(cpf, idFilial, idProduto, valor);
-            venda.vendaCombustivel(com);
-        } else if (idProduto == 5) {
-            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-            OleoLubrificante oleo = new OleoLubrificante(idProduto, cpf, idFilial, quantidade);
-            venda.vendaOleo(oleo);
-        } else if (idProduto == 6) {
-            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-            Extintor ext = new Extintor(idProduto, cpf, idFilial, quantidade);
-            venda.vendaExtintor(ext);
-        } else {
-            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-            OleoLubrificante oleo = new OleoLubrificante(idProduto, cpf, idFilial, quantidade);
-            venda.vendaOleo(oleo);
+        int idProduto = Integer.parseInt(request.getParameter("produto"));
+
+        if (efetuaVenda(request, response, usuario, produtoDAO, idProduto)) {
+            request.setAttribute("mensagem", "Venda efetuada com sucesso!");
+        }else{
+            request.setAttribute("mensagem", "Algo deu errado, por favor tente novamente.");
         }
 
-        // -----
-        request.setAttribute("mensagem", "Venda efetuada com sucesso!");
+        preencheProdutos(request, response);
+
+    }
+
+    public void preencheProdutos(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
         ProdutoDAO produto = new ProdutoDAO();
         ArrayList<Produto> prod = new ArrayList<Produto>();
         prod = produto.listaProduto();
         request.getSession().setAttribute("prod", prod);
 
         request.setAttribute("produto", prod);
-        request.setAttribute("variavel", "Ta vendo o que aconteceeu");
-
         request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
 
     }
 
-    /*   public void preencheProdutos(HttpServletRequest request, 
-     HttpServletResponse response) throws ServletException, IOException{
-     ProdutoDAO produto = new ProdutoDAO();
-     ArrayList<Produto> prod = new ArrayList<Produto>();
-     prod = produto.listaProduto();
-     request.getSession().setAttribute("prod", prod);
+    public boolean efetuaVenda(HttpServletRequest request,
+            HttpServletResponse response, Usuario usuario, ProdutoDAO produtoDAO, int idProduto) {
 
-     request.setAttribute("produto", prod);
-     request.setAttribute("variavel", "Ta vendo o que aconteceeu");
+        String cpf = usuario.getIdUsuario();
+        int idFilial = usuario.getIdFilial();
 
-     request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
-        
-     } */
+        // criar venda
+        VendaDAO venda = new VendaDAO();
+        if (idProduto <= 4) {
+            double valor = Double.parseDouble(request.getParameter("valor").replace(",", "."));
+            Combustivel com = new Combustivel(cpf, idFilial, idProduto, valor);
+            venda.vendaCombustivel(com);
+            return true;
+        } else if (idProduto == 5) {
+            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            OleoLubrificante oleo = new OleoLubrificante(idProduto, cpf, idFilial, quantidade);
+            venda.vendaOleo(oleo);
+            return true;
+        } else if (idProduto == 6) {
+            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            Extintor ext = new Extintor(idProduto, cpf, idFilial, quantidade);
+            venda.vendaExtintor(ext);
+            return true;
+        } else {
+            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            OleoLubrificante oleo = new OleoLubrificante(idProduto, cpf, idFilial, quantidade);
+            venda.vendaOleo(oleo);
+            return true;
+        }
+       
+    }
+
     /**
      * Returns a short description of the servlet.
      *

@@ -123,9 +123,16 @@ function validar() {
     } else if (valor == "" || qtd == "") {
         alert("Por favor, preencha os campos");
         return false;
-    } else{
-        return true;
+    } else {
+        x = confirmar();
+        return x;
     }
+}
 
-
+function confirmar() {
+    if (confirm("Confirma os valores?")) {
+        return true;
+    } else {
+        return false;
+    }
 }
