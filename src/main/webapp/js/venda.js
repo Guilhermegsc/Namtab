@@ -120,7 +120,7 @@ function validar() {
     if (prod == "") {
         alert("Por favor, selecione o produto");
         return false;
-    } else if (valor == "" || qtd == "") {
+    } else if (valor == "" || qtd == "" || valor == 0 || qtd == 0) {
         alert("Por favor, preencha os campos");
         return false;
     } else {

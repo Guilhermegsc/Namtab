@@ -20,8 +20,7 @@
         </head>
 
         <body>
-            
-            
+                       
             <input type="hidden" id="mensagem" value="${mensagem}"/>
 
             <div id="nav">
@@ -50,12 +49,12 @@
 
                     <label id="quantidadeProduto" class="labelformulario">Un/Lt:</label>
                     <input type="number" min="1" id="quantidade" class="inputs" name="quantidade" disabled="true" 
-                           onchange="calcValor(this.value, produto)" ></input>
+                           autocomplete="off" onchange="calcValor(this.value, produto)" ></input>
                     <br/>
 
                     <label class="labelformulario">Valor R$:</label>
                     <input type="text" maxlength="6" name="valor" id="valor" class="inputs" disabled="true"
-                           onkeypress="return(MascaraMoeda(this, '.', ',', event, produto))" ></input>
+                         autocomplete="off" onkeypress="return(MascaraMoeda(this, '.', ',', event, produto))" ></input>
                     <br/>
 
 

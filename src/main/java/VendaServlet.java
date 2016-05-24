@@ -21,70 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class VendaServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        preencheProdutos(request, response);
-
-    }
-
-    public double formataQtd(double x) {
-        double numero = x;
-        DecimalFormat formato = new DecimalFormat("#.###");
-        numero = Double.valueOf(formato.format(numero).replace(",", "."));
-        x = numero;
-
-        return x;
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        int idProduto = Integer.parseInt(request.getParameter("produto"));
-
-        if (efetuaVenda(request, response, usuario, produtoDAO, idProduto)) {
-            request.setAttribute("mensagem", "Venda efetuada com sucesso!");
-        }else{
-            request.setAttribute("mensagem", "Algo deu errado, por favor tente novamente.");
-        }
-
-        preencheProdutos(request, response);
-
-    }
-
     public void preencheProdutos(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
@@ -127,7 +63,62 @@ public class VendaServlet extends HttpServlet {
             venda.vendaOleo(oleo);
             return true;
         }
-       
+
+    }
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        preencheProdutos(request, response);
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        int idProduto = Integer.parseInt(request.getParameter("produto"));
+
+        if (efetuaVenda(request, response, usuario, produtoDAO, idProduto)) {
+            request.setAttribute("mensagem", "Venda efetuada com sucesso!");
+        } else {
+            request.setAttribute("mensagem", "Algo deu errado, por favor tente novamente.");
+        }
+
+        preencheProdutos(request, response);
+
     }
 
     /**
