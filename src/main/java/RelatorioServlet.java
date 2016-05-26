@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -58,8 +59,6 @@ public class RelatorioServlet extends HttpServlet {
         request.setAttribute("variavel", "Ta vendo o que aconteceeu");
         request.getRequestDispatcher("WEB-INF/relatorio.jspx").forward(request, response);
 
-   
-
     }
 
     /**
@@ -72,9 +71,9 @@ public class RelatorioServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-        
+
         String dtInicial = request.getParameter("pInicial");
         String dtFinal = request.getParameter("pFinal");
 
@@ -82,30 +81,27 @@ public class RelatorioServlet extends HttpServlet {
         Date dataInicial = null;
 
         try {
+
             dataInicial = (Date) formatter.parse(dtInicial);
-        } catch (ParseException ex) {
-            Logger.getLogger(RelatorioServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Date dataFinal = null;
-        try {
+            Date dataFinal = null;
             dataFinal = (Date) formatter.parse(dtFinal);
-        } catch (ParseException ex) {
-            Logger.getLogger(RelatorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Relatorio relatorio = new Relatorio();
+            HSSFWorkbook wb = relatorio.relatorioVenda(dataInicial, dataFinal);
+
+            ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
+            wb.write(outByteStream);
+            byte[] outArray = outByteStream.toByteArray();
+            response.setContentType("application/ms-excel");
+            response.setContentLength(outArray.length);
+            response.setHeader("Expires:", "0");
+            response.setHeader("Content-Disposition", "attachment; filename=vendas.xls");
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(outArray);
+            outStream.flush();
+        } catch (Exception ex) {
+            RequestDispatcher r = request.getRequestDispatcher("WEB-INF/erro.jspx");
+            r.forward(request, response);
         }
-
-        Relatorio relatorio = new Relatorio();
-        HSSFWorkbook wb = relatorio.relatorioVenda(dataInicial, dataFinal);
-
-        ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
-        wb.write(outByteStream);
-        byte[] outArray = outByteStream.toByteArray();
-        response.setContentType("application/ms-excel");
-        response.setContentLength(outArray.length);
-        response.setHeader("Expires:", "0");
-        response.setHeader("Content-Disposition", "attachment; filename=vendas.xls");
-        OutputStream outStream = response.getOutputStream();
-        outStream.write(outArray);
-        outStream.flush();
 
     }
 

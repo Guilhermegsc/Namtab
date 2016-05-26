@@ -8,8 +8,6 @@ package entity;
 import dao.ProdutoDAO;
 import dao.UsuarioDAO;
 import dao.VendaDAO;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,12 +26,11 @@ import org.apache.poi.ss.util.CellRangeAddress;
  */
 public class Relatorio {
 
-public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim) {
+    public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim) {
 
         //cria planilha
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet firstSheet = workbook.createSheet("VENDAS");
-
 
         try {
 
@@ -98,22 +95,18 @@ public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim) {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erro ao exportar arquivo");
-        } 
-        
+        }
+
         return workbook;
     }
 
-
-    public void relatorioUsuario(String nomeArquivo) {
+    public HSSFWorkbook relatorioUsuario() {
 
         //cria planilha
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet firstSheet = workbook.createSheet("USUARIO");
 
-        FileOutputStream fos = null;
-
         try {
-            fos = new FileOutputStream(new File(nomeArquivo + ".xls"));
 
             //Formatando a fonte
             HSSFFont fonte = workbook.createFont();
@@ -163,31 +156,21 @@ public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim) {
             } // fim do for
 
             firstSheet.setAutoFilter(CellRangeAddress.valueOf("A1:K" + i));
-            workbook.write(fos);
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erro ao exportar arquivo");
-        } finally {
-            try {
-                fos.flush();
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
+        return workbook;
     }
 
-    public void relatorioProduto(String nomeArquivo) {
+    public HSSFWorkbook relatorioProduto() {
 
         //cria planilha
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet firstSheet = workbook.createSheet("USUARIO");
 
-        FileOutputStream fos = null;
-
         try {
-            fos = new FileOutputStream(new File(nomeArquivo + ".xls"));
 
             //Formatando a fonte
             HSSFFont fonte = workbook.createFont();
@@ -261,20 +244,13 @@ public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim) {
             } // fim do for
 
             firstSheet.setAutoFilter(CellRangeAddress.valueOf("A1:K" + i));
-            workbook.write(fos);
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erro ao exportar arquivo");
-        } finally {
-            try {
-                fos.flush();
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-    }
 
+        return workbook;
+    }
 
 }
