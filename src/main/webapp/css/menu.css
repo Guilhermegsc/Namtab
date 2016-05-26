@@ -1,23 +1,80 @@
 body{
-	font-family: "Srif", sans, verdana;
-	background-image: url(background_site.jpg);
-	background-repeat: no-repeat;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: "Srif", sans, verdana;
+    background-image: url(background_site.jpg);
+    background-repeat: repeat;
 }
 
-#nav{
+#menu {
+    position: relative;
+    width: 100%;
+    margin-top: -8px;
+    margin-left: -30px;
+    padding: 21px 70px;
+    background-color: rgba(0, 0, 0, 0.05);
 
 }
-
-#menu li{
-	display: inline-block;
-	margin-left: 30px;
-	
+#menu ul{
+    list-style:none;
+    margin: 0px;
+    padding: 0px;
 }
 
-#menu li:hover{
-	cursor: pointer;
-	text-decoration: underline;
-	
+#menu ul li{
+    text-align: center; 
+    margin-top: -20px;
+    margin-left: -45px;
+    margin-right: 45px;
+    float:left;
+    padding: 10px 40px;
+    border-top: 1px solid #ffffff;
+    cursor: pointer;
+    position: relative;
+    width: 100px;
+    color: rgba(0, 0, 0, 0.7);
+
+}
+#menu ul li a{
+
+}
+p#menu {
+    padding: 6px 40px;
+    margin-left: -60000px;
+
+}
+p#menu ul {
+    margin-top: 1000000px;
+
+}
+p#menu ul li{
+    margin-top: 0px;
+
+}
+p#menu li{
+    margin-top: 1000000px;
+
+}
+#menu ul li ul{
+    position: absolute;
+    top: 39px;
+    left: 45px;
+    display: none;
+}
+#menu ul li ul li{
+    margin-top: 0px;
+    background-color: rgba(0, 0, 0, 0.05);
+    z-index: 2;
+}
+#menu ul li:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 1);
+}
+#menu ul li:hover ul{
+    display: block;
+    margin-bottom: 200px;
+
+
 }
 a{
 	text-decoration: none;
@@ -30,9 +87,9 @@ span{
 	font-style: italic;
 	position: absolute;
 	left: 50%;
-	top: 50%;
+	top: 10%;
 	margin-left: -165px;
-	margin-top: 380px;
+	margin-top: 39.5%;
 	font-size: 13px;
 }
 

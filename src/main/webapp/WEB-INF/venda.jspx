@@ -23,16 +23,36 @@
                        
             <input type="hidden" id="mensagem" value="${mensagem}"/>
 
-            <div id="nav">
-                <ul id="menu">
-                    <a href="NamtabServlet"><li>Home</li></a>
-                    <a href="RelatorioServlet"><li>Relatório</li></a>
-                    <a href="AdministracaoServlet"><li>Administração</li></a>
-                    <a href="VendaServlet"><li>Venda</li></a>
-                    <p id="varUsuario" name="user">Bem-vindo, <br></br><c:out value="${usuario.nome}"/></p>
+            <div id="menu">
+                <ul>
+                    <li><a href="NamtabServlet">Home</a>
+                        <ul> 
+                            <li>Alt Senha</li>
+                            <li><a href="LoginServlet">LogOut</a></li>
+                        </ul>
+                    </li> 
+                    <li><a href="VendaServlet">Venda</a></li>
+                    <li>Relatório
+                        <ul> 
+                            <li><a href="RelatorioServlet">Venda</a></li>
+                            <li>Produto</li>
+                            <li>Usuario</li>
+                        </ul>
+                    </li>
+                    <li>Administração
+                        <ul> 
+                            <li><a href="AdministracaoServlet">Novo Usuario</a></li>
+                            <li>Alt Usuario</li>
+                        </ul>
+                    </li>
 
                 </ul>
+
             </div>
+            
+            
+        
+
 
             <form id="formulario" action="VendaServlet" method="post">
                 <fieldset>

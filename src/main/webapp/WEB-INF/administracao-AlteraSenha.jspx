@@ -18,21 +18,31 @@
 
         <body>
 
-            <div id="nav">
-                <ul id="menu">
-                    <li><a href="NamtabServlet">Home</a></li>
-                    <li><a href="RelatorioServlet">Relatório</a></li>
-                    <li>Administração
+            <div id="menu">
+                <ul>
+                    <li><a href="NamtabServlet">Home</a>
                         <ul> 
-                            <li><a href="AdministracaoServlet">Cadastrar Usuário</a></li>
-                            <li><a href="AdministracaoServlet">Alterar cadastro</a></li>
-                            <li><a href="AdministracaoAlteraSenhaServlet">Alterar senha</a></li>
+                            <li>Alt Senha</li>
+                            <li><a href="LoginServlet">LogOut</a></li>
+                        </ul>
+                    </li> 
+                    <li><a href="VendaServlet">Venda</a></li>
+                    <li>Relatório
+                        <ul> 
+                            <li><a href="RelatorioServlet">Venda</a></li>
+                            <li>Produto</li>
+                            <li>Usuario</li>
                         </ul>
                     </li>
-                    <li><a href="VendaServlet">Venda</a></li>
-                    <p id="varUsuario">Welcome, <c:out value="${usuario}"/></p>
+                    <li>Administração
+                        <ul> 
+                            <li><a href="AdministracaoServlet">Novo Usuario</a></li>
+                            <li>Alt Usuario</li>
+                        </ul>
+                    </li>
 
                 </ul>
+
             </div>
             <form id="formulario" action="AdministracaoAlteraSenhaServlet" method="get">
                 <fieldset>

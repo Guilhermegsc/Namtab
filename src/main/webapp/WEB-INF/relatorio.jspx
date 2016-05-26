@@ -40,12 +40,11 @@
                             <li>Alt Usuario</li>
                         </ul>
                     </li>
-                    
+
                 </ul>
-                
+
             </div>
             
-            <p id="varUsuario" name="user">Bem-vindo, <br></br><c:out value="${usuario.nome}"/></p>
 
             <form id="formulario" action="RelatorioServlet" method="post">
                 <fieldset>
