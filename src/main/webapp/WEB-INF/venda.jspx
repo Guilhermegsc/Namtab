@@ -35,8 +35,8 @@
                     <li>Relatório
                         <ul> 
                             <li><a href="RelatorioServlet">Venda</a></li>
-                            <li>Produto</li>
-                            <li>Usuario</li>
+                            <li><a href="RelatorioProdutoServlet">Produto</a></li>
+                            <li><a href="RelatorioUsuarioServlet">Usuario</a></li>
                         </ul>
                     </li>
                     <li>Administração

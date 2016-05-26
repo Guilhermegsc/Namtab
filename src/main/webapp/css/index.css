@@ -9,12 +9,12 @@ body{
 #formulariologin{
     position: relative;
     width: 400px;
-    left: 55%;
-    top: 50%;
+    left: 57%;
+    top: 65%;
     margin-left: -80%;
-    margin-top: 20%;
+    margin-top: 10%;
     background: rgba(200,200,200,0.2);
-    padding: 50px;
+    padding: 30px;
 
 }
 
