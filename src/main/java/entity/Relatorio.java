@@ -155,7 +155,7 @@ public class Relatorio {
 
             } // fim do for
 
-            firstSheet.setAutoFilter(CellRangeAddress.valueOf("A1:K" + i));
+            firstSheet.setAutoFilter(CellRangeAddress.valueOf("A1:E" + i));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,7 +168,7 @@ public class Relatorio {
 
         //cria planilha
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet firstSheet = workbook.createSheet("USUARIO");
+        HSSFSheet firstSheet = workbook.createSheet("PRODUTO");
 
         try {
 
@@ -243,7 +243,7 @@ public class Relatorio {
 
             } // fim do for
 
-            firstSheet.setAutoFilter(CellRangeAddress.valueOf("A1:K" + i));
+            firstSheet.setAutoFilter(CellRangeAddress.valueOf("A1:F" + i));
 
         } catch (Exception e) {
             e.printStackTrace();
