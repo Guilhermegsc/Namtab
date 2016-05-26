@@ -58,7 +58,7 @@ span{
 	margin-left: -350px;
 	margin-top: -185px;
 	z-index: 4;
-        	padding: 50px;
+        padding: 50px;
 
 }
 #psqCampo{
@@ -84,6 +84,7 @@ button{
 	border: #fff;
 	width: 100px;
 	height: 30px;
+        font-weight: bold;
 }
 
 button:hover{

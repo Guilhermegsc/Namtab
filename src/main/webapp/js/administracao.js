@@ -2,6 +2,7 @@ window.addEventListener("load", iniciar);
 function iniciar() {
    
 }
-function pesquisa(){
-    
+function pesquisar(){
+    document.querySelector("form").submit();
+
 }

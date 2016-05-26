@@ -46,21 +46,21 @@ public class AdministracaoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("guiTeste") != null) {
-            doPost(request,response);
-        }
-         else {
-                 System.out.println("");
-        }
+        if (request.getParameter("cadastrar") != null) {
+            doPost(request, response);
+        } else if (request.getParameter("novo") != null) {
+            processRequest(request, response);
+            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
-        processRequest(request, response);
-        String idUser = request.getParameter("cpf");
-        UsuarioDAO userDAO = new UsuarioDAO();
-        Usuario user = userDAO.buscarUsuario(idUser);
-        request.setAttribute("users", user);
-        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+        } else {
+            processRequest(request, response);
+            String idUser = request.getParameter("pesquisa");
+            UsuarioDAO userDAO = new UsuarioDAO();
+            Usuario user = userDAO.buscarUsuario(idUser);
+            request.setAttribute("user", user);
 
-        
+            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+        }
     }
 
     /**
