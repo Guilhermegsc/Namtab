@@ -35,9 +35,8 @@ button{
 #logo{
     position: absolute;
     left: 50%;
-    top:60%;
+    top: 5%;
     margin-left: -85px;
-    margin-top: -375px;
     background-image: url(icone.png);
     background-position: center center;
     background-repeat: no-repeat;
