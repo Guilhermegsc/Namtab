@@ -14,10 +14,12 @@
             <title>Posto - Administração</title>
             <link rel="stylesheet" type="text/css" href="css/administracao-AlteraProduto.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            <script src="${pathResources}/Namtab/js/AlteraProduto.js"><jsp:text /></script>
+
         </head>
 
         <body>
-
+            <input type="hidden" id="mensagem" value="${mensagem}"/>
             <div id="menu">
                 <ul>
                     <li><a href="NamtabServlet">Home</a>
@@ -44,24 +46,30 @@
                 </ul>
 
             </div>
-            <form id="formulario" action="AdministracaoAlteraProdutoServlet" method="get">
+            <form id="formulario" action="AdministracaoAlteraProdutoServlet" method="post">
                 <fieldset>
                     <legend>Produto</legend>
                     <label class="labelformulario" id="lblcargo">Produto: </label> 
-                    <select name="usuario" >
-                        <option>Gerente</option>
-                        <option>Frentista</option>
-                        <option>Vendedor</option>
-
+                    <select name="produto" id="produto" onchange="preenchePreco(this)">
+                        <option></option>
+                        <c:forEach items="${produto}" var="prod">
+                            <option value="${prod.idProduto}" data-preco="${prod.preco}" 
+                                    data-tipo="${prod.tipo}" data-nome="${prod.nomeProduto}"> 
+                                <c:out value="${prod.nomeProduto}"/></option>
+                            </c:forEach>
                     </select>
-                    <label class="labelformulario">Preço: </label> <input type="text" name="senha"> </input><br></br>
+                        
+                    <label class="labelformulario">Preço Atual:</label>
+                    <input type="text" name="PrecoAtual" id="PrecoAtual" disabled="true"> </input><br></br>    
+                    <label class="labelformulario">Novo Preço: </label> <input type="text" autocomplete="off"
+                          maxlength="6" name="novoPreco" id="novoPreco" onkeypress="return MascaraMoeda(this, '.', ',', event)"> </input><br></br>
 
 
                 </fieldset>
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button type="submit" class="btn">Alterar</button>
+                    <button type="submit" class="btn" onclick="return validar(produto)">Alterar</button>
                 </fieldset>
             </form>
 

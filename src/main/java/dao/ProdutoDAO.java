@@ -96,23 +96,25 @@ public class ProdutoDAO extends Conexao{
         return lista;
     }
 
-    public void atualizarProduto(Produto prod) {
-        PreparedStatement stmt = null;
+    public void atualizarProduto(int idProduto, double novoPreco) {
+        Statement stmt = null;
         Connection conn = null;
 
-        String sql = " UPDATE INTO PRODUTO (PRECO, DATA_MODIFICACAO) "
-                + " VALUES (?, ?) WHERE ID_PRODUTO = '?' ";
+        String sql = " UPDATE PRODUTO SET PRECO = "
+                +novoPreco+" WHERE ID_PRODUTO = "+idProduto;
         try {
             conn = obterConexao();
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
 
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
+     /*       conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
             stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setDouble(1, prod.getPreco());
-            stmt.setDate(2, new java.sql.Date(System.currentTimeMillis()));
-            stmt.setInt(1, prod.getIdProduto());
+            stmt.setDouble(1, novoPreco);
+            stmt.setInt(1, idProduto);
 
             stmt.executeUpdate();
-            conn.commit();
+            conn.commit();*/
+            
 
         } catch (SQLException ex) {
             try {
