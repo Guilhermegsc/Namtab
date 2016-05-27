@@ -14,6 +14,7 @@
             <title>Posto - Relatorio</title>
             <link rel="stylesheet" type="text/css" href="css/relatorio.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            <script src="${pathResources}/Namtab/js/relatorioVenda.js"><jsp:text /></script>
         </head>
 
         <body>
@@ -50,9 +51,9 @@
                 <fieldset>
                     <legend>Dados de Relatorio</legend>
                     <label class="infoPeriodo">Período Inicial: </label>
-                    <input type="date" name="pInicial" class="infoPeriodo"></input> <br></br>
+                    <input type="date" name="pInicial" class="infoPeriodo" id="dataI"></input> <br></br>
                     <label class="infoPeriodo">Período Final :    </label>
-                    <input type="date" name="pFinal" class="infoPeriodo"></input>
+                    <input type="date" name="pFinal" class="infoPeriodo" id="dataF"></input>
 
 
                 </fieldset>
@@ -60,14 +61,10 @@
                 <fieldset>
                     <legend>Opções</legend>
 
-                    <button type="submit" class="btn">Extrair</button>                   
+                    <button type="submit" class="btn" onclick="return validaDatas()">Extrair</button>                   
 
                 </fieldset>
             </form>
-
-
-
-
 
             <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
 
