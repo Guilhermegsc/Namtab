@@ -22,7 +22,7 @@
                 <ul>
                     <li><a href="NamtabServlet">Home</a>
                         <ul> 
-                            <li>Alt Senha</li>
+                            <li><a href="AlteraSenhaServlet">Alterar Senha</a></li>
                             <li><a href="LoginServlet">LogOut</a></li>
                         </ul>
                     </li> 
@@ -36,8 +36,8 @@
                     </li>
                     <li>Administração
                         <ul> 
-                            <li><a href="AdministracaoServlet">Novo Usuario</a></li>
-                            <li>Alt Usuario</li>
+                            <li><a href="AdministracaoServlet">Usuários</a></li>
+                            <li><a href="AdministracaoAlteraProdutoServlet">Produtos</a></li>
                         </ul>
                     </li>
 

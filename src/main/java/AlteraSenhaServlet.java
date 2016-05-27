@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Guilherme Gomes
  */
-public class AdministracaoAlteraSenhaServlet extends HttpServlet {
+public class AlteraSenhaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
