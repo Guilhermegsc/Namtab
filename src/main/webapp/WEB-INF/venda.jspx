@@ -68,8 +68,8 @@
                     </select>
 
                     <label id="quantidadeProduto" class="labelformulario">Un/Lt:</label>
-                    <input type="number" min="1" id="quantidade" class="inputs" name="quantidade" disabled="true" 
-                           autocomplete="off" onchange="calcValor(this.value, produto)" ></input>
+                    <input type="text"  id="quantidade" class="inputs" name="quantidade" disabled="true" 
+                           autocomplete="off" onkeypress=" return calcValor(event, produto)" ></input>
                     <br/>
 
                     <label class="labelformulario">Valor R$:</label>

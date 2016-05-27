@@ -62,9 +62,9 @@ public class AdministracaoAlteraProdutoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         preencheProdutos(request, response);
-        
+
         /*request.getRequestDispatcher("WEB-INF/administracao-AlteraProduto.jspx").forward(request, response);
         String idUsuario = request.getParameter("cpf");
         String nome = request.getParameter("nome");
@@ -77,9 +77,7 @@ public class AdministracaoAlteraProdutoServlet extends HttpServlet {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.incluirUsuario(usuario);
         System.out.println("aeeeee");
-        */
-        
-
+         */
     }
 
     /**
@@ -94,21 +92,26 @@ public class AdministracaoAlteraProdutoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
         int idProduto = Integer.parseInt(request.getParameter("produto"));
         double novoPreco = Double.parseDouble(request.getParameter("novoPreco").replace(",", "."));
-        
-        alteraPreco(idProduto, novoPreco);
-        request.setAttribute("mensagem", "Preco atualizado!");
+
+        if (novoPreco <= 0) {
+            request.setAttribute("mensagem", "Houve um problema. Tente novamente.");
+        } else {
+            alteraPreco(idProduto, novoPreco);
+            request.setAttribute("mensagem", "Preco atualizado!");
+        }
+
         preencheProdutos(request, response);
-        
+
     }
-    
-    public static void alteraPreco(int idProduto, double novoPreco){
+
+    public static void alteraPreco(int idProduto, double novoPreco) {
         ProdutoDAO p = new ProdutoDAO();
         p.atualizarProduto(idProduto, novoPreco);
-        
+
     }
 
     /**

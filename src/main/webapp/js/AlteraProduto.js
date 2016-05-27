@@ -35,6 +35,7 @@ window.onkeydown = function (event) {
 function preenchePreco(prod) {
     preco = prod.selectedOptions[0].getAttribute("data-preco");
     document.getElementById("PrecoAtual").value = preco;
+    document.getElementById("novoPreco").value = "";
     document.getElementById("novoPreco").focus();
 }
 

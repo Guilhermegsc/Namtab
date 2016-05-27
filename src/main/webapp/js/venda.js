@@ -18,7 +18,7 @@ function habilitaCampo(campo) {
 
     if (x >= 1 && x <= 4) {
         document.getElementById("valor").disabled = false;
-        document.getElementById("quantidade").disabled = true;
+        document.getElementById("quantidade").disabled = false;
         document.getElementById("valor").focus();
     } else if (x >= 5 && x <= tamanho) {
         document.getElementById("quantidade").disabled = false;
@@ -37,15 +37,25 @@ function limpaCampos() {
     document.getElementById("valor").value = "";
 }
 
-function calcValor(qtd, campo) {
-    preco = campo.selectedOptions[0].getAttribute("data-preco");
-    result = parseFloat(preco * qtd).toFixed(2);
-    if (result >= 1000) {
-        alert("O valor maximo é de R$999,99.");
-        document.getElementById("quantidade").value--;
-    } else {
-        document.getElementById("valor").value = result.replace(".", ",");
+function calcValor(e, campo) {
+    if (SomenteNumero(e)) {
+        qtd = document.getElementById("quantidade").value;
+        var whichCode = (window.Event) ? e.which : e.keyCode;
+        qtd += String.fromCharCode(whichCode);
+
+        preco = campo.selectedOptions[0].getAttribute("data-preco");
+        result = parseFloat(preco * qtd).toFixed(2);
+        if (result >= 1000) {
+            alert("O valor maximo é de R$999,99.");
+            return false;
+        } else {
+            document.getElementById("valor").value = result.replace(".", ",");
+        }
+    }else{
+        limpaCampos();
+        return false;
     }
+
 }
 
 function calcLitros(valor, campo) {
@@ -78,6 +88,7 @@ function MascaraMoeda(objTextBox, SeparadorMilesimo, SeparadorDecimal, e, campo)
             if (strCheck.indexOf(objTextBox.value.charAt(i)) != -1)
                 aux += objTextBox.value.charAt(i);
         aux += key;
+
         len = aux.length;
         if (len == 0)
             objTextBox.value = '';
@@ -134,5 +145,17 @@ function confirmar() {
         return true;
     } else {
         return false;
+    }
+}
+
+function SomenteNumero(e) {
+    var tecla = (window.event) ? event.keyCode : e.which;
+    if ((tecla > 47 && tecla < 58))
+        return true;
+    else {
+        if (tecla == 8 || tecla == 0)
+            return true;
+        else
+            return false;
     }
 }
