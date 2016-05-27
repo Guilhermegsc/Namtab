@@ -49,7 +49,7 @@ public class ProdutoDAO extends Conexao{
                 switch (tipo) {
 
                     case "COMB":  // lista combustivel   
-                        Produto com = new Produto(idProduto, nome, preco, tipo);
+                        Combustivel com = new Combustivel(idProduto, nome, preco, tipo);
                         lista.add(com);
                         break;
                     case "PROD":
