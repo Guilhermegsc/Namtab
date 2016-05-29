@@ -23,7 +23,7 @@
                     <li><a href="NamtabServlet">Home</a>
                         <ul> 
                             <li><a href="AlteraSenhaServlet">Alterar Senha</a></li>
-                            <li><a href="LoginServlet">LogOut</a></li>
+                            <li><a href="LogoutServlet">LogOut</a></li>
                         </ul>
                     </li> 
                     <li><a href="VendaServlet">Venda</a></li>
