@@ -74,8 +74,9 @@
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button name="novo" id="novo" class="novo" type="submit" value="novo">Novo Usuário</button>
-                    <button name="cadastrar" type="submit" class="btn" value="cadastrar">Cadastrar</button>
+                    <button name="exclui" type="submit" value="exclui" id="exclui">Excluir Usuário</button>
+                    <button name="novo" type="submit" value="novo" id="novo">Novo Usuário</button>
+                    <button name="cadastrar" type="submit" value="cadastrar">Cadastrar</button>
                 </fieldset>
             </form>
 

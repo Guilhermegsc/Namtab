@@ -163,4 +163,18 @@ button:hover{
 #lblcargo{
     width: 67px;
 }
+#novo{
+    height: 30px;
+    width: 130px;
+    margin-left: -12%;
+    position: absolute;
+    font-weight: bold;
+}
+#exclui{
+    height: 30px;
+    width: 130px;
+    margin-left: -33.5%;
+    position: absolute;
+    font-weight: bold;
+}
 
