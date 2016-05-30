@@ -46,7 +46,7 @@
                 </ul>
 
             </div>
-            <form name="form" id="formulario" action="AdministracaoServlet">
+            <form name="form" id="formulario" action="AdministracaoServlet" method="post">
                 <label class="labelformulario" id="psq">Pesquisar: </label> <input type="text" name="pesquisa" id="psqCampo" onblur="pesquisar();"></input>
                 <br></br>
                 <br></br>

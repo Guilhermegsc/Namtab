@@ -63,28 +63,8 @@ public class AdministracaoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         preencheFiliais(request, response);
-        
-        if (request.getParameter("cadastrar") != null) {
-            doPost(request, response);
-        } else if (request.getParameter("novo") != null) {
-            processRequest(request, response);
-            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
-        } else if (request.getParameter("exclui") != null) {
-            processRequest(request, response);
-            String idUser = request.getParameter("cpf");
-            UsuarioDAO userDAO = new UsuarioDAO();
-            userDAO.inativarUsuario(idUser);
-            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
-        } else {
-            processRequest(request, response);
-            String idUser = request.getParameter("pesquisa");
-            UsuarioDAO userDAO = new UsuarioDAO();
-            Usuario user = userDAO.buscarUsuario(idUser);
-            request.setAttribute("user", user);
-
-            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
-        }
     }
 
     /**
@@ -98,21 +78,39 @@ public class AdministracaoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        preencheFiliais(request, response);
         processRequest(request, response);
+        if (request.getParameter("cadastrar") != null) {
+            String idUsuario = request.getParameter("cpf");
+            String nome = request.getParameter("nome");
+            String senha = request.getParameter("senha");
+            int idFilial = Integer.parseInt(request.getParameter("idFilial"));
+            int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+            String funcao = request.getParameter("cargo");
 
-        String idUsuario = request.getParameter("cpf");
-        String nome = request.getParameter("nome");
-        String senha = request.getParameter("senha");
-        int idFilial = Integer.parseInt(request.getParameter("idFilial"));
-        int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-        String funcao = request.getParameter("cargo");
+            Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioDAO.incluirUsuario(usuario);
+            System.out.println("aeeeee");
+        } else if (request.getParameter("novo") != null) {
+            processRequest(request, response);
+            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
-        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.incluirUsuario(usuario);
-        System.out.println("aeeeee");
+        } else if (request.getParameter("exclui") != null) {
+            processRequest(request, response);
+            String idUser = request.getParameter("cpf");
+            UsuarioDAO userDAO = new UsuarioDAO();
+            userDAO.inativarUsuario(idUser);
+            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+        } else {
 
-        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+            processRequest(request, response);
+            String idUser = request.getParameter("pesquisa");
+            UsuarioDAO userDAO = new UsuarioDAO();
+            Usuario user = userDAO.buscarUsuario(idUser);
+            request.setAttribute("user", user);
+            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+        }
 
     }
 
