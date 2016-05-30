@@ -13,6 +13,7 @@
             <title>Posto - Erro</title>
             <link rel="stylesheet" type="text/css" href="css/erro.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
         </head>
 
         <body>

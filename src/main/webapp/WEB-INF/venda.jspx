@@ -14,6 +14,7 @@
             <title>Posto - Venda</title>   
             <link rel="stylesheet" type="text/css" href="css/venda.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
             <script src="${pathResources}/Namtab/js/venda.js"><jsp:text /></script>
 
 
