@@ -48,7 +48,7 @@
             </div>
             <form id="formulario" action="AdministracaoAlteraProdutoServlet" method="post">
                 <fieldset>
-                    <legend>Produto</legend>
+                    <legend>Alterar Preço</legend>
                     <label class="labelformulario" id="lblcargo">Produto: </label> 
                     <select name="produto" id="produto" onchange="preenchePreco(this)">
                         <option></option>
