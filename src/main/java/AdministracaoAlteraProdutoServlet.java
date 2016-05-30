@@ -64,20 +64,6 @@ public class AdministracaoAlteraProdutoServlet extends HttpServlet {
         processRequest(request, response);
 
         preencheProdutos(request, response);
-
-        /*request.getRequestDispatcher("WEB-INF/administracao-AlteraProduto.jspx").forward(request, response);
-        String idUsuario = request.getParameter("cpf");
-        String nome = request.getParameter("nome");
-        String senha = request.getParameter("senha");
-        int idFilial = Integer.parseInt(request.getParameter("idFilial"));
-        int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-        String funcao = request.getParameter("cargo");
-
-        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.incluirUsuario(usuario);
-        System.out.println("aeeeee");
-         */
     }
 
     /**

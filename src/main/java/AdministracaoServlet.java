@@ -4,10 +4,13 @@
  * and open the template in the editor.
  */
 
+import dao.FiliaisDAO;
 import dao.UsuarioDAO;
+import entity.Filial;
 import entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +37,19 @@ public class AdministracaoServlet extends HttpServlet {
 
     }
 
+    public void preencheFiliais(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+        FiliaisDAO filial = new FiliaisDAO();
+        ArrayList<Filial> filiais = new ArrayList<Filial>();
+        filiais = filial.listaFiliais();
+        request.getSession().setAttribute("filiais", filiais);
+
+        // request.setAttribute("produto", prod);
+        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,6 +62,8 @@ public class AdministracaoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        preencheFiliais(request, response);
+        
         if (request.getParameter("cadastrar") != null) {
             doPost(request, response);
         } else if (request.getParameter("novo") != null) {

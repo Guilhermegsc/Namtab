@@ -68,7 +68,15 @@
                         <option>1</option>
                         <option>2</option>
                     </select>
-                    <label class="labelformulario" id="lblFilial">Filial: </label> <input type="text" name="idFilial" value="${user.idFilial}"/><br></br>
+                    <label class="labelformulario" id="lblFilial">Filial: </label>
+                    
+                     <select name="Filiais">
+                        <option></option>
+                        <c:forEach items="${filiais}" var="fil">
+                            <option value="${fil.idFilial}"> 
+                                <c:out value="${fil.descricao}"/></option>
+                            </c:forEach>
+                    </select>
                     <label class="labelformulario">Senha: </label> <input type="password" name="senha" value="${user.senha}"/><br></br>
 
                 </fieldset>
