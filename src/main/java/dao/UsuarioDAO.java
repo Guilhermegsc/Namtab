@@ -63,6 +63,54 @@ public class UsuarioDAO extends Conexao{
         }
         return us;
     }
+    public Usuario buscarQualquerUsuario(String cpf) {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        Usuario us = null;
+
+        String sql = " SELECT CPF, NOME, ID_FILIAL, PERFIL, FUNCAO FROM USUARIO "
+                + "WHERE CPF = '" + cpf + "' ";
+        try {
+
+            conn = obterConexao();
+
+            stmt = conn.prepareStatement(sql);
+            ResultSet resultados = stmt.executeQuery();
+
+            while (resultados.next()) {
+                String id = resultados.getString("CPF");
+                String nome = resultados.getString("NOME");
+                int idFilial = resultados.getInt("ID_FILIAL");
+                int perfil = resultados.getInt("PERFIL");
+                String funcao = resultados.getString("FUNCAO");
+                us = new Usuario(id, nome, idFilial, perfil, funcao);
+                break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Código colocado aqui para garantir que a conexão com o banco
+            // seja sempre fechada, independentemente se executado com sucesso
+            // ou erro.
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return us;
+    }
 
     public ArrayList<Usuario> listarUsuarios() {
         Statement stmt = null;

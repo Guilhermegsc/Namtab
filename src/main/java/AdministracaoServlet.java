@@ -62,7 +62,9 @@ public class AdministracaoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
         preencheFiliais(request, response);
+
         request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
     }
@@ -78,8 +80,8 @@ public class AdministracaoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        preencheFiliais(request, response);
         processRequest(request, response);
+        preencheFiliais(request, response);
         if (request.getParameter("cadastrar") != null) {
             String idUsuario = request.getParameter("cpf");
             String nome = request.getParameter("nome");
@@ -91,7 +93,7 @@ public class AdministracaoServlet extends HttpServlet {
             Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             usuarioDAO.incluirUsuario(usuario);
-            System.out.println("aeeeee");
+            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
         } else if (request.getParameter("novo") != null) {
             processRequest(request, response);
             request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
@@ -107,9 +109,10 @@ public class AdministracaoServlet extends HttpServlet {
             processRequest(request, response);
             String idUser = request.getParameter("pesquisa");
             UsuarioDAO userDAO = new UsuarioDAO();
-            Usuario user = userDAO.buscarUsuario(idUser);
+            Usuario user = userDAO.buscarQualquerUsuario(idUser);
             request.setAttribute("user", user);
             request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+
         }
 
     }
