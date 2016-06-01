@@ -68,7 +68,7 @@ public class UsuarioDAO extends Conexao{
         Connection conn = null;
         Usuario us = null;
 
-        String sql = " SELECT CPF, NOME, ID_FILIAL, PERFIL, FUNCAO FROM USUARIO "
+        String sql = " SELECT CPF, NOME, ID_FILIAL, PERFIL, FUNCAO, STATUS_USUARIO FROM USUARIO "
                 + "WHERE CPF = '" + cpf + "' ";
         try {
 
@@ -83,7 +83,8 @@ public class UsuarioDAO extends Conexao{
                 int idFilial = resultados.getInt("ID_FILIAL");
                 int perfil = resultados.getInt("PERFIL");
                 String funcao = resultados.getString("FUNCAO");
-                us = new Usuario(id, nome, idFilial, perfil, funcao);
+                Boolean status = resultados.getBoolean("STATUS_USUARIO");
+                us = new Usuario(id, nome, idFilial, perfil, funcao, status);
                 break;
             }
         } catch (SQLException ex) {

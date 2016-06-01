@@ -98,11 +98,21 @@ public class AdministracaoServlet extends HttpServlet {
             processRequest(request, response);
             request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
-        } else if (request.getParameter("exclui") != null) {
+        } else if (request.getParameter("salva") != null) {
             processRequest(request, response);
             String idUser = request.getParameter("cpf");
+            String nome = request.getParameter("nome");
+            String senha = request.getParameter("senha");
+            int idFilial = Integer.parseInt(request.getParameter("idFilial"));
+            int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+            String funcao = request.getParameter("cargo");
+            Boolean status = Boolean.parseBoolean(request.getParameter("status"));
+            Usuario usuario = new Usuario(idUser, senha, nome, idFilial, tipoPerfil, funcao);
             UsuarioDAO userDAO = new UsuarioDAO();
+            if(!status){
             userDAO.inativarUsuario(idUser);
+            }
+            userDAO.alterarUsuario(usuario);
             request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
         } else {
 

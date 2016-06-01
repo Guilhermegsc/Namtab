@@ -19,6 +19,7 @@ public class Usuario {
     private int idFilial;
     private int tipoPerfil;
     private String funcao;
+    private Boolean status;
 
     public Usuario(String idUsuario, String nome, int idFilial, int tipoPerfil, String funcao) {
         this.idUsuario = idUsuario;
@@ -26,6 +27,14 @@ public class Usuario {
         this.idFilial = idFilial;
         this.tipoPerfil = tipoPerfil;
         this.funcao = funcao.toUpperCase();
+    }
+    public Usuario(String idUsuario, String nome, int idFilial, int tipoPerfil, String funcao, Boolean status) {
+        this.idUsuario = idUsuario;
+        this.nome = nome.toUpperCase();
+        this.idFilial = idFilial;
+        this.tipoPerfil = tipoPerfil;
+        this.funcao = funcao.toUpperCase();
+        this.status = status;
     }
 
     public Usuario(String idUsuario, String senha, String nome, int idFilial, int tipoPerfil, String funcao) {

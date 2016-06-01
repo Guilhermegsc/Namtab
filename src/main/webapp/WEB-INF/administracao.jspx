@@ -71,7 +71,7 @@
                     <label class="labelformulario" id="lblFilial">Filial: </label>
                     
                      <select name="Filiais">
-                        <option></option>
+                        <option>${user.idFilial}</option>
                         <c:forEach items="${filiais}" var="fil">
                             <option value="${fil.idFilial}"> 
                                 <c:out value="${fil.descricao}"/></option>
@@ -79,12 +79,12 @@
                     </select>
                     <label class="labelformulario" type="hidden">Senha: </label> <input type="hidden" name="senha" id="senha"/><br></br>
                     <label class="labelformulario" hidden="true">Confirmar Senha: </label> <input type="hidden" name="cnfSenha" id="cnfSenha"/><br></br>
-                    <input name="check" type="checkbox" id="check"></input><label class="labelformulario" id="lblAtivo">Ativo</label>
+                    <input name="check" type="checkbox" id="check" value="${user.status}"></input><label class="labelformulario" id="lblAtivo">Ativo</label>
                 </fieldset>
 
                 <fieldset>
                     <legend>Opções</legend>
-                    <button name="exclui" type="submit" value="exclui" id="exclui">Salvar Alterações</button>
+                    <button name="salva" type="submit" value="salva" id="salva">Salvar Alterações</button>
                     <button name="novo" type="submit" value="novo" id="novo" onclick="camposSenha();">Novo Usuário</button>
                     <button name="cadastrar" type="submit" value="cadastrar">Cadastrar</button>
                 
