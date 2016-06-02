@@ -9,6 +9,8 @@
     <jsp:directive.page contentType="text/html" pageEncoding="UTF-8"/>
     <jsp:output omit-xml-declaration="true" doctype-root-element="HTML" doctype-system="about:legacy-compact"/>
 
+    <jsp:useBean id="now" class="java.util.Date" />
+
     <html>
         <head>
             <title>Posto - Administração</title>
@@ -46,7 +48,7 @@
                 </ul>
 
             </div>
-            <form name="form" id="formulario" action="AdministracaoServlet" method="post">
+            <form name="form" id="formulario" action="AdministracaoServlet?${now.time}" method="post">
                 <label class="labelformulario" id="psq">Pesquisar: </label> <input type="text" name="pesquisa" id="psqCampo" onblur="pesquisar();"></input>
                 <br></br>
                 <br></br>
@@ -69,17 +71,21 @@
                         <option>2</option>
                     </select>
                     <label class="labelformulario" id="lblFilial">Filial: </label>
-                    
-                     <select name="Filiais">
+
+                    <select name="Filiais">
                         <option>${user.idFilial}</option>
                         <c:forEach items="${filiais}" var="fil">
-                            <option value="${fil.idFilial}"> 
+                            <option name="idFilial" value="${fil.idFilial}"> 
                                 <c:out value="${fil.descricao}"/></option>
                             </c:forEach>
                     </select>
                     <label class="labelformulario" type="hidden">Senha: </label> <input type="hidden" name="senha" id="senha"/><br></br>
                     <label class="labelformulario" hidden="true">Confirmar Senha: </label> <input type="hidden" name="cnfSenha" id="cnfSenha"/><br></br>
-                    <input name="check" type="checkbox" id="check" value="${user.status}"></input><label class="labelformulario" id="lblAtivo">Ativo</label>
+                    <select name="check" id="check">
+                        <option>${status}</option>
+                        <option>INATIVO</option>
+                        <option>ATIVO</option>
+                    </select>
                 </fieldset>
 
                 <fieldset>
@@ -87,7 +93,7 @@
                     <button name="salva" type="submit" value="salva" id="salva">Salvar Alterações</button>
                     <button name="novo" type="submit" value="novo" id="novo" onclick="camposSenha();">Novo Usuário</button>
                     <button name="cadastrar" type="submit" value="cadastrar">Cadastrar</button>
-                
+
                 </fieldset>
             </form>
 

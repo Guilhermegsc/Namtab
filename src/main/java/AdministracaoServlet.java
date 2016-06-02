@@ -45,9 +45,6 @@ public class AdministracaoServlet extends HttpServlet {
         filiais = filial.listaFiliais();
         request.getSession().setAttribute("filiais", filiais);
 
-        // request.setAttribute("produto", prod);
-        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -80,50 +77,53 @@ public class AdministracaoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
         preencheFiliais(request, response);
-        if (request.getParameter("cadastrar") != null) {
-            String idUsuario = request.getParameter("cpf");
-            String nome = request.getParameter("nome");
-            String senha = request.getParameter("senha");
-            int idFilial = Integer.parseInt(request.getParameter("idFilial"));
-            int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-            String funcao = request.getParameter("cargo");
+        String idUsuario, nome, senha, funcao;
+        int idFilial = 0, tipoPerfil = 0;
+        String status;
 
-            Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
+        idUsuario = request.getParameter("cpf");
+        nome = request.getParameter("nome");
+        senha = request.getParameter("senha");
+        if (!"".equals(request.getParameter("Filiais")) && !"".equals(request.getParameter("perfil"))) {
+            idFilial = Integer.parseInt(request.getParameter("Filiais"));
+            tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+        }
+        funcao = request.getParameter("cargo");
+        status = request.getParameter("status");
+
+        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+        if (request.getParameter("cadastrar") != null) {
             usuarioDAO.incluirUsuario(usuario);
-            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
         } else if (request.getParameter("novo") != null) {
-            processRequest(request, response);
-            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
         } else if (request.getParameter("salva") != null) {
             processRequest(request, response);
-            String idUser = request.getParameter("cpf");
-            String nome = request.getParameter("nome");
-            String senha = request.getParameter("senha");
-            int idFilial = Integer.parseInt(request.getParameter("idFilial"));
-            int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-            String funcao = request.getParameter("cargo");
-            Boolean status = Boolean.parseBoolean(request.getParameter("status"));
-            Usuario usuario = new Usuario(idUser, senha, nome, idFilial, tipoPerfil, funcao);
-            UsuarioDAO userDAO = new UsuarioDAO();
-            if(!status){
-            userDAO.inativarUsuario(idUser);
+            if (status.equals("INATIVO")) {
+                usuarioDAO.inativarUsuario(idUsuario);
             }
-            userDAO.alterarUsuario(usuario);
-            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+            usuarioDAO.alterarUsuario(usuario);
+
         } else {
 
-            processRequest(request, response);
+            //processRequest(request, response);
             String idUser = request.getParameter("pesquisa");
             UsuarioDAO userDAO = new UsuarioDAO();
             Usuario user = userDAO.buscarQualquerUsuario(idUser);
+            if(user.getStatus()){
+            status = "ATIVO";
+            }
+            else{
+            status = "INATIVO";
+            }
+            request.setAttribute("status", status);
             request.setAttribute("user", user);
-            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+            
 
         }
+        request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
     }
 

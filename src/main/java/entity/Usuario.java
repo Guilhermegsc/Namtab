@@ -72,4 +72,8 @@ public class Usuario {
         return funcao;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
 }
