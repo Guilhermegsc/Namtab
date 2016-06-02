@@ -49,6 +49,19 @@ public class AdministracaoAlteraVendaServlet extends HttpServlet {
         request.getSession().setAttribute("venda", venda);
 
     }
+    
+    public void ExcluiVenda(HttpServletRequest request){
+        int id = 0;
+        try {
+            id = Integer.parseInt(request.getParameter("idVenda"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        
+        VendaDAO v = new VendaDAO();
+        v.inativarVenda(id);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -80,6 +93,7 @@ public class AdministracaoAlteraVendaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        ExcluiVenda(request);
         BuscarVenda(request);
         request.getRequestDispatcher("WEB-INF/administracao-AlteraVenda.jspx").forward(request, response);
     }

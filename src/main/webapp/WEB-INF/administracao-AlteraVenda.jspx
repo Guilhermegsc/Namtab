@@ -44,7 +44,7 @@
                 </ul>
             </div>
 
-            <form id="form2" action="AdministracaoAlteraVendaServlet" method="post">
+            <form id="form2" action="AdministracaoAlteraVendaServlet" method="get">
                 <fieldset>
                     <legend>Buscar Venda</legend>
                 <label class="labelformulario" id="lblcodigo">Codigo: </label> 
@@ -52,9 +52,10 @@
                 </fieldset>
             </form>
             <c:forEach items="${venda}" var="venda">
-            <form id="formulario" action="AdministracaoAlteraVendaServlet" method="get">
+            <form id="formulario" action="AdministracaoAlteraVendaServlet" method="post">
                 <fieldset>                    
                         <label class="labelformulario" id="lblidVenda">ID Venda: </label> 
+                        <input type="hidden" name="idVenda" value="${venda.idVenda}"></input>
                         <input type="text" value="${venda.idVenda}" disabled="true"></input><br></br>
                         <input type="hidden" value="${venda}"></input>
                         <label class="labelformulario" id="lblFuncionario">Funcionario: </label> 
@@ -75,7 +76,7 @@
                         
                 <fieldset>
                     <legend>Opções</legend>
-                    <button type="submit" class="btn" onclick="">Excluir Venda</button>
+                    <button type="submit" class="btn" id="excluirVenda" onclick="submit">Excluir Venda</button>
                 </fieldset>
             </form>
                          </c:forEach>

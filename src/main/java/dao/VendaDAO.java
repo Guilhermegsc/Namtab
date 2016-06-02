@@ -278,7 +278,7 @@ public class VendaDAO extends Conexao {
         String sql = "SELECT  V.PRECO_PRODUTO, V.QUANTIDADE, V.VALOR_VENDA, P.NOME_PRODUTO, U.NOME, F.NOME_FILIAL "
                 + "FROM VENDA V, PRODUTO P, USUARIO U, FILIAL F "
                 + "WHERE ID_VENDA = " + idVenda + " AND V.ID_PRODUTO = P.ID_PRODUTO "
-                + "AND V.ID_FILIAL = F.ID_FILIAL AND V.CPF = U.CPF AND V.STATUS = TRUE";
+                + "AND V.ID_FILIAL = F.ID_FILIAL AND V.CPF = U.CPF AND V.STATUS_VENDA = TRUE";
 
         ArrayList<Produto> lista = new ArrayList();
 
@@ -331,7 +331,7 @@ public class VendaDAO extends Conexao {
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        String sql = "UPDATE VENDA SET STATUS_VENDA = FALSE WHERE ID_VENDA = '" + idVenda + "'";
+        String sql = "UPDATE VENDA SET STATUS_VENDA = FALSE WHERE ID_VENDA = " + idVenda;
         try {
             Conexao conexao = new Conexao();
             conn = conexao.obterConexao();
