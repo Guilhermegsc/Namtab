@@ -40,6 +40,7 @@
                         <ul> 
                             <li><a href="AdministracaoServlet">Usuários</a></li>
                             <li><a href="AdministracaoAlteraProdutoServlet">Produtos</a></li>
+                            <li><a href="AdministracaoAlteraVendaServlet">Vendas</a></li>
                         </ul>
                     </li>
 

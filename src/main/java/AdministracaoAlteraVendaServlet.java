@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-import dao.ProdutoDAO;
+import dao.VendaDAO;
 import entity.Produto;
-import entity.Usuario;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,22 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Guilherme Gomes
+ * @author Thiago
  */
-public class AdministracaoAlteraProdutoServlet extends HttpServlet {
-
-    public void preencheProdutos(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
-        ProdutoDAO produto = new ProdutoDAO();
-        ArrayList<Produto> prod = new ArrayList<Produto>();
-        prod = produto.listaProduto();
-        request.getSession().setAttribute("prod", prod);
-
-        request.setAttribute("produto", prod);
-        request.getRequestDispatcher("WEB-INF/administracao-AlteraProduto.jspx").forward(request, response);
-
-    }
+public class AdministracaoAlteraVendaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,6 +31,22 @@ public class AdministracaoAlteraProdutoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+    }
+
+    public void BuscarVenda(HttpServletRequest request) {
+        ArrayList<Produto> venda;
+        int id = 0;
+        VendaDAO bd = new VendaDAO();
+        
+        try {
+           id = Integer.parseInt(request.getParameter("campo"));
+        } catch (Exception e) {
+        }
+        
+        venda = bd.buscaVenda(id);
+        request.getSession().setAttribute("venda", venda);
 
     }
 
@@ -61,7 +64,8 @@ public class AdministracaoAlteraProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
 
-        preencheProdutos(request, response);
+        BuscarVenda(request);
+        request.getRequestDispatcher("WEB-INF/administracao-AlteraVenda.jspx").forward(request, response);
     }
 
     /**
@@ -76,26 +80,8 @@ public class AdministracaoAlteraProdutoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
-        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        int idProduto = Integer.parseInt(request.getParameter("produto"));
-        double novoPreco = Double.parseDouble(request.getParameter("novoPreco").replace(",", "."));
-
-        if (novoPreco <= 0) {
-            request.setAttribute("mensagem", "Houve um problema. Tente novamente.");
-        } else {
-            alteraPreco(idProduto, novoPreco);
-            request.setAttribute("mensagem", "Preco atualizado!");
-        }
-
-        preencheProdutos(request, response);
-
-    }
-
-    public static void alteraPreco(int idProduto, double novoPreco) {
-        ProdutoDAO p = new ProdutoDAO();
-        p.atualizarProduto(idProduto, novoPreco);
-
+        BuscarVenda(request);
+        request.getRequestDispatcher("WEB-INF/administracao-AlteraVenda.jspx").forward(request, response);
     }
 
     /**

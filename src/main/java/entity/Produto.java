@@ -55,14 +55,28 @@ public class Produto {
         this.quantidade = quantidade;
         this.valorVenda = valorVenda;
         this.nomeUsuario = nomeUsuario.toUpperCase();
-        this.nomeFilial = nomeFilial.toUpperCase();
+        this.nomeFilial = nomeFilial.toUpperCase();       
+    }
+
+    public Produto(int idVenda, double preco, double quantidade, double valorVenda, String nomeUsuario,
+                       String nomeProduto, String nomeFilial ) {
+        
+        this.idVenda = idVenda;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.valorVenda = valorVenda;
+        this.nomeUsuario = nomeUsuario;
+        this.nomeProduto = nomeProduto;
+        this.nomeFilial = nomeFilial;
+        
+    }
+    
+    public Produto(){
         
     }
 
-    public Produto() {
-    }
-
     
+
     
     public int getIdProduto() {
         return idProduto;

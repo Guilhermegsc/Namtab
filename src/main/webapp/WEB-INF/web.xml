@@ -48,6 +48,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdministracaoAlteraVendaServlet</servlet-name>
+        <servlet-class>AdministracaoAlteraVendaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NamtabServlet</servlet-name>
         <url-pattern>/NamtabServlet</url-pattern>
@@ -97,9 +101,14 @@
         <url-pattern>/AdministracaoAlteraProdutoServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AdministracaoAlteraVendaServlet</servlet-name>
+        <url-pattern>/AdministracaoAlteraVendaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30

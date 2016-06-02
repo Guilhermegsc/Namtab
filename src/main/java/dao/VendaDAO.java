@@ -134,6 +134,7 @@ public class VendaDAO extends Conexao {
             }
         }
     }
+
     public double formataQtd(double x) {
         double numero = x;
         DecimalFormat formato = new DecimalFormat("#.###");
@@ -142,6 +143,7 @@ public class VendaDAO extends Conexao {
 
         return x;
     }
+
     public void vendaCombustivel(Combustivel comb) {
         Statement stmt = null;
         Connection conn = null;
@@ -240,6 +242,62 @@ public class VendaDAO extends Conexao {
                 Produto prod = new Produto(idVenda, idProduto, idFilial, idUsuario, nomeUsuario, nomeProduto,
                         precoProd, dataVenda, quantidade, valorVenda, nomeFilial);
 
+                lista.add(prod);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Código colocado aqui para garantir que a conexão com o banco
+            // seja sempre fechada, independentemente se executado com sucesso
+            // ou erro.
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return lista;
+    }
+
+    public ArrayList<Produto> buscaVenda(int idVenda) {
+        Statement stmt = null;
+        Connection conn = null;
+
+        String sql = "SELECT  V.PRECO_PRODUTO, V.QUANTIDADE, V.VALOR_VENDA, P.NOME_PRODUTO, U.NOME, F.NOME_FILIAL "
+                + "FROM VENDA V, PRODUTO P, USUARIO U, FILIAL F "
+                + "WHERE ID_VENDA = " + idVenda + " AND V.ID_PRODUTO = P.ID_PRODUTO "
+                + "AND V.ID_FILIAL = F.ID_FILIAL AND V.CPF = U.CPF AND V.STATUS = TRUE";
+
+        ArrayList<Produto> lista = new ArrayList();
+
+        try {
+            Conexao conexao = new Conexao();
+            conn = conexao.obterConexao();
+            stmt = conn.createStatement();
+            ResultSet resultados = stmt.executeQuery(sql);
+
+            //  Date dataVenda = resultados.getDate("DATA_VENDA");
+            while (resultados.next()) {
+                double precoProd = resultados.getDouble("PRECO_PRODUTO");
+                double quantidade = resultados.getDouble("QUANTIDADE");
+                double valorVenda = resultados.getDouble("VALOR_VENDA");
+                String nomeProduto = resultados.getString("NOME_PRODUTO");
+                String nomeUsuario = resultados.getString("NOME");
+                String nomeFilial = resultados.getString("NOME_FILIAL");
+
+                Produto prod = new Produto(idVenda, precoProd, quantidade, valorVenda, nomeUsuario, nomeProduto, nomeFilial);
                 lista.add(prod);
             }
 
