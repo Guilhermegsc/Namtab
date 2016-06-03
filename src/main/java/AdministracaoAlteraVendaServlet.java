@@ -7,7 +7,6 @@
 import dao.VendaDAO;
 import entity.Produto;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,32 +34,43 @@ public class AdministracaoAlteraVendaServlet extends HttpServlet {
 
     }
 
-    public void BuscarVenda(HttpServletRequest request) {
-        ArrayList<Produto> venda;
-        int id = 0;
+    public void BuscarVenda(HttpServletRequest request, int x) { // SE X=-1 É PORQUE ESTÁ VINDO DO MÉTODO GET
+        ArrayList<Produto> venda;                                // ENTÃO LIMPA A TELA NÃO PREENCHENDO A VENDA
         VendaDAO bd = new VendaDAO();
-        
+        int id = x;
+
         try {
-           id = Integer.parseInt(request.getParameter("campo"));
+            id = Integer.parseInt(request.getParameter("campo"));
+            request.setAttribute("mensagem", "");
         } catch (Exception e) {
         }
-        
+
         venda = bd.buscaVenda(id);
+
+        if (venda.size() == 0 && x != -1) {
+            request.setAttribute("mensagem", "Código de Venda "+id+" não encontrado. Favor consulte o relatório de venda.");
+        } 
+
         request.getSession().setAttribute("venda", venda);
 
     }
-    
-    public void ExcluiVenda(HttpServletRequest request){
+
+    public void ExcluiVenda(HttpServletRequest request) {
         int id = 0;
         try {
             id = Integer.parseInt(request.getParameter("idVenda"));
+            request.setAttribute("mensagem", "Venda "+id+" excluída com sucesso.");
         } catch (Exception e) {
-            System.out.println(e);
         }
-        
         
         VendaDAO v = new VendaDAO();
         v.inativarVenda(id);
+        if(id == 0){
+            BuscarVenda(request, id); // SE O ID=0 ENTÃO MOSTRA MENSAGEM DE NÃO ENCONTRADO
+        }else{
+            BuscarVenda(request, -1); // SE NÃO MOSTRA MENSAGEM DE EXCLUIDO COM SUCESSO
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,8 +86,8 @@ public class AdministracaoAlteraVendaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        BuscarVenda(request, -1);
 
-        BuscarVenda(request);
         request.getRequestDispatcher("WEB-INF/administracao-AlteraVenda.jspx").forward(request, response);
     }
 
@@ -94,7 +104,7 @@ public class AdministracaoAlteraVendaServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         ExcluiVenda(request);
-        BuscarVenda(request);
+        
         request.getRequestDispatcher("WEB-INF/administracao-AlteraVenda.jspx").forward(request, response);
     }
 

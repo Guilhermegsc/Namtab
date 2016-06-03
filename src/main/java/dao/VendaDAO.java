@@ -275,7 +275,7 @@ public class VendaDAO extends Conexao {
         Statement stmt = null;
         Connection conn = null;
 
-        String sql = "SELECT  V.PRECO_PRODUTO, V.QUANTIDADE, V.VALOR_VENDA, P.NOME_PRODUTO, U.NOME, F.NOME_FILIAL "
+        String sql = "SELECT  V.PRECO_PRODUTO, V.QUANTIDADE, V.VALOR_VENDA, P.NOME_PRODUTO, U.NOME, F.NOME_FILIAL, V.DATA_VENDA "
                 + "FROM VENDA V, PRODUTO P, USUARIO U, FILIAL F "
                 + "WHERE ID_VENDA = " + idVenda + " AND V.ID_PRODUTO = P.ID_PRODUTO "
                 + "AND V.ID_FILIAL = F.ID_FILIAL AND V.CPF = U.CPF AND V.STATUS_VENDA = TRUE";
@@ -296,8 +296,9 @@ public class VendaDAO extends Conexao {
                 String nomeProduto = resultados.getString("NOME_PRODUTO");
                 String nomeUsuario = resultados.getString("NOME");
                 String nomeFilial = resultados.getString("NOME_FILIAL");
-
-                Produto prod = new Produto(idVenda, precoProd, quantidade, valorVenda, nomeUsuario, nomeProduto, nomeFilial);
+                Date dataVenda = resultados.getDate("DATA_VENDA");
+                               
+                Produto prod = new Produto(idVenda, precoProd, quantidade, valorVenda, nomeUsuario, nomeProduto, nomeFilial, dataVenda);
                 lista.add(prod);
             }
 

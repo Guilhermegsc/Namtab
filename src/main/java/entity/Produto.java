@@ -1,5 +1,6 @@
 package entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -58,8 +59,9 @@ public class Produto {
         this.nomeFilial = nomeFilial.toUpperCase();       
     }
 
+    // Construtor feito para a busca de produto na tela de alterar venda
     public Produto(int idVenda, double preco, double quantidade, double valorVenda, String nomeUsuario,
-                       String nomeProduto, String nomeFilial ) {
+                       String nomeProduto, String nomeFilial, Date dataVenda ) {
         
         this.idVenda = idVenda;
         this.preco = preco;
@@ -68,7 +70,7 @@ public class Produto {
         this.nomeUsuario = nomeUsuario;
         this.nomeProduto = nomeProduto;
         this.nomeFilial = nomeFilial;
-        
+        this.dataVenda = dataVenda;     
     }
     
     public Produto(){

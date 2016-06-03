@@ -16,6 +16,7 @@
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
             <link rel="stylesheet" type="text/css" href="css/administracao-AlteraVenda.css"/>
             <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
+            <script src="${pathResources}/Namtab/js/alteraVenda.js"><jsp:text /></script>
         </head>
         <body>
             <div id="menu">
@@ -44,39 +45,42 @@
                 </ul>
             </div>
 
-            <form id="form2" action="AdministracaoAlteraVendaServlet" method="get">
+            <form id="form2" action="AdministracaoAlteraVendaServlet" method="post" >
                 <fieldset>
                     <legend>Buscar Venda</legend>
+                    <input type="hidden" name="mensagem" id="mensagem" value="${mensagem}"></input>
                 <label class="labelformulario" id="lblcodigo">Codigo: </label> 
                 <input type="text" name="campo" autocomplete="off" ></input><br></br>
                 </fieldset>
             </form>
             <c:forEach items="${venda}" var="venda">
-            <form id="formulario" action="AdministracaoAlteraVendaServlet" method="post">
+                <form id="formulario" action="AdministracaoAlteraVendaServlet" method="post">
                 <fieldset>                    
                         <label class="labelformulario" id="lblidVenda">ID Venda: </label> 
                         <input type="hidden" name="idVenda" value="${venda.idVenda}"></input>
-                        <input type="text" value="${venda.idVenda}" disabled="true"></input><br></br>
+                        <input type="text" value="${venda.idVenda}" disabled="true" class="campos"></input>
+                        <label class="labelformulario" id="lblData">Data: </label> 
+                        <input type="date" value="${venda.dataVenda}" disabled="true" class="campos" ></input><br></br>
                         <input type="hidden" value="${venda}"></input>
                         <label class="labelformulario" id="lblFuncionario">Funcionario: </label> 
-                        <input type="text" value="${venda.nomeUsuario}" disabled="true"></input>
+                        <input type="text" value="${venda.nomeUsuario}" disabled="true" class="campos"></input>
                         <label class="labelformulario" id="lblFilial">Filial: </label> 
-                        <input type="text" value="${venda.nomeFilial}" disabled="true"></input><br></br>
+                        <input type="text" value="${venda.nomeFilial}" disabled="true" class="campos"></input><br></br>
                         <label class="labelformulario" id="lblproduto">Produto: </label> 
-                        <input type="text" value="${venda.nomeProduto}" disabled="true"></input>                   
+                        <input type="text" value="${venda.nomeProduto}" disabled="true" class="campos"></input>                   
                         <label class="labelformulario" id="lblvalorPreco">Preco: </label> 
-                        <input type="text" value="${venda.preco}" disabled="true"></input><br></br>
+                        <input type="text" value="${venda.preco}" disabled="true" class="campos"></input><br></br>
 
                         <label class="labelformulario" id="lblQuantidade">Quantidade: </label> 
-                        <input type="text" value="${venda.quantidade}"  disabled="true"></input>                    
+                        <input type="text" value="${venda.quantidade}"  disabled="true" class="campos"></input>                    
                         <label class="labelformulario" id="lblvalorVenda">Valor Venda: </label> 
-                        <input type="text" value="${venda.valorVenda}" disabled="true"></input>
+                        <input type="text" value="${venda.valorVenda}" disabled="true" class="campos"></input>
                    
                 </fieldset>
                         
                 <fieldset>
                     <legend>Opções</legend>
-                    <button type="submit" class="btn" id="excluirVenda" onclick="submit">Excluir Venda</button>
+                    <button type="submit" class="btn" id="excluirVenda">Excluir Venda</button>
                 </fieldset>
             </form>
                          </c:forEach>
