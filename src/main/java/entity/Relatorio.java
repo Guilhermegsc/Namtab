@@ -198,7 +198,7 @@ public class Relatorio {
             // criando linhas e colunas em um arquivo Excel com o conteúdo
             // dos objetos.
             ArrayList<Produto> lista;
-
+            int a = 0;
             ProdutoDAO bd = new ProdutoDAO();
             lista = bd.listaProduto();
 
@@ -213,7 +213,7 @@ public class Relatorio {
                 row.createCell(2).setCellValue(prod.getPreco());
 
                 switch (prod.getTipo()) {
-                    // lista oleo
+                    // lista comb
                     case "COMB":
                         Combustivel com = new Combustivel();
                         row.createCell(3).setCellValue("");
@@ -221,7 +221,7 @@ public class Relatorio {
                         row.createCell(5).setCellValue(com.getTipo());
 
                         break;
-                    // lista extintor    
+                    // lista prod    
                     case "PROD":
                         if (prod.getIdProduto() == 5) {  // lista oleo 
                             OleoLubrificante ol = new OleoLubrificante();
