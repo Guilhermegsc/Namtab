@@ -118,7 +118,7 @@ public class UsuarioDAO extends Conexao{
         Connection conn = null;
         Usuario us = null;
 
-        String sql = "SELECT CPF, NOME, ID_FILIAL, PERFIL, DATA_NASC, FUNCAO "
+        String sql = "SELECT CPF, NOME, ID_FILIAL, PERFIL, FUNCAO "
                 + "FROM USUARIO WHERE STATUS_USUARIO = TRUE";
 
         ArrayList<Usuario> lista = new ArrayList();
