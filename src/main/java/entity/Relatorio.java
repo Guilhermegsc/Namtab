@@ -211,8 +211,22 @@ public class Relatorio {
                 row.createCell(0).setCellValue(prod.getIdProduto());
                 row.createCell(1).setCellValue(prod.getNomeProduto());
                 row.createCell(2).setCellValue(prod.getPreco());
+                
+                if (prod instanceof Combustivel) {
+                    row.createCell(3).setCellValue("");
+                    row.createCell(4).setCellValue("");
+                    row.createCell(5).setCellValue(((Combustivel) prod).getTipo());
+                }else if(prod instanceof OleoLubrificante){
+                    row.createCell(3).setCellValue("");
+                    row.createCell(4).setCellValue(((OleoLubrificante) prod).getTamanho());
+                    row.createCell(5).setCellValue(((OleoLubrificante) prod).getTipo());
+                }else if(prod instanceof Extintor){
+                    row.createCell(3).setCellValue(((Extintor) prod).getCategoria());
+                    row.createCell(4).setCellValue(((Extintor) prod).getTamanho());
+                    row.createCell(5).setCellValue(((Extintor) prod).getTipo());
+                }
 
-                switch (prod.getTipo()) {
+                /*switch (prod.getTipo()) {
                     // lista comb
                     case "COMB":
                         Combustivel com = new Combustivel();
@@ -239,7 +253,7 @@ public class Relatorio {
                     default:
                         break;
 
-                }
+                }*/
 
                 i++;
 

@@ -122,9 +122,10 @@ public class UsuarioDAO extends Conexao{
         ArrayList<Usuario> lista = new ArrayList();
 
         try {
+            String select = "SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_USUARIO = TRUE";
             conn = obterConexao();
             stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery("SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_VENDA = TRUE");
+            ResultSet resultados = stmt.executeQuery(select);
 
             while (resultados.next()) {
                 String id = resultados.getString("CPF");
