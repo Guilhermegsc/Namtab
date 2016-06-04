@@ -97,10 +97,11 @@ public class AdministracaoServlet extends HttpServlet {
 
         if (request.getParameter("cadastrar") != null) {
             String cnfSenha = request.getParameter("cnfSenha");
-            if(senha.equals(cnfSenha)){
-            usuarioDAO.incluirUsuario(usuario);
-            }else{}
-            
+            if (senha.equals(cnfSenha)) {
+                usuarioDAO.incluirUsuario(usuario);
+            } else {
+            }
+
         } else if (request.getParameter("novo") != null) {
 
         } else if (request.getParameter("salva") != null) {
@@ -115,17 +116,19 @@ public class AdministracaoServlet extends HttpServlet {
 
             //processRequest(request, response);
             String idUser = request.getParameter("pesquisa");
-            UsuarioDAO userDAO = new UsuarioDAO();
-            Usuario user = userDAO.buscarQualquerUsuario(idUser);
-            if(user.getStatus()){
-            status = "ATIVO";
+            if (idUser.isEmpty()) {
+
+            } else {
+                UsuarioDAO userDAO = new UsuarioDAO();
+                Usuario user = userDAO.buscarQualquerUsuario(idUser);
+                if (user.getStatus()) {
+                    status = "ATIVO";
+                } else {
+                    status = "INATIVO";
+                }
+                request.setAttribute("status", status);
+                request.setAttribute("user", user);
             }
-            else{
-            status = "INATIVO";
-            }
-            request.setAttribute("status", status);
-            request.setAttribute("user", user);
-            
 
         }
         request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
