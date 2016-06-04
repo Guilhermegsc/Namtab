@@ -122,9 +122,10 @@ public class UsuarioDAO extends Conexao{
         ArrayList<Usuario> lista = new ArrayList();
 
         try {
+            String sql = "SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_VENDA = TRUE";
             conn = obterConexao();
             stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery("SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_VENDA = TRUE");
+            ResultSet resultados = stmt.executeQuery(sql);
 
             while (resultados.next()) {
                 String id = resultados.getString("CPF");
@@ -305,29 +306,20 @@ public class UsuarioDAO extends Conexao{
     }
 
     public void alterarUsuario(Usuario us) {
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         Connection conn = null;
 
         // inserir usuario a ser alterado 
-        String sql = "UPDATE USUARIO SET"
-                + " NOME = '?', "
-                + " ID_FILIAL = ?, "
-                + " PERFIL = ?, "
-                + " FUNCAO = '?' "
-                + " WHERE CPF = '?' ";
+        String sql = "UPDATE USUARIO SET NOME = '"+us.getNome()+"', ID_FILIAL = "+us.getIdFilial()+", PERFIL = "+us.getTipoPerfil()+", FUNCAO = '"+us.getFuncao()+"' WHERE CPF = '"+us.getIdUsuario()+"'; ";
+        
         try {
+            
+            
             conn = obterConexao();
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
 
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, us.getNome());
-            stmt.setInt(2, us.getIdFilial());
-            stmt.setInt(3, us.getTipoPerfil());
-            stmt.setString(4, us.getFuncao());
-            stmt.setString(5, us.getIdUsuario());
-
-            stmt.executeUpdate();
-            conn.commit();
+         
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);

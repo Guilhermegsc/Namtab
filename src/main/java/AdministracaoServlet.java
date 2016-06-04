@@ -90,19 +90,24 @@ public class AdministracaoServlet extends HttpServlet {
             tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
         }
         funcao = request.getParameter("cargo");
-        status = request.getParameter("status");
+        status = request.getParameter("check");
 
         Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         if (request.getParameter("cadastrar") != null) {
+            String cnfSenha = request.getParameter("cnfSenha");
+            if(senha.equals(cnfSenha)){
             usuarioDAO.incluirUsuario(usuario);
+            }else{}
+            
         } else if (request.getParameter("novo") != null) {
 
         } else if (request.getParameter("salva") != null) {
             processRequest(request, response);
             if (status.equals("INATIVO")) {
                 usuarioDAO.inativarUsuario(idUsuario);
+                request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
             }
             usuarioDAO.alterarUsuario(usuario);
 
