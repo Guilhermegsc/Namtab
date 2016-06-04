@@ -84,8 +84,8 @@
                     <!--<label class="labelformulario" style="display:none">Senha: </label> <input type="hidden" name="senha" id="senha"/><br></br>
                     <label class="labelformulario" style="display:none">Confirmar Senha: </label> <input type="hidden" name="cnfSenha" id="cnfSenha"/><br></br>
                     -->
-                    <label class="labelformulario">Senha: </label> <input name="senha" id="senha"/><br></br>
-                    <label class="labelformulario">Confirmar Senha: </label> <input name="cnfSenha" id="cnfSenha"/><br></br>
+                    <label class="labelformulario" id="lblSenha">Senha: </label> <input name="senha" id="senha"/><br></br>
+                    <label class="labelformulario" id="lblConfirma">Confirmar Senha: </label> <input name="cnfSenha" id="cnfSenha"/><br></br>
                    
                     <select name="check" id="check">
                         <option>${status}</option>
