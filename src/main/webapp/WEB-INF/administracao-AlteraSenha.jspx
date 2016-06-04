@@ -12,8 +12,8 @@
     <html>
         <head>
             <title>Posto - Alterar senha</title>
-            <link rel="stylesheet" type="text/css" href="css/administracao-AlteraSenha.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            <link rel="stylesheet" type="text/css" href="css/administracao-AlteraSenha.css"/>
             <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
         </head>
 

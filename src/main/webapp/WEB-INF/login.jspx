@@ -11,8 +11,8 @@
     <html>
         <head>
             <title>Posto - Login</title>
-            <link rel="stylesheet" type="text/css" href="css/index.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            <link rel="stylesheet" type="text/css" href="css/index.css"/>
             <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
         </head>
         <body>
