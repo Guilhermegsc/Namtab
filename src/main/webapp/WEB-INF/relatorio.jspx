@@ -12,8 +12,8 @@
     <html>
         <head>
             <title>Posto - Relatorio</title>
-            <link rel="stylesheet" type="text/css" href="css/relatorio.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            <link rel="stylesheet" type="text/css" href="css/relatorio.css"/>
             <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
             <script src="${pathResources}/Namtab/js/relatorioVenda.js"><jsp:text /></script>
         </head>

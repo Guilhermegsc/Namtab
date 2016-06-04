@@ -8,16 +8,16 @@ function validaDatas() {
     } else {
         dataI = new Date(dataI).getTime();
         dataF = new Date(dataF).getTime();
-        if (hoje < dataI ) {
+        if (dataI > dataF) {
+            alert("Data inicial maior que data final.");
+            return false;
+        } else if (hoje < dataI) {
             alert("Não existe relatório para a data informada.");
             return false;
-        } else if(dataI > dataF){
-            alert("Datas inválidas. Tente novamente.");
-            return false;
-        }else{
+        } else {
             return true;
         }
-        
+
     }
 }
 function dataHoje() {

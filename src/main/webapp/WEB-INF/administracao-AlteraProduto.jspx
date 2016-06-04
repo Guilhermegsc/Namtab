@@ -12,8 +12,8 @@
     <html>
         <head>
             <title>Posto - Administração</title>
-            <link rel="stylesheet" type="text/css" href="css/administracao-AlteraProduto.css"/>
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
+            <link rel="stylesheet" type="text/css" href="css/administracao-AlteraProduto.css"/>
             <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
             <script src="${pathResources}/Namtab/js/AlteraProduto.js"><jsp:text /></script>
 
