@@ -310,10 +310,10 @@ public class UsuarioDAO extends Conexao{
         Connection conn = null;
 
         // inserir usuario a ser alterado 
-        String sql = "UPDATE USUARIO SET NOME = '"+us.getNome()+"', ID_FILIAL = "+us.getIdFilial()+", PERFIL = "+us.getTipoPerfil()+", FUNCAO = '"+us.getFuncao()+"' WHERE CPF = '"+us.getIdUsuario()+"'; ";
+        String sql = "UPDATE USUARIO SET NOME = '"+us.getNome()+"', ID_FILIAL = "+us.getIdFilial()+", PERFIL = "+us.getTipoPerfil()+", FUNCAO = '"+us.getFuncao()+"' WHERE CPF = '"+us.getIdUsuario()+"'";
         
         try {
-            
+          
             
             conn = obterConexao();
             stmt = conn.createStatement();
