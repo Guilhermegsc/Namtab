@@ -29,7 +29,7 @@
                     <a href="VendaServlet"><li>Venda</li></a>
                     <li>Relatório
                         <ul> 
-                            <li><a href="RelatorioServlet">Venda</a></li>
+                            <a href="RelatorioServlet"><li>Venda</li></a>
                             <a href="RelatorioProdutoServlet"><li>Produto</li></a>
                             <a href="RelatorioUsuarioServlet"><li>Usuario</li></a>
                         </ul>

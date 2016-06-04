@@ -121,50 +121,49 @@ public class UsuarioDAO extends Conexao {
         ArrayList<Usuario> lista = new ArrayList();
 
         try {
-            String sql = "SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_VENDA = TRUE";
+            String select = "SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_USUARIO = TRUE";
+
             conn = obterConexao();
             stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery(sql);
+            ResultSet resultados = stmt.executeQuery(select);
 
-                while (resultados.next()) {
-                    String id = resultados.getString("CPF");
-                    String nome = resultados.getString("NOME");
-                    int idFilial = resultados.getInt("ID_FILIAL");
-                    int perfil = resultados.getInt("PERFIL");
-                    String funcao = resultados.getString("FUNCAO");
+            while (resultados.next()) {
+                String id = resultados.getString("CPF");
+                String nome = resultados.getString("NOME");
+                int idFilial = resultados.getInt("ID_FILIAL");
+                int perfil = resultados.getInt("PERFIL");
+                String funcao = resultados.getString("FUNCAO");
 
-                    us = new Usuario(id, nome, idFilial, perfil, funcao);
+                us = new Usuario(id, nome, idFilial, perfil, funcao);
 
-                    lista.add(us);
-                }
+                lista.add(us);
+            }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             // Código colocado aqui para garantir que a conexão com o banco
-                // seja sempre fechada, independentemente se executado com sucesso
-                // ou erro.
-                if (stmt != null) {
-                    try {
-                        stmt.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                if (conn != null) {
-                    try {
-                        conn.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            // seja sempre fechada, independentemente se executado com sucesso
+            // ou erro.
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            return lista;
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-    
-    
+        return lista;
+    }
 
     public boolean efetuaLogin(String cpf, String senha) {
         Statement stmt = null;
