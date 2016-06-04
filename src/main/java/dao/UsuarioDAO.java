@@ -304,6 +304,38 @@ public class UsuarioDAO extends Conexao {
             }
         }
     }
+        public void ativarUsuario(String idUsuario) {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+
+        String sql = "UPDATE USUARIO SET STATUS_USUARIO = TRUE WHERE CPF = '" + idUsuario + "'";
+        try {
+            conn = obterConexao();
+            stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
+            //System.out.println("Registro incluido com sucesso.");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 
     public void alterarUsuario(Usuario us) {
         Statement stmt = null;

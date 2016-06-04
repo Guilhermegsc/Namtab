@@ -105,9 +105,13 @@ public class AdministracaoServlet extends HttpServlet {
         } else if (request.getParameter("novo") != null) {
 
         } else if (request.getParameter("salva") != null) {
-            processRequest(request, response);
-            if (status.equals("INATIVO")) {
-                usuarioDAO.inativarUsuario(idUsuario);
+            if (request.getParameter("statusAlterado") != null) {
+
+                if (status.equals("INATIVO")) {
+                    usuarioDAO.inativarUsuario(idUsuario);
+                } else {
+                    usuarioDAO.ativarUsuario(idUsuario);
+                }
                 request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
             }
             usuarioDAO.alterarUsuario(usuario);

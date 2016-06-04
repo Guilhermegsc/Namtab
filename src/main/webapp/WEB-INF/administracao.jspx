@@ -19,9 +19,10 @@
             <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
             <script src="${pathResources}/Namtab/js/administracao.js"><jsp:text /></script>
         </head>
-
+        
         <body>
-
+            <input type="hidden" id="mensagem" value="${mensagem}"/>
+            <label type="hidden" name="statusAlterado" value="" id="statusAlterado"></label>
             <div id="menu">
                 <ul>
                     <a href="NamtabServlet"><li>Home
@@ -56,7 +57,7 @@
                 <br></br>
                 <fieldset>
                     <legend>Dados de Usuario</legend>
-                    <label class="labelformulario" id="lblcpf">CPF: </label> <input id="cpf" type="text" name="cpf" value="${user.idUsuario}"/><br></br>
+                    <label class="labelformulario" id="lblcpf">CPF: </label> <input onkeypress=" return somenteNumero(event)" id="cpf" type="text" name="cpf" value="${user.idUsuario}"/><br></br>
                     <label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome" value="${user.nome}"/> <br></br>
                     <label class="labelformulario" id="lblcargo">Cargo: </label> 
                     <select name="cargo" >
@@ -87,7 +88,7 @@
                     <label class="labelformulario" id="lblSenha">Senha: </label> <input name="senha" id="senha"/><br></br>
                     <label class="labelformulario" id="lblConfirma">Confirmar Senha: </label> <input name="cnfSenha" id="cnfSenha"/><br></br>
                    
-                    <select name="check" id="check">
+                    <select name="check" id="check" onchange="statusAlterado()">
                         <option>${status}</option>
                         <option>INATIVO</option>
                         <option>ATIVO</option>

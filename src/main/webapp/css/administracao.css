@@ -32,21 +32,21 @@ span{
 
 }
 #psq{
-	position: absolute;
+	position: fixed;
 	left: 50%;
 	top: 50%;
 	margin-left: -350px;
-	margin-top: -195px;
+	margin-top: -113px;
 	z-index: 4;
         padding: 50px;
 
 }
 #psqCampo{
-	position: absolute;
+	position: fixed;
 	left: 50%;
 	top: 50%;
 	margin-left: -205px;
-	margin-top: -145px;
+	margin-top: -63px;
 	
 }
 #btnCPF{
