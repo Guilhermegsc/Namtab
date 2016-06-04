@@ -1,4 +1,3 @@
-
 package dao;
 
 import entity.Usuario;
@@ -13,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Anderson
  */
-public class UsuarioDAO extends Conexao{
+public class UsuarioDAO extends Conexao {
 
     public Usuario buscarUsuario(String cpf) {
         PreparedStatement stmt = null;
@@ -63,6 +62,7 @@ public class UsuarioDAO extends Conexao{
         }
         return us;
     }
+
     public Usuario buscarQualquerUsuario(String cpf) {
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -118,14 +118,14 @@ public class UsuarioDAO extends Conexao{
         Connection conn = null;
         Usuario us = null;
 
-
         ArrayList<Usuario> lista = new ArrayList();
 
         try {
-            String sql = "SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_VENDA = TRUE";
+            String select = "SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_USUARIO = TRUE";
+
             conn = obterConexao();
             stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery(sql);
+            ResultSet resultados = stmt.executeQuery(select);
 
             while (resultados.next()) {
                 String id = resultados.getString("CPF");
@@ -164,7 +164,7 @@ public class UsuarioDAO extends Conexao{
         }
         return lista;
     }
-    
+
     public boolean efetuaLogin(String cpf, String senha) {
         Statement stmt = null;
         Connection conn = null;
@@ -310,16 +310,13 @@ public class UsuarioDAO extends Conexao{
         Connection conn = null;
 
         // inserir usuario a ser alterado 
-        String sql = "UPDATE USUARIO SET NOME = '"+us.getNome()+"', ID_FILIAL = "+us.getIdFilial()+", PERFIL = "+us.getTipoPerfil()+", FUNCAO = '"+us.getFuncao()+"' WHERE CPF = '"+us.getIdUsuario()+"'";
-        
+        String sql = "UPDATE USUARIO SET NOME = '" + us.getNome() + "', ID_FILIAL = " + us.getIdFilial() + ", PERFIL = " + us.getTipoPerfil() + ", FUNCAO = '" + us.getFuncao() + "' WHERE CPF = '" + us.getIdUsuario() + "'";
+
         try {
-          
-            
+
             conn = obterConexao();
             stmt = conn.createStatement();
             stmt.executeUpdate(sql);
-
-         
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -380,6 +377,5 @@ public class UsuarioDAO extends Conexao{
             }
         }
     }
-    
 
 }

@@ -26,30 +26,30 @@
 
             <div id="menu">
                 <ul>
-                    <li><a href="NamtabServlet">Home</a>
+                    <a href="NamtabServlet"><li>Home
                         <ul> 
-                            <li><a href="AlteraSenhaServlet">Alterar Senha</a></li>
-                            <li><a href="LogoutServlet">LogOut</a></li>
+                            <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
+                            <a href="LogoutServlet"><li>LogOut</li></a>
                         </ul>
-                    </li> 
-                    <li><a href="VendaServlet">Venda</a></li>
+                    </li></a>
+                    <a href="VendaServlet"><li>Venda</li></a>
                     <li>Relatório
                         <ul> 
-                            <li><a href="RelatorioServlet">Venda</a></li>
-                            <li><a href="RelatorioProdutoServlet">Produto</a></li>
-                            <li><a href="RelatorioUsuarioServlet">Usuario</a></li>
+                            <a href="RelatorioServlet"><li>Venda</li></a>
+                            <a href="RelatorioProdutoServlet"><li>Produto</li></a>
+                            <a href="RelatorioUsuarioServlet"><li>Usuario</li></a>
                         </ul>
                     </li>
                     <li>Administração
                         <ul> 
-                            <li><a href="AdministracaoServlet">Usuários</a></li>
-                            <li><a href="AdministracaoAlteraProdutoServlet">Produtos</a></li>
-                            <li><a href="AdministracaoAlteraVendaServlet">Vendas</a></li>
+                            <a href="AdministracaoServlet"><li>Usuários</li></a>
+                            <a href="AdministracaoAlteraProdutoServlet"><li>Produtos</li></a>
+                            <a href="AdministracaoAlteraVendaServlet"><li>Vendas</li></a>
                         </ul>
                     </li>
 
                 </ul>
-
+                
             </div>
             
             
