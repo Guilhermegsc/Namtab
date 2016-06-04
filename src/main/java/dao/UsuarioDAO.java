@@ -118,15 +118,13 @@ public class UsuarioDAO extends Conexao{
         Connection conn = null;
         Usuario us = null;
 
-        String sql = "SELECT CPF, NOME, ID_FILIAL, PERFIL, FUNCAO "
-                + "FROM USUARIO WHERE STATUS_USUARIO = TRUE";
 
         ArrayList<Usuario> lista = new ArrayList();
 
         try {
             conn = obterConexao();
             stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery(sql);
+            ResultSet resultados = stmt.executeQuery("SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_VENDA = TRUE");
 
             while (resultados.next()) {
                 String id = resultados.getString("CPF");

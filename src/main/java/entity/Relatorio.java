@@ -212,31 +212,33 @@ public class Relatorio {
                 row.createCell(1).setCellValue(prod.getNomeProduto());
                 row.createCell(2).setCellValue(prod.getPreco());
 
-                switch (prod.getIdProduto()) {
+                switch (prod.getTipo()) {
                     // lista oleo
-                    case 1:
-                        OleoLubrificante ol = new OleoLubrificante();
-                        row.createCell(3).setCellValue("");
-                        row.createCell(4).setCellValue(ol.getTamanho());
-                        row.createCell(5).setCellValue("");
-                        lista.add(ol);
-                        break;
-                    // lista extintor    
-                    case 2:
-                        Extintor ext = new Extintor();
-                        row.createCell(3).setCellValue(ext.getCategoria());
-                        row.createCell(4).setCellValue(ext.getTamanho());
-                        row.createCell(5).setCellValue("");
-                        lista.add(ext);
-                        break;
-                    // lista combustivel    
-                    default:
+                    case "COMB":
                         Combustivel com = new Combustivel();
                         row.createCell(3).setCellValue("");
                         row.createCell(4).setCellValue("");
                         row.createCell(5).setCellValue(com.getTipo());
-                        lista.add(com);
+
                         break;
+                    // lista extintor    
+                    case "PROD":
+                        if (prod.getIdProduto() == 5) {  // lista oleo 
+                            OleoLubrificante ol = new OleoLubrificante();
+                            row.createCell(3).setCellValue("");
+                            row.createCell(4).setCellValue(ol.getTamanho());
+                            row.createCell(5).setCellValue("");
+                            break;
+                        } else if (prod.getIdProduto() == 6) {  // lista extintor
+                            Extintor ext = new Extintor();
+                            row.createCell(3).setCellValue(ext.getCategoria());
+                            row.createCell(4).setCellValue(ext.getTamanho());
+                            row.createCell(5).setCellValue("");
+                            break;
+                        }
+                    default:
+                        break;
+
                 }
 
                 i++;
