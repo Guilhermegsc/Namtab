@@ -1,4 +1,3 @@
-
 package dao;
 
 import entity.Usuario;
@@ -13,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Anderson
  */
-public class UsuarioDAO extends Conexao{
+public class UsuarioDAO extends Conexao {
 
     public Usuario buscarUsuario(String cpf) {
         PreparedStatement stmt = null;
@@ -63,6 +62,7 @@ public class UsuarioDAO extends Conexao{
         }
         return us;
     }
+
     public Usuario buscarQualquerUsuario(String cpf) {
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -118,53 +118,54 @@ public class UsuarioDAO extends Conexao{
         Connection conn = null;
         Usuario us = null;
 
-
         ArrayList<Usuario> lista = new ArrayList();
 
         try {
-            String select = "SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_USUARIO = TRUE";
+            String sql = "SELECT NOME, CPF, PERFIL, ID_FILIAL, FUNCAO FROM USUARIO WHERE STATUS_VENDA = TRUE";
             conn = obterConexao();
             stmt = conn.createStatement();
-            ResultSet resultados = stmt.executeQuery(select);
+            ResultSet resultados = stmt.executeQuery(sql);
 
-            while (resultados.next()) {
-                String id = resultados.getString("CPF");
-                String nome = resultados.getString("NOME");
-                int idFilial = resultados.getInt("ID_FILIAL");
-                int perfil = resultados.getInt("PERFIL");
-                String funcao = resultados.getString("FUNCAO");
+                while (resultados.next()) {
+                    String id = resultados.getString("CPF");
+                    String nome = resultados.getString("NOME");
+                    int idFilial = resultados.getInt("ID_FILIAL");
+                    int perfil = resultados.getInt("PERFIL");
+                    String funcao = resultados.getString("FUNCAO");
 
-                us = new Usuario(id, nome, idFilial, perfil, funcao);
+                    us = new Usuario(id, nome, idFilial, perfil, funcao);
 
-                lista.add(us);
-            }
+                    lista.add(us);
+                }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
             // Código colocado aqui para garantir que a conexão com o banco
-            // seja sempre fechada, independentemente se executado com sucesso
-            // ou erro.
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                // seja sempre fechada, independentemente se executado com sucesso
+                // ou erro.
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            return lista;
         }
-        return lista;
-    }
     
+    
+
     public boolean efetuaLogin(String cpf, String senha) {
         Statement stmt = null;
         Connection conn = null;
@@ -306,29 +307,17 @@ public class UsuarioDAO extends Conexao{
     }
 
     public void alterarUsuario(Usuario us) {
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         Connection conn = null;
 
         // inserir usuario a ser alterado 
-        String sql = "UPDATE USUARIO SET"
-                + " NOME = '?', "
-                + " ID_FILIAL = ?, "
-                + " PERFIL = ?, "
-                + " FUNCAO = '?' "
-                + " WHERE CPF = '?' ";
+        String sql = "UPDATE USUARIO SET NOME = '" + us.getNome() + "', ID_FILIAL = " + us.getIdFilial() + ", PERFIL = " + us.getTipoPerfil() + ", FUNCAO = '" + us.getFuncao() + "' WHERE CPF = '" + us.getIdUsuario() + "'";
+
         try {
+
             conn = obterConexao();
-
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, us.getNome());
-            stmt.setInt(2, us.getIdFilial());
-            stmt.setInt(3, us.getTipoPerfil());
-            stmt.setString(4, us.getFuncao());
-            stmt.setString(5, us.getIdUsuario());
-
-            stmt.executeUpdate();
-            conn.commit();
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -389,6 +378,5 @@ public class UsuarioDAO extends Conexao{
             }
         }
     }
-    
 
 }

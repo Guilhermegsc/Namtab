@@ -49,13 +49,14 @@
                 </ul>
 
             </div>
+            
             <form name="form" id="formulario" action="AdministracaoServlet?${now.time}" method="post">
                 <label class="labelformulario" id="psq">Pesquisar: </label> <input type="text" name="pesquisa" id="psqCampo" onblur="pesquisar();"></input>
                 <br></br>
                 <br></br>
                 <fieldset>
                     <legend>Dados de Usuario</legend>
-                    <label class="labelformulario" id="lblcpf">CPF: </label> <input type="text" name="cpf" value="${user.idUsuario}"/><br></br>
+                    <label class="labelformulario" id="lblcpf">CPF: </label> <input id="cpf" type="text" name="cpf" value="${user.idUsuario}"/><br></br>
                     <label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome" value="${user.nome}"/> <br></br>
                     <label class="labelformulario" id="lblcargo">Cargo: </label> 
                     <select name="cargo" >
@@ -80,8 +81,12 @@
                                 <c:out value="${fil.descricao}"/></option>
                             </c:forEach>
                     </select>
-                    <label class="labelformulario" type="hidden">Senha: </label> <input type="hidden" name="senha" id="senha"/><br></br>
-                    <label class="labelformulario" hidden="true">Confirmar Senha: </label> <input type="hidden" name="cnfSenha" id="cnfSenha"/><br></br>
+                    <!--<label class="labelformulario" style="display:none">Senha: </label> <input type="hidden" name="senha" id="senha"/><br></br>
+                    <label class="labelformulario" style="display:none">Confirmar Senha: </label> <input type="hidden" name="cnfSenha" id="cnfSenha"/><br></br>
+                    -->
+                    <label class="labelformulario">Senha: </label> <input name="senha" id="senha"/><br></br>
+                    <label class="labelformulario">Confirmar Senha: </label> <input name="cnfSenha" id="cnfSenha"/><br></br>
+                   
                     <select name="check" id="check">
                         <option>${status}</option>
                         <option>INATIVO</option>
@@ -99,7 +104,7 @@
             </form>
 
 
-
+                        
             <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
 
         </body>

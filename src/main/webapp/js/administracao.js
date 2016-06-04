@@ -4,6 +4,7 @@ function iniciar() {
 }
 function pesquisar(){
     document.querySelector("form").submit();
+    document.getElementById("cpf").disabled = true;
 
 }
 function camposSenha(){
