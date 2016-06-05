@@ -53,11 +53,11 @@
                 <fieldset>
                     <legend>Alterar a Senha</legend>
  
-                    <label class="labelformulario" id="lblAntiga">Senha Antiga: </label> 
+                    <label class="labelformulario" id="lblAtual">Senha atual: </label> 
                     <input type="password" name="senhaAtual" autocomplete="off"> </input><br></br>
-                    <label class="labelformulario" id="lblNova">Nova Senha: </label> 
+                    <label class="labelformulario" id="lblNova">Nova senha: </label> 
                     <input type="password" name="senhaNova" autocomplete="off"> </input><br></br>
-                    <label class="labelformulario" id="lblconfirma">Confirme a Nova Senha: </label> 
+                    <label class="labelformulario" id="lblconfirma">Confirme a nova senha: </label> 
                     <input type="password" name="senhaConfirma" autocomplete="off"> </input><br></br>
 
 
