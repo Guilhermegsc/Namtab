@@ -47,7 +47,7 @@
                 
             </div>
             
-            <form id="formulario" action="AdministracaoAlteraSenhaServlet" method="get">
+            <form id="formulario" action="AlteraSenhaServlet" method="get">
                 <fieldset>
                     <legend>Alterar a Senha</legend>
                     <label class="labelformulario" id="lblusuario">Usuario: </label> 
