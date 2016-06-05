@@ -25,17 +25,16 @@ public class ErroLoginServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
-    }
 
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-      request.getRequestDispatcher("WEB-INF/login.jspx").forward(request, response);
-        
+        request.setAttribute("mensagem", "Usuário ou senha inválidos.");
+        request.getRequestDispatcher("WEB-INF/login.jspx").forward(request, response);
+
     }
 
     @Override

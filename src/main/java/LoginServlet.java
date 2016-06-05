@@ -7,18 +7,12 @@
 import dao.UsuarioDAO;
 import entity.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 
 /**
  * https://github.com/ftsuda82/pi3-agenda-2016
@@ -87,34 +81,32 @@ public class LoginServlet extends HttpServlet {
         boolean logado = usuarioDAO.efetuaLogin(user, senha);
         if (logado == true) {
             response.sendRedirect(request.getContextPath() + "/NamtabServlet");
-        }else{
-             response.sendRedirect(request.getContextPath() + "/ErroLoginServlet");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/ErroLoginServlet");
         }
         //response.sendRedirect(request.getContextPath() + "/NamtabServlet");
-            // Validar nome de usuário e senha.
-            //Usuario usuario = validar(usuario, senha);
-            /**
-             * if (usuario != null) { HttpSession sessao =
-             * request.getSession(false); if (sessao != null) { // Força
-             * invalidação da sessão anterior. sessao.invalidate(); } sessao =
-             * request.getSession(true); sessao.setAttribute("usuario",
-             * usuario); response.sendRedirect(request.getContextPath() +
-             * "/NamtabServlet"); return; // FIM CASO SUCESSO }
-             * response.sendRedirect(request.getContextPath() +
-             * "/erroLogin.jsp"); AINDA SENDO IMPLEMENTADO*
-             */
-        }
-
+        // Validar nome de usuário e senha.
+        //Usuario usuario = validar(usuario, senha);
         /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
+         * if (usuario != null) { HttpSession sessao =
+         * request.getSession(false); if (sessao != null) { // Força invalidação
+         * da sessão anterior. sessao.invalidate(); } sessao =
+         * request.getSession(true); sessao.setAttribute("usuario", usuario);
+         * response.sendRedirect(request.getContextPath() + "/NamtabServlet");
+         * return; // FIM CASO SUCESSO }
+         * response.sendRedirect(request.getContextPath() + "/erroLogin.jsp");
+         * AINDA SENDO IMPLEMENTADO*
          */
-        @Override
-        public String getServletInfo
-        
-            () {
-        return "Short description";
-        }// </editor-fold>
-
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
