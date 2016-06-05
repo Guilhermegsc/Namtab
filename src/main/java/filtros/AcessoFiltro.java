@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  * @author gustavo.oliveira
  */
 @WebFilter(filterName = "AcessoFiltro", servletNames = {"VendaServlet", "RelatorioServlet",
-    "RelatorioUsuarioServlet", "RelatorioProdutoServlet", "AdministracaoServlet", "AdministracaoAlteraSenhaServlet", "AdministracaoAlteraProdutoServlet"})
+    "RelatorioUsuarioServlet", "RelatorioProdutoServlet", "AdministracaoServlet","AdministracaoAlteraVendaServlet", "AdministracaoAlteraSenhaServlet", "AdministracaoAlteraProdutoServlet"})
 public class AcessoFiltro implements Filter {
 
     private static final boolean debug = true;
@@ -158,6 +158,10 @@ public class AcessoFiltro implements Filter {
         }else if (pagina.endsWith("RelatorioServlet") && (usuario.getTipoPerfil() == 1)) {
             return true;
         }else if (pagina.endsWith("RelatorioServlet") && (usuario.getTipoPerfil() == 1)) {
+            return true;
+        }else if (pagina.endsWith("AdministracaoAlteraVendaServlet") && (usuario.getTipoPerfil() == 1)) {
+            return true;
+        } else if (pagina.endsWith("AdministracaoAlteraProdutoServlet") && (usuario.getTipoPerfil() == 1)) {
             return true;
         }
         return false;
