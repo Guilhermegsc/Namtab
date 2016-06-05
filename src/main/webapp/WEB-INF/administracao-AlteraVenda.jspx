@@ -22,11 +22,11 @@
             <div id="menu">
                 <ul>
                     <a href="NamtabServlet"><li>Home
-                        <ul> 
-                            <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
-                            <a href="LogoutServlet"><li>LogOut</li></a>
-                        </ul>
-                    </li></a>
+                            <ul> 
+                                <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
+                                <a href="LogoutServlet"><li>LogOut</li></a>
+                            </ul>
+                        </li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
                     <li>Relatório
                         <ul> 
@@ -44,20 +44,20 @@
                     </li>
 
                 </ul>
-                
+
             </div>
 
             <form id="form2" action="AdministracaoAlteraVendaServlet" method="post" >
                 <fieldset>
                     <legend>Buscar Venda</legend>
                     <input type="hidden" name="mensagem" id="mensagem" value="${mensagem}"></input>
-                <label class="labelformulario" id="lblcodigo">Codigo: </label> 
-                <input type="text" name="campo" autocomplete="off" onkeypress=" return somenteNumero(event)" ></input><br></br>
+                    <label class="labelformulario" id="lblcodigo">Codigo: </label> 
+                    <input type="text" name="campo" autocomplete="off" onkeypress=" return somenteNumero(event)" ></input><br></br>
                 </fieldset>
             </form>
             <c:forEach items="${venda}" var="venda">
                 <form id="formulario" action="AdministracaoAlteraVendaServlet" method="post">
-                <fieldset>                    
+                    <fieldset>                    
                         <label class="labelformulario" id="lblidVenda">ID Venda: </label> 
                         <input type="hidden" name="idVenda" value="${venda.idVenda}"></input>
                         <input type="text" value="${venda.idVenda}" disabled="true" class="campos"></input>
@@ -77,15 +77,15 @@
                         <input type="text" value="${venda.quantidade}"  disabled="true" class="campos"></input>                    
                         <label class="labelformulario" id="lblvalorVenda">Valor Venda: </label> 
                         <input type="text" value="${venda.valorVenda}" disabled="true" class="campos"></input>
-                   
-                </fieldset>
-                        
-                <fieldset>
-                    <legend>Opções</legend>
-                    <button type="submit" class="btn" id="excluirVenda">Excluir Venda</button>
-                </fieldset>
-            </form>
-                         </c:forEach>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Opções</legend>
+                        <button type="submit" class="btn" id="excluirVenda" onclick="return validar()">Excluir Venda</button>
+                    </fieldset>
+                </form>
+            </c:forEach>
         </body>
     </html>
 

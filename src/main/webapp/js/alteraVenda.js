@@ -17,3 +17,11 @@ function somenteNumero(e) {
             return false;
     }
 }
+
+function validar(){
+    if (confirm("Confirma a exclusão?")) {
+        return true;
+    } else {
+        return false;
+    }
+}
