@@ -5,9 +5,7 @@
  */
 
 import dao.UsuarioDAO;
-import entity.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,17 +45,6 @@ public class AlteraSenhaServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         request.getRequestDispatcher("WEB-INF/administracao-AlteraSenha.jspx").forward(request, response);
-        String idUsuario = request.getParameter("cpf");
-        String nome = request.getParameter("nome");
-        String senha = request.getParameter("senha");
-        int idFilial = Integer.parseInt(request.getParameter("idFilial"));
-        int tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-        String funcao = request.getParameter("cargo");
-        
-        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.incluirUsuario(usuario);
-        System.out.println("aeeeee");
     }
 
     /**
@@ -72,6 +59,26 @@ public class AlteraSenhaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        UsuarioDAO u = new UsuarioDAO();
+        String id = request.getParameter("idUsuario");
+        String senhaAtual = request.getParameter("senhaAtual");
+        String novaSenha = request.getParameter("senhaNova");
+        String confirmaSenha = request.getParameter("senhaConfirma");
+
+        if (senhaAtual.equals("")) {
+            request.setAttribute("mensagem", "Por favor, digite a sua senha atual.");
+        } else if (!senhaAtual.equals(u.getSenha(id))) {
+            request.setAttribute("mensagem", "Senha atual inválida");
+        } else if (novaSenha.equals("")) {
+            request.setAttribute("mensagem", "Por favor, digite uma senha.");
+        } else if (confirmaSenha.equals("")) {
+            request.setAttribute("mensagem", "Por favor, confirme a nova senha.");
+        } else if (novaSenha.equals(confirmaSenha)) {
+            u.alterarSenha(id, novaSenha);
+            request.setAttribute("mensagem", "Senha alterada com sucesso!");
+        } else {
+            request.setAttribute("mensagem", "As senhas não coincidem. Tente novamente.");
+        }
         request.getRequestDispatcher("WEB-INF/administracao-AlteraSenha.jspx").forward(request, response);
 
     }

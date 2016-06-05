@@ -15,6 +15,7 @@
             <link rel="stylesheet" type="text/css" href="css/geral.css"/>
             <link rel="stylesheet" type="text/css" href="css/administracao-AlteraSenha.css"/>
             <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
+            <script src="${pathResources}/Namtab/js/alteraSenha.js"><jsp:text /></script>
         </head>
 
         <body>
@@ -22,11 +23,11 @@
             <div id="menu">
                 <ul>
                     <a href="NamtabServlet"><li>Home
-                        <ul> 
-                            <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
-                            <a href="LogoutServlet"><li>LogOut</li></a>
-                        </ul>
-                    </li></a>
+                            <ul> 
+                                <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
+                                <a href="LogoutServlet"><li>LogOut</li></a>
+                            </ul>
+                        </li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
                     <li>Relatório
                         <ul> 
@@ -44,22 +45,20 @@
                     </li>
 
                 </ul>
-                
+
             </div>
-            
-            <form id="formulario" action="AlteraSenhaServlet" method="get">
+            <input type="hidden" id="mensagem" value="${mensagem}"></input>
+            <form id="formulario" action="AlteraSenhaServlet" method="post">
+                <input type="hidden" name="idUsuario" value="${usuario.idUsuario}"> </input>
                 <fieldset>
                     <legend>Alterar a Senha</legend>
-                    <label class="labelformulario" id="lblusuario">Usuario: </label> 
-                    <select name="usuario" >
-                        <option>Gerente</option>
-                        <option>Frentista</option>
-                        <option>Vendedor</option>
-
-                    </select>
-                    <label class="labelformulario" id="lblAntiga">Senha Antiga: </label> <input type="text" name="snhAntiga"> </input><br></br>
-                    <label class="labelformulario" id="lblNova">Nova Senha: </label> <input type="password" name="snhNova"> </input><br></br>
-                    <label class="labelformulario" id="lblconfirma">Confirme a Nova Senha: </label> <input type="password" name="snhConfirma"> </input><br></br>
+ 
+                    <label class="labelformulario" id="lblAntiga">Senha Antiga: </label> 
+                    <input type="password" name="senhaAtual" autocomplete="off"> </input><br></br>
+                    <label class="labelformulario" id="lblNova">Nova Senha: </label> 
+                    <input type="password" name="senhaNova" autocomplete="off"> </input><br></br>
+                    <label class="labelformulario" id="lblconfirma">Confirme a Nova Senha: </label> 
+                    <input type="password" name="senhaConfirma" autocomplete="off"> </input><br></br>
 
 
                 </fieldset>

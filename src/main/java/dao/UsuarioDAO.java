@@ -304,7 +304,8 @@ public class UsuarioDAO extends Conexao {
             }
         }
     }
-        public void ativarUsuario(String idUsuario) {
+
+    public void ativarUsuario(String idUsuario) {
         PreparedStatement stmt = null;
         Connection conn = null;
 
@@ -373,20 +374,15 @@ public class UsuarioDAO extends Conexao {
     }
 
     public void alterarSenha(String idUsuario, String novaSenha) {
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         Connection conn = null;
 
-        // inserir usuario a ser alterado 
         String sql = "UPDATE USUARIO SET SENHA = '" + novaSenha + "' WHERE CPF = '" + idUsuario + "'";
         try {
-            conn = obterConexao();
-
-            conn.setAutoCommit(false); // Permite usar transacoes para multiplos comandos no banco de dados
-            stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, novaSenha);
-
-            stmt.executeUpdate();
-            conn.commit();
+            Conexao conexao = new Conexao();
+            conn = conexao.obterConexao();
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -408,6 +404,46 @@ public class UsuarioDAO extends Conexao {
                 }
             }
         }
+    }
+    
+    public String getSenha(String cpf){
+        Statement stmt = null;
+        Connection conn = null;
+        String senha = "";
+
+        String sql = "SELECT SENHA FROM USUARIO WHERE CPF = '"+cpf+"'";
+        try {
+            Conexao conexao = new Conexao();
+            conn = conexao.obterConexao();
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {                
+                   senha =  rs.getString("SENHA");
+            }
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        return senha;
     }
 
 }
