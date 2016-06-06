@@ -19,38 +19,42 @@
             <link rel="shortcut icon" href="css/ICO.ico" type="image/x-icon"/>
             <script src="${pathResources}/Namtab/js/administracao.js"><jsp:text /></script>
         </head>
-        
+
         <body>
             <input type="hidden" id="mensagem" value="${mensagem}"/>
             <label type="hidden" name="statusAlterado" value="" id="statusAlterado"></label>
             <div id="menu">
                 <ul>
                     <a href="NamtabServlet"><li>Home
-                        <ul> 
-                            <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
-                            <a href="LogoutServlet"><li>LogOut</li></a>
-                        </ul>
-                    </li></a> 
+                            <ul> 
+                                <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
+                                <a href="LogoutServlet"><li>LogOut</li></a>
+                            </ul>
+                        </li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
-                    <li>Relatório
-                        <ul> 
-                            <a href="RelatorioServlet"><li>Venda</li></a>
-                            <a href="RelatorioProdutoServlet"><li>Produto</li></a>
-                            <a href="RelatorioUsuarioServlet"><li>Usuario</li></a>
-                        </ul>
-                    </li>
-                    <li>Administração
-                        <ul> 
-                            <a href="AdministracaoServlet"><li>Usuários</li></a>
-                            <a href="AdministracaoAlteraProdutoServlet"><li>Produtos</li></a>
-                            <a href="AdministracaoAlteraVendaServlet"><li>Vendas</li></a>
-                        </ul>
-                    </li>
-
                 </ul>
+                <c:if test="${usuario.tipoPerfil == 1}">
+                    <ul>
+                        <li>Relatório
+                            <ul> 
+                                <a href="RelatorioServlet"><li>Venda</li></a>
+                                <a href="RelatorioProdutoServlet"><li>Produto</li></a>
+                                <a href="RelatorioUsuarioServlet"><li>Usuario</li></a>
+                            </ul>
+                        </li>
+                        <li>Administração
+                            <ul> 
+                                <a href="AdministracaoServlet"><li>Usuários</li></a>
+                                <a href="AdministracaoAlteraProdutoServlet"><li>Produtos</li></a>
+                                <a href="AdministracaoAlteraVendaServlet"><li>Vendas</li></a>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </c:if>
 
             </div>
-            
+
             <form name="form" id="formulario" action="AdministracaoServlet?${now.time}" method="post">
                 <label class="labelformulario" id="psq">Pesquisar: </label> <input type="text" name="pesquisa" id="psqCampo" onblur="pesquisar();"></input>
                 <br></br>
@@ -87,7 +91,7 @@
                     -->
                     <label class="labelformulario" id="lblSenha">Senha: </label> <input name="senha" id="senha"/><br></br>
                     <label class="labelformulario" id="lblConfirma">Confirmar Senha: </label> <input name="cnfSenha" id="cnfSenha"/><br></br>
-                   
+
                     <select name="check" id="check" onchange="statusAlterado()">
                         <option>${status}</option>
                         <option>INATIVO</option>
@@ -105,7 +109,7 @@
             </form>
 
 
-                        
+
             <span>Matriz - Av Deputado Oswaldo Moraes e silva</span>
 
         </body>

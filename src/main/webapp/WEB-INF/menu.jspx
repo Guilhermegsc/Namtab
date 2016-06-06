@@ -27,6 +27,9 @@
                         </ul>
                     </li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
+                    </ul>
+                <c:if test="${usuario.tipoPerfil == 1}">
+                <ul>
                     <li>Relatório
                         <ul> 
                             <a href="RelatorioServlet"><li>Venda</li></a>
@@ -41,9 +44,9 @@
                             <a href="AdministracaoAlteraVendaServlet"><li>Vendas</li></a>
                         </ul>
                     </li>
-
+                   
                 </ul>
-                
+                </c:if>
             </div>
 
             <p id="varUsuario" name="user">Bem-vindo, <br></br><c:out value="${usuario.nome}"/></p>

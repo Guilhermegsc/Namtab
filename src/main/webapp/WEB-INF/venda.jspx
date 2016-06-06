@@ -21,39 +21,43 @@
         </head>
 
         <body>
-                       
+
             <input type="hidden" id="mensagem" value="${mensagem}"/>
 
             <div id="menu">
                 <ul>
                     <a href="NamtabServlet"><li>Home
-                        <ul> 
-                            <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
-                            <a href="LogoutServlet"><li>LogOut</li></a>
-                        </ul>
-                    </li></a>
+                            <ul> 
+                                <a href="AlteraSenhaServlet"><li>Alterar Senha</li></a>
+                                <a href="LogoutServlet"><li>LogOut</li></a>
+                            </ul>
+                        </li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
-                    <li>Relatório
-                        <ul> 
-                            <a href="RelatorioServlet"><li>Venda</li></a>
-                            <a href="RelatorioProdutoServlet"><li>Produto</li></a>
-                            <a href="RelatorioUsuarioServlet"><li>Usuario</li></a>
-                        </ul>
-                    </li>
-                    <li>Administração
-                        <ul> 
-                            <a href="AdministracaoServlet"><li>Usuários</li></a>
-                            <a href="AdministracaoAlteraProdutoServlet"><li>Produtos</li></a>
-                            <a href="AdministracaoAlteraVendaServlet"><li>Vendas</li></a>
-                        </ul>
-                    </li>
-
                 </ul>
-                
+                <c:if test="${usuario.tipoPerfil == 1}">
+                    <ul>
+                        <li>Relatório
+                            <ul> 
+                                <a href="RelatorioServlet"><li>Venda</li></a>
+                                <a href="RelatorioProdutoServlet"><li>Produto</li></a>
+                                <a href="RelatorioUsuarioServlet"><li>Usuario</li></a>
+                            </ul>
+                        </li>
+                        <li>Administração
+                            <ul> 
+                                <a href="AdministracaoServlet"><li>Usuários</li></a>
+                                <a href="AdministracaoAlteraProdutoServlet"><li>Produtos</li></a>
+                                <a href="AdministracaoAlteraVendaServlet"><li>Vendas</li></a>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </c:if>
+
             </div>
-            
-            
-        
+
+
+
 
 
             <form id="formulario" action="VendaServlet" method="post">
@@ -76,7 +80,7 @@
 
                     <label class="labelformulario">Valor R$:</label>
                     <input type="text" maxlength="6" name="valor" id="valor" class="inputs" disabled="true"
-                         autocomplete="off" onkeypress="return(MascaraMoeda(this, '.', ',', event, produto))" ></input>
+                           autocomplete="off" onkeypress="return(MascaraMoeda(this, '.', ',', event, produto))" ></input>
                     <br/>
 
 

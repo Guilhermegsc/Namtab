@@ -29,22 +29,26 @@
                             </ul>
                         </li></a>
                     <a href="VendaServlet"><li>Venda</li></a>
-                    <li>Relatório
-                        <ul> 
-                            <a href="RelatorioServlet"><li>Venda</li></a>
-                            <a href="RelatorioProdutoServlet"><li>Produto</li></a>
-                            <a href="RelatorioUsuarioServlet"><li>Usuario</li></a>
-                        </ul>
-                    </li>
-                    <li>Administração
-                        <ul> 
-                            <a href="AdministracaoServlet"><li>Usuários</li></a>
-                            <a href="AdministracaoAlteraProdutoServlet"><li>Produtos</li></a>
-                            <a href="AdministracaoAlteraVendaServlet"><li>Vendas</li></a>
-                        </ul>
-                    </li>
-
                 </ul>
+                <c:if test="${usuario.tipoPerfil == 1}">
+                    <ul>
+                        <li>Relatório
+                            <ul> 
+                                <a href="RelatorioServlet"><li>Venda</li></a>
+                                <a href="RelatorioProdutoServlet"><li>Produto</li></a>
+                                <a href="RelatorioUsuarioServlet"><li>Usuario</li></a>
+                            </ul>
+                        </li>
+                        <li>Administração
+                            <ul> 
+                                <a href="AdministracaoServlet"><li>Usuários</li></a>
+                                <a href="AdministracaoAlteraProdutoServlet"><li>Produtos</li></a>
+                                <a href="AdministracaoAlteraVendaServlet"><li>Vendas</li></a>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </c:if>
 
             </div>
             <input type="hidden" id="mensagem" value="${mensagem}"></input>
@@ -52,7 +56,7 @@
                 <input type="hidden" name="idUsuario" value="${usuario.idUsuario}"> </input>
                 <fieldset>
                     <legend>Alterar a Senha</legend>
- 
+
                     <label class="labelformulario" id="lblAtual">Senha atual: </label> 
                     <input type="password" name="senhaAtual" autocomplete="off"> </input><br></br>
                     <label class="labelformulario" id="lblNova">Nova senha: </label> 
