@@ -8,7 +8,6 @@ import dao.ProdutoDAO;
 import dao.VendaDAO;
 import entity.*;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +28,12 @@ public class VendaServlet extends HttpServlet {
         prod = produto.listaProduto();
         request.getSession().setAttribute("prod", prod);
 
+        // PREENCHER O ID DA VENDA
+        VendaDAO v = new VendaDAO();
+        int nVenda = v.ultimaVenda() + 1;
+
+        request.setAttribute("venda", nVenda);
         request.setAttribute("produto", prod);
-        request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
 
     }
 
@@ -42,7 +45,9 @@ public class VendaServlet extends HttpServlet {
 
         // criar venda
         VendaDAO venda = new VendaDAO();
-        if (idProduto <= 4) {
+        if (idProduto == 0) {
+            return false;
+        } else if (idProduto <= 4) {
             double valor = Double.parseDouble(request.getParameter("valor").replace(",", "."));
             Combustivel com = new Combustivel(cpf, idFilial, idProduto, valor);
             venda.vendaCombustivel(com);
@@ -93,6 +98,7 @@ public class VendaServlet extends HttpServlet {
             throws ServletException, IOException {
 
         preencheProdutos(request, response);
+        request.getRequestDispatcher("WEB-INF/venda.jspx").forward(request, response);
 
     }
 
@@ -110,6 +116,7 @@ public class VendaServlet extends HttpServlet {
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
         ProdutoDAO produtoDAO = new ProdutoDAO();
         int idProduto = Integer.parseInt(request.getParameter("produto"));
+        
 
         if (efetuaVenda(request, response, usuario, produtoDAO, idProduto)) {
             request.setAttribute("mensagem", "Venda efetuada com sucesso!");
@@ -118,6 +125,7 @@ public class VendaServlet extends HttpServlet {
         }
 
         preencheProdutos(request, response);
+        response.sendRedirect("VendaServlet");
 
     }
 

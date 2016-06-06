@@ -63,8 +63,9 @@
             <form id="formulario" action="VendaServlet" method="post">
                 <fieldset>
                     <legend>Informações da Venda</legend>
-
-                    <label class="labelformulario">Tipo/Produto:</label>
+                    <label class="labelformulario">ID Venda:</label>
+                    <input class="inputs" id="codigo" type="text" disabled="true" value="${venda}"></input><br></br>
+                    <label class="labelformulario">Produto:</label>
                     <select name="produto" id="produto" onchange="habilitaCampo(this)">
                         <option></option>
                         <c:forEach items="${produto}" var="prod">
@@ -74,7 +75,7 @@
                     </select>
 
                     <label id="quantidadeProduto" class="labelformulario">Un/Lt:</label>
-                    <input type="text"  id="quantidade" class="inputs" name="quantidade" disabled="true" 
+                    <input type="text" maxlength="7" id="quantidade" class="inputs" name="quantidade" disabled="true" 
                            autocomplete="off" onkeypress=" return calcValor(event, produto)" ></input>
                     <br/>
 

@@ -297,7 +297,7 @@ public class VendaDAO extends Conexao {
                 String nomeUsuario = resultados.getString("NOME");
                 String nomeFilial = resultados.getString("NOME_FILIAL");
                 Date dataVenda = resultados.getDate("DATA_VENDA");
-                               
+
                 Produto prod = new Produto(idVenda, precoProd, quantidade, valorVenda, nomeUsuario, nomeProduto, nomeFilial, dataVenda);
                 lista.add(prod);
             }
@@ -362,4 +362,44 @@ public class VendaDAO extends Conexao {
         }
     }
 
+    public int ultimaVenda() {
+        Statement stmt = null;
+        Connection conn = null;
+        String sql = "SELECT MAX(ID_VENDA) AS ULTIMA_VENDA FROM VENDA";
+        int venda = 0;
+        try {
+            Conexao conexao = new Conexao();
+            conn = conexao.obterConexao();
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                venda = rs.getInt("ULTIMA_VENDA");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Código colocado aqui para garantir que a conexão com o banco
+            // seja sempre fechada, independentemente se executado com sucesso
+            // ou erro.
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return venda;
+    }
 }

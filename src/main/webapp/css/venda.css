@@ -72,3 +72,9 @@ button:hover{
     top: -27px;
     left: 400px;
 }
+#codigo{
+    position: relative;
+    left: -29px;
+    width: 25%;
+    
+}
