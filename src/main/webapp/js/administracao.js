@@ -49,3 +49,4 @@ function statusAlterado(){
     document.getElementById("statusAlterado").value = "true";
     
 }
+

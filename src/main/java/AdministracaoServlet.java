@@ -99,6 +99,7 @@ public class AdministracaoServlet extends HttpServlet {
             String cnfSenha = request.getParameter("cnfSenha");
             if (senha.equals(cnfSenha)) {
                 usuarioDAO.incluirUsuario(usuario);
+                request.setAttribute("mensagem", "Usuário cadastrado com sucesso!");
             } else {
             }
 

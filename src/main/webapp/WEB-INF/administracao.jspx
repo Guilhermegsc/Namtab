@@ -56,12 +56,13 @@
             </div>
 
             <form name="form" id="formulario" action="AdministracaoServlet?${now.time}" method="post">
-                <label class="labelformulario" id="psq">Pesquisar: </label> <input type="text" name="pesquisa" id="psqCampo" onblur="pesquisar();"></input>
+                <label class="labelformulario" id="psq">Pesquisar: </label>
+                <input type="text" name="pesquisa" id="psqCampo" maxlength="11" onkeypress="return SomenteNumero(event)" onblur="pesquisar();"></input>
                 <br></br>
                 <br></br>
                 <fieldset>
                     <legend>Dados de Usuario</legend>
-                    <label class="labelformulario" id="lblcpf">CPF: </label> <input onkeypress=" return somenteNumero(event)" id="cpf" type="text" name="cpf" value="${user.idUsuario}"/><br></br>
+                    <label class="labelformulario" id="lblcpf">CPF: </label> <input onkeypress=" return SomenteNumero(event)" maxlength="11"  id="cpf" type="text" name="cpf" value="${user.idUsuario}"/><br></br>
                     <label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome" value="${user.nome}"/> <br></br>
                     <label class="labelformulario" id="lblcargo">Cargo: </label> 
                     <select name="cargo" >
