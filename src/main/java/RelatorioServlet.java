@@ -73,6 +73,7 @@ public class RelatorioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
         String dtInicial = request.getParameter("pInicial");
         String dtFinal = request.getParameter("pFinal");
@@ -86,7 +87,7 @@ public class RelatorioServlet extends HttpServlet {
             Date dataFinal = null;
             dataFinal = (Date) formatter.parse(dtFinal);
             Relatorio relatorio = new Relatorio();
-            HSSFWorkbook wb = relatorio.relatorioVenda(dataInicial, dataFinal);
+            HSSFWorkbook wb = relatorio.relatorioVenda(dataInicial, dataFinal, usuario.getIdFilial());
 
             ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
             wb.write(outByteStream);

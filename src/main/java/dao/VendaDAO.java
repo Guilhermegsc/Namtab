@@ -203,7 +203,7 @@ public class VendaDAO extends Conexao {
         }
     }
 
-    public ArrayList<Produto> listarVenda(Date dataUm, Date dataDois) {
+    public ArrayList<Produto> listarTodasVendas(Date dataUm, Date dataDois) {
         Statement stmt = null;
         Connection conn = null;
 
@@ -215,6 +215,75 @@ public class VendaDAO extends Conexao {
         String sql = "SELECT V.ID_VENDA, V.ID_FILIAL, V.CPF, V.ID_PRODUTO, V.DATA_VENDA, V.VALOR_VENDA, "
                 + " V.QUANTIDADE, V.PRECO_PRODUTO, P.NOME_PRODUTO, U.NOME, F.NOME_FILIAL "
                 + " FROM VENDA V, PRODUTO P, USUARIO U, FILIAL F WHERE V.STATUS_VENDA = TRUE "
+                + " AND V.ID_PRODUTO = P.ID_PRODUTO AND V.ID_FILIAL = F.ID_FILIAL AND U.CPF = V.CPF "
+                + "AND V.DATA_VENDA BETWEEN '" + dataOne + "' AND '" + dataTwo + "'";
+
+        ArrayList<Produto> lista = new ArrayList();
+
+        try {
+            Conexao conexao = new Conexao();
+            conn = conexao.obterConexao();
+            stmt = conn.createStatement();
+            ResultSet resultados = stmt.executeQuery(sql);
+
+            while (resultados.next()) {
+                int idVenda = resultados.getInt("ID_VENDA");
+                int idFilial = resultados.getInt("ID_FILIAL");
+                String idUsuario = resultados.getString("CPF");
+                int idProduto = resultados.getInt("ID_PRODUTO");
+                Date dataVenda = resultados.getDate("DATA_VENDA");
+                double valorVenda = resultados.getDouble("VALOR_VENDA");
+                double quantidade = resultados.getDouble("QUANTIDADE");
+                double precoProd = resultados.getDouble("PRECO_PRODUTO");
+                String nomeProduto = resultados.getString("NOME_PRODUTO");
+                String nomeUsuario = resultados.getString("NOME");
+                String nomeFilial = resultados.getString("NOME_FILIAL");
+
+                Produto prod = new Produto(idVenda, idProduto, idFilial, idUsuario, nomeUsuario, nomeProduto,
+                        precoProd, dataVenda, quantidade, valorVenda, nomeFilial);
+
+                lista.add(prod);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Código colocado aqui para garantir que a conexão com o banco
+            // seja sempre fechada, independentemente se executado com sucesso
+            // ou erro.
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return lista;
+    }
+    
+    public ArrayList<Produto> listarVendasFilial(Date dataUm, Date dataDois, int id_Filial) {
+        Statement stmt = null;
+        Connection conn = null;
+
+        // trasforma datas em string
+        SimpleDateFormat formataData = new SimpleDateFormat("yyyy-MM-dd");
+        String dataOne = formataData.format(dataUm);
+        String dataTwo = formataData.format(dataDois);
+
+        String sql = "SELECT V.ID_VENDA, V.ID_FILIAL, V.CPF, V.ID_PRODUTO, V.DATA_VENDA, V.VALOR_VENDA, "
+                + " V.QUANTIDADE, V.PRECO_PRODUTO, P.NOME_PRODUTO, U.NOME, F.NOME_FILIAL "
+                + " FROM VENDA V, PRODUTO P, USUARIO U, FILIAL F WHERE V.STATUS_VENDA = TRUE "
+                + " AND V.ID_FILIAL = " + id_Filial
                 + " AND V.ID_PRODUTO = P.ID_PRODUTO AND V.ID_FILIAL = F.ID_FILIAL AND U.CPF = V.CPF "
                 + "AND V.DATA_VENDA BETWEEN '" + dataOne + "' AND '" + dataTwo + "'";
 

@@ -26,7 +26,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
  */
 public class Relatorio {
 
-    public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim) {
+    public HSSFWorkbook relatorioVenda(Date dtInicio, Date dtFim, int idFilial) {
 
         //cria planilha
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -64,7 +64,13 @@ public class Relatorio {
             ArrayList<Produto> lista;
 
             VendaDAO bd = new VendaDAO();
-            lista = bd.listarVenda(dtInicio, dtFim);
+            
+            // verifica filial
+            if (idFilial == 1) {
+            lista = bd.listarTodasVendas(dtInicio, dtFim);}
+            else {
+            lista = bd.listarVendasFilial(dtInicio, dtFim, idFilial);
+            }
 
             int i = 1;
 
