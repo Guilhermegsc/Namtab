@@ -136,7 +136,7 @@ public class AdministracaoServlet extends HttpServlet {
                     request.setAttribute("user", user);
                 } else {
                 
-                // USUARIO INVALIDO
+                request.setAttribute("mensagem", "Usuário inválido!");
                 }
             }
 
