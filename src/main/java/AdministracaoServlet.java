@@ -118,29 +118,30 @@ public class AdministracaoServlet extends HttpServlet {
 
         } else if (request.getParameter("salva") != null) {
 
-                idUsuario = (String) request.getSession().getAttribute("cpfAtualizar");
-                nome = request.getParameter("nome");
+            idUsuario = (String) request.getSession().getAttribute("cpfAtualizar");
+            nome = request.getParameter("nome");
 
-                if (!"".equals(request.getParameter("Filiais")) && !"".equals(request.getParameter("perfil")) && !nome.isEmpty()) {
-                    idFilial = Integer.parseInt(request.getParameter("Filiais"));
-                    tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-                    funcao = request.getParameter("cargo");
-                    
-                    Usuario usuario = new Usuario(idUsuario, nome, idFilial, tipoPerfil, funcao);
-                    
-                    if (status.equals("INATIVO")) {
-                        usuarioDAO.alterarUsuario(usuario);
-                        usuarioDAO.inativarUsuario(idUsuario);
-                        request.setAttribute("mensagem", "Cadastro atualizado!");
-                    } else {
-                        usuarioDAO.ativarUsuario(idUsuario);
-                        usuarioDAO.alterarUsuario(usuario);
-                        request.setAttribute("mensagem", "Cadastro atualizado!");
-                    }
+            if (!"".equals(request.getParameter("Filiais")) && !"".equals(request.getParameter("perfil")) && !nome.isEmpty()) {
+                idFilial = Integer.parseInt(request.getParameter("Filiais"));
+                tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+                funcao = request.getParameter("cargo");
+
+                Usuario usuario = new Usuario(idUsuario, nome, idFilial, tipoPerfil, funcao);
+
+                if (status.equals("INATIVO")) {
+                    usuarioDAO.alterarUsuario(usuario);
+                    usuarioDAO.inativarUsuario(idUsuario);
+                    request.setAttribute("mensagem", "Cadastro atualizado!");
+                } else {
+                    usuarioDAO.ativarUsuario(idUsuario);
+                    usuarioDAO.alterarUsuario(usuario);
+                    request.setAttribute("mensagem", "Cadastro atualizado!");
                 }
+            } else {
 
-                request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
-            
+                request.setAttribute("mensagem", "Verifique os campos!");
+            }
+            request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
         } else {
 
