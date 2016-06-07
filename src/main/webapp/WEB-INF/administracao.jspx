@@ -62,11 +62,11 @@
                 <br></br>
                 <fieldset>
                     <legend>Dados de Usuario</legend>
-                    <label class="labelformulario" id="lblcpf">CPF: </label> <input onkeypress=" return SomenteNumero(event)" maxlength="11"  id="cpf" type="text" name="cpf" value="${user.idUsuario}"/><br></br>
-                    <label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome" value="${user.nome}"/> <br></br>
+                    <label class="labelformulario" id="lblcpf">CPF: </label> <input onkeypress=" return SomenteNumero(event)" maxlength="11"  id="cpf" type="text" name="cpf" value="${userPsq.idUsuario}"/><br></br>
+                    <label class="labelformulario">Nome Completo: </label> <input type="text" name="nome" id="inputnome" value="${userPsq.nome}"/> <br></br>
                     <label class="labelformulario" id="lblcargo">Cargo: </label> 
                     <select name="cargo" >
-                        <option>${user.funcao}</option>
+                        <option>${userPsq.funcao}</option>
                         <option>Gerente</option>
                         <option>Frentista</option>
                         <option>Vendedor</option>
@@ -74,14 +74,14 @@
                     </select>
                     <label class="labelformulario" id="lblPerfil">Perfil: </label> 
                     <select name="perfil" >
-                        <option>${user.tipoPerfil}</option>
+                        <option>${userPsq.tipoPerfil}</option>
                         <option>1</option>
                         <option>2</option>
                     </select>
                     <label class="labelformulario" id="lblFilial">Filial: </label>
 
                     <select name="Filiais">
-                        <option>${user.idFilial}</option>
+                        <option value="${filialPesquisada.idFilial}">${filialPesquisada.descricao}</option>
                         <c:forEach items="${filiais}" var="fil">
                             <option name="idFilial" value="${fil.idFilial}"> 
                                 <c:out value="${fil.descricao}"/></option>
@@ -106,7 +106,7 @@
                     <legend>Opções</legend>
                     <button name="salva" type="submit" value="salva" id="salva">Salvar Alterações</button>
                     <button name="novo" type="submit" value="novo" id="novo" onclick="camposSenha();">Novo Usuário</button>
-                    <button name="cadastrar" type="submit" value="cadastrar">Cadastrar</button>
+                    <button name="cadastrar" type="submit" value="cadastrar" onclick="return verificaCadastrar()">Cadastrar</button>
 
                 </fieldset>
             </form>

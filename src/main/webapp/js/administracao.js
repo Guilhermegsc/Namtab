@@ -45,6 +45,15 @@ function SomenteNumero(e) {
     }
 }
 
+function verificaCadastrar(){
+    
+    if(document.getElementById("cpf").disabled === true){
+        alert("CPF já cadastrado no sistema.");
+        return false;
+    }
+    else true;
+}
+
 function statusAlterado(){
     document.getElementById("statusAlterado").value = "true";
     
