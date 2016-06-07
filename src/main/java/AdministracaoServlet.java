@@ -125,13 +125,19 @@ public class AdministracaoServlet extends HttpServlet {
             } else {
                 UsuarioDAO userDAO = new UsuarioDAO();
                 Usuario user = userDAO.buscarQualquerUsuario(idUser);
-                if (user.getStatus()) {
-                    status = "ATIVO";
+
+                if (user != null) {
+                    if (user.getStatus()) {
+                        status = "ATIVO";
+                    } else {
+                        status = "INATIVO";
+                    }
+                    request.setAttribute("status", status);
+                    request.setAttribute("user", user);
                 } else {
-                    status = "INATIVO";
+                
+                // USUARIO INVALIDO
                 }
-                request.setAttribute("status", status);
-                request.setAttribute("user", user);
             }
 
         }
