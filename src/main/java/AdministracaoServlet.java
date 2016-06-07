@@ -78,44 +78,69 @@ public class AdministracaoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         preencheFiliais(request, response);
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
         String idUsuario, nome, senha, funcao;
         int idFilial = 0, tipoPerfil = 0;
-        String status;
-
-        idUsuario = request.getParameter("cpf");
-        nome = request.getParameter("nome");
-        senha = request.getParameter("senha");
-        if (!"".equals(request.getParameter("Filiais")) && !"".equals(request.getParameter("perfil"))) {
-            idFilial = Integer.parseInt(request.getParameter("Filiais"));
-            tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-        }
-        funcao = request.getParameter("cargo");
-        status = request.getParameter("check");
-
-        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        String status = request.getParameter("check");
 
         if (request.getParameter("cadastrar") != null) {
+
+            idUsuario = request.getParameter("cpf");
+            nome = request.getParameter("nome");
+            senha = request.getParameter("senha");
             String cnfSenha = request.getParameter("cnfSenha");
-            if (senha.equals(cnfSenha)) {
-                usuarioDAO.incluirUsuario(usuario);
-                request.setAttribute("mensagem", "Usuário cadastrado com sucesso!");
+
+            // se nao existir cpf na base
+            if (usuarioDAO.buscarUsuario(idUsuario) != null) {
+
+                request.setAttribute("mensagem", "CPF ja cadastrado!");
+
             } else {
+                if (!"".equals(request.getParameter("Filiais")) && !"".equals(request.getParameter("perfil")) && !nome.isEmpty()) {
+                    idFilial = Integer.parseInt(request.getParameter("Filiais"));
+                    tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+                    funcao = request.getParameter("cargo");
+
+                    if (senha.equals(cnfSenha)) {
+                        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
+                        usuarioDAO.incluirUsuario(usuario);
+                        request.setAttribute("mensagem", "Usuário cadastrado com sucesso!");
+                    } else {
+                        request.setAttribute("mensagem", "Verifique as senhas!");
+                    }
+
+                } else {
+                    request.setAttribute("mensagem", "Verifique os campos!");
+                }
             }
 
         } else if (request.getParameter("novo") != null) {
 
         } else if (request.getParameter("salva") != null) {
-            if (request.getParameter("statusAlterado") != null) {
 
-                if (status.equals("INATIVO")) {
-                    usuarioDAO.inativarUsuario(idUsuario);
-                } else {
-                    usuarioDAO.ativarUsuario(idUsuario);
+                idUsuario = (String) request.getSession().getAttribute("cpfAtualizar");
+                nome = request.getParameter("nome");
+
+                if (!"".equals(request.getParameter("Filiais")) && !"".equals(request.getParameter("perfil")) && !nome.isEmpty()) {
+                    idFilial = Integer.parseInt(request.getParameter("Filiais"));
+                    tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+                    funcao = request.getParameter("cargo");
+                    
+                    Usuario usuario = new Usuario(idUsuario, nome, idFilial, tipoPerfil, funcao);
+                    
+                    if (status.equals("INATIVO")) {
+                        usuarioDAO.alterarUsuario(usuario);
+                        usuarioDAO.inativarUsuario(idUsuario);
+                        request.setAttribute("mensagem", "Cadastro atualizado!");
+                    } else {
+                        usuarioDAO.ativarUsuario(idUsuario);
+                        usuarioDAO.alterarUsuario(usuario);
+                        request.setAttribute("mensagem", "Cadastro atualizado!");
+                    }
                 }
+
                 request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
-            }
-            usuarioDAO.alterarUsuario(usuario);
+            
 
         } else {
 
@@ -135,9 +160,10 @@ public class AdministracaoServlet extends HttpServlet {
                     }
                     request.setAttribute("status", status);
                     request.setAttribute("user", user);
+                    request.getSession().setAttribute("cpfAtualizar", idUser);
                 } else {
-                
-                request.setAttribute("mensagem", "Usuário inválido!");
+
+                    request.setAttribute("mensagem", "Usuário inválido!");
                 }
             }
 

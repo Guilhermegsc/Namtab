@@ -90,8 +90,10 @@
                     <!--<label class="labelformulario" style="display:none">Senha: </label> <input type="hidden" name="senha" id="senha"/><br></br>
                     <label class="labelformulario" style="display:none">Confirmar Senha: </label> <input type="hidden" name="cnfSenha" id="cnfSenha"/><br></br>
                     -->
-                    <label class="labelformulario" id="lblSenha">Senha: </label> <input name="senha" id="senha"/><br></br>
-                    <label class="labelformulario" id="lblConfirma">Confirmar Senha: </label> <input name="cnfSenha" id="cnfSenha"/><br></br>
+                    <label class="labelformulario" id="lblSenha">Senha: </label> 
+                    <input type="password" name="senha" id="senha" autocomplete="off"/><br></br>
+                    <label class="labelformulario" id="lblConfirma" >Confirmar Senha: </label> 
+                    <input type="password" name="cnfSenha" id="cnfSenha" autocomplete="off"/><br></br>
 
                     <select name="check" id="check" onchange="statusAlterado()">
                         <option>${status}</option>
