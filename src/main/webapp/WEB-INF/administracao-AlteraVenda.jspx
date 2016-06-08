@@ -71,9 +71,9 @@
                         <label class="labelformulario" id="lblFuncionario">Funcionario: </label> 
                         <input type="text" value="${venda.nomeUsuario}" disabled="true" class="campos"></input>
                         <label class="labelformulario" id="lblFilial">Filial: </label> 
-                        <input type="text" value="${venda.nomeFilial}" disabled="true" class="campos"></input><br></br>
+                        <input type="text" value="${venda.nomeFilial}" disabled="true" id="nomeFilial" class="campos"></input><br></br>
                         <label class="labelformulario" id="lblproduto">Produto: </label> 
-                        <input type="text" value="${venda.nomeProduto}" disabled="true" class="campos"></input>                   
+                        <input type="text" value="${venda.nomeProduto}" disabled="true" id="produto" class="campos"></input>                   
                         <label class="labelformulario" id="lblvalorPreco">Preco: </label> 
                         <input type="text" value="${venda.preco}" disabled="true" class="campos"></input><br></br>
 
