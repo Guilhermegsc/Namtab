@@ -57,7 +57,7 @@
 
             <form name="form" id="formulario" action="AdministracaoServlet?${now.time}" method="post">
                 <label class="labelformulario" id="psq">Pesquisar: </label>
-                <input type="text" name="pesquisa" id="psqCampo" maxlength="11" onkeypress="return SomenteNumero(event)" onblur="pesquisar();"></input>
+                <input type="text" name="pesquisa" id="psqCampo" maxlength="11" onkeypress="return SomenteNumero(event)" onblur="pesquisar()"></input>
                 <br></br>
                 <br></br>
                 <fieldset>

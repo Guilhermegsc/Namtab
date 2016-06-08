@@ -172,9 +172,9 @@ public class AdministracaoServlet extends HttpServlet {
                     } else {
                         status = "INATIVO";
                     }
-                    request.setAttribute("status", status);
+                    request.getSession().setAttribute("status", status);
                     request.getSession().setAttribute("userPsq", usuarioPesquisado);
-                    request.setAttribute("filialPesquisada", filPesquisada);
+                    request.getSession().setAttribute("filialPesquisada", filPesquisada);
                 } else {
 
                     request.setAttribute("mensagem", "Usuário inválido!");

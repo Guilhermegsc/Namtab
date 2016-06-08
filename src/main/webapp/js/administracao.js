@@ -25,7 +25,10 @@ function iniciar() {
     }
 }
 function pesquisar() {
-    document.querySelector("form").submit();
+    if(document.getElementById("psqCampo").value != "" ){
+        document.querySelector("form").submit();
+    }
+    
 
 
 }

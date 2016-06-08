@@ -28,7 +28,7 @@ span{
 	margin-top: -185px;
 	background: rgba(200,200,200,0.2);
 	padding: 50px;
-	z-index: 1;
+
 
 }
 #psq{
@@ -37,7 +37,6 @@ span{
 	top: 50%;
 	margin-left: -350px;
 	margin-top: -113px;
-	z-index: 4;
         padding: 50px;
 
 }
