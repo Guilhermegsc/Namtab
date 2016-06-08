@@ -62,6 +62,9 @@ public class AdministracaoServlet extends HttpServlet {
             contador--;
         }
         int pDigito = 11 - (soma % 11);
+        if (pDigito == 10 || pDigito == 11) {
+            pDigito = 0;
+        }
 
         contador = 11;
         soma = 0;
@@ -70,6 +73,12 @@ public class AdministracaoServlet extends HttpServlet {
             contador--;
         }
         int sDigito = 11 - (soma % 11);
+        if (sDigito == 10 || sDigito == 11) {
+            sDigito = 0;
+        }
+        if (pDigito == vetor[9] && sDigito == vetor[10]) {
+            return true;
+        }
         return false;
     }
 
@@ -114,35 +123,39 @@ public class AdministracaoServlet extends HttpServlet {
         if (request.getParameter("cadastrar") != null) {
 
             idUsuario = request.getParameter("cpf");
-            validarCPF(idUsuario);
-            nome = request.getParameter("nome");
-            senha = request.getParameter("senha");
-            String cnfSenha = request.getParameter("cnfSenha");
+            if (validarCPF(idUsuario)) {
+                nome = request.getParameter("nome");
+                senha = request.getParameter("senha");
+                String cnfSenha = request.getParameter("cnfSenha");
 
-            if (idUsuario == null) {
-                request.setAttribute("mensagem", "CPF não está preenchido!");
-            } // Se já existir cpf na base.
-            else if (usuarioDAO.buscarUsuario(idUsuario) != null) {
+                if (idUsuario == null) {
+                    request.setAttribute("mensagem", "CPF não está preenchido!");
+                } // Se já existir cpf na base.
+                else if (usuarioDAO.buscarUsuario(idUsuario) != null) {
 
-                request.setAttribute("mensagem", "CPF ja cadastrado!");
-                request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
-                return;
-            } else if (!"".equals(request.getParameter("Filiais"))
-                    && !"".equals(request.getParameter("perfil")) && !nome.isEmpty()) {
-                idFilial = Integer.parseInt(request.getParameter("Filiais"));
-                tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-                funcao = request.getParameter("cargo");
+                    request.setAttribute("mensagem", "CPF ja cadastrado!");
+                    request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
+                    return;
+                } else if (!"".equals(request.getParameter("Filiais"))
+                        && !"".equals(request.getParameter("perfil")) && !nome.isEmpty()) {
+                    idFilial = Integer.parseInt(request.getParameter("Filiais"));
+                    tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+                    funcao = request.getParameter("cargo");
 
-                if (senha.equals(cnfSenha)) {
-                    Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
-                    usuarioDAO.incluirUsuario(usuario);
-                    request.setAttribute("mensagem", "Usuário cadastrado com sucesso!");
+                    if (senha.equals(cnfSenha)) {
+                        Usuario usuario = new Usuario(idUsuario, senha, nome, idFilial, tipoPerfil, funcao);
+                        usuarioDAO.incluirUsuario(usuario);
+                        request.setAttribute("mensagem", "Usuário cadastrado com sucesso!");
+                    } else {
+                        request.setAttribute("mensagem", "Verifique as senhas!");
+                    }
+
                 } else {
-                    request.setAttribute("mensagem", "Verifique as senhas!");
+                    request.setAttribute("mensagem", "Verifique os campos!");
                 }
-
             } else {
-                request.setAttribute("mensagem", "Verifique os campos!");
+                request.setAttribute("mensagem", "CPF inválido!");
+
             }
 
         } //---------------------------NOVO---------------------------------------
