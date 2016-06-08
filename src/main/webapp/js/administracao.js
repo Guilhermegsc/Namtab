@@ -1,10 +1,6 @@
 window.addEventListener("load", iniciar);
 function iniciar() {
-    msg = document.getElementById("mensagem").value;
-    if (msg != "") {
-        alert(msg);
-        document.getElementById("mensagem").value = "";
-    }
+
     var cpf = document.getElementById("cpf").value;
     if (cpf !== "") {
         document.getElementById("cpf").disabled = true;
@@ -22,6 +18,11 @@ function iniciar() {
         document.getElementById("lblConfirma").style.display = "inline";
         document.getElementById("check").style.display = "none";
 
+    }
+    msg = document.getElementById("mensagem").value;
+    if (msg != "") {
+        alert(msg);
+        document.getElementById("mensagem").value = "";
     }
 }
 function pesquisar() {

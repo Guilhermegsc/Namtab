@@ -92,11 +92,10 @@ public class AdministracaoServlet extends HttpServlet {
             nome = request.getParameter("nome");
             senha = request.getParameter("senha");
             String cnfSenha = request.getParameter("cnfSenha");
-            
-            if (idUsuario == null){
-            request.setAttribute("mensagem", "CPF não está preenchido!");
-            }
-            // Se já existir cpf na base.
+
+            if (idUsuario == null) {
+                request.setAttribute("mensagem", "CPF não está preenchido!");
+            } // Se já existir cpf na base.
             else if (usuarioDAO.buscarUsuario(idUsuario) != null) {
 
                 request.setAttribute("mensagem", "CPF ja cadastrado!");
@@ -123,34 +122,39 @@ public class AdministracaoServlet extends HttpServlet {
         } //---------------------------NOVO---------------------------------------
         else if (request.getParameter("novo") != null) {
             request.getSession().setAttribute("userPsq", null);
+            request.getSession().setAttribute("filialPesquisada", null);
         } //--------------------------SALVA AS ALTERAÇÕES-------------------------
         else if (request.getParameter("salva") != null) {
 
-            idUsuario = usuarioPsq.getIdUsuario();
-            nome = request.getParameter("nome");
-            funcao = request.getParameter("cargo");
-
-            //Verifica se os campos estão preenchidos
-            if (!"".equals(request.getParameter("Filiais")) && !"".equals(request.getParameter("perfil"))
-                    && !nome.isEmpty() && !funcao.isEmpty()) {
-                idFilial = Integer.parseInt(request.getParameter("Filiais"));
-                tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
-
-                Usuario usuario = new Usuario(idUsuario, nome, idFilial, tipoPerfil, funcao);
-
-                //Verifica o status para alterá-lo.
-                if (status.equals("INATIVO")) {
-                    usuarioDAO.alterarUsuario(usuario);
-                    usuarioDAO.inativarUsuario(idUsuario);
-                    request.setAttribute("mensagem", "Cadastro atualizado!");
-                } else {
-                    usuarioDAO.ativarUsuario(idUsuario);
-                    usuarioDAO.alterarUsuario(usuario);
-                    request.setAttribute("mensagem", "Cadastro atualizado!");
-                }
+            if (usuarioPsq == null) {
+                request.setAttribute("mensagem", "Usuário não encontrado!");
             } else {
+                idUsuario = usuarioPsq.getIdUsuario();
+                nome = request.getParameter("nome");
+                funcao = request.getParameter("cargo");
 
-                request.setAttribute("mensagem", "Verifique os campos!");
+                //Verifica se os campos estão preenchidos
+                if (!"".equals(request.getParameter("Filiais")) && !"".equals(request.getParameter("perfil"))
+                        && !nome.isEmpty() && !funcao.isEmpty()) {
+                    idFilial = Integer.parseInt(request.getParameter("Filiais"));
+                    tipoPerfil = Integer.parseInt(request.getParameter("perfil"));
+
+                    Usuario usuario = new Usuario(idUsuario, nome, idFilial, tipoPerfil, funcao);
+
+                    //Verifica o status para alterá-lo.
+                    if (status.equals("INATIVO")) {
+                        usuarioDAO.alterarUsuario(usuario);
+                        usuarioDAO.inativarUsuario(idUsuario);
+                        request.setAttribute("mensagem", "Cadastro atualizado!");
+                    } else {
+                        usuarioDAO.ativarUsuario(idUsuario);
+                        usuarioDAO.alterarUsuario(usuario);
+                        request.setAttribute("mensagem", "Cadastro atualizado!");
+                    }
+                } else {
+
+                    request.setAttribute("mensagem", "Verifique os campos!");
+                }
             }
             request.getRequestDispatcher("WEB-INF/administracao.jspx").forward(request, response);
 
@@ -159,26 +163,23 @@ public class AdministracaoServlet extends HttpServlet {
 
             //processRequest(request, response);
             String idUser = request.getParameter("pesquisa");
-            if (idUser.isEmpty()) {
+            UsuarioDAO userDAO = new UsuarioDAO();
+            Usuario usuarioPesquisado = userDAO.buscarQualquerUsuario(idUser);
+            if (usuarioPesquisado == null) {
+                request.setAttribute("mensagem", "Usuário não encontrado!");
 
             } else {
-                UsuarioDAO userDAO = new UsuarioDAO();
-                Usuario usuarioPesquisado = userDAO.buscarQualquerUsuario(idUser);
                 FiliaisDAO filialDAO = new FiliaisDAO();
                 Filial filPesquisada = filialDAO.buscaFilial(usuarioPesquisado.getIdFilial());
-                if (usuarioPesquisado != null) {
-                    if (usuarioPesquisado.getStatus()) {
-                        status = "ATIVO";
-                    } else {
-                        status = "INATIVO";
-                    }
-                    request.getSession().setAttribute("status", status);
-                    request.getSession().setAttribute("userPsq", usuarioPesquisado);
-                    request.getSession().setAttribute("filialPesquisada", filPesquisada);
+                if (usuarioPesquisado.getStatus()) {
+                    status = "ATIVO";
                 } else {
-
-                    request.setAttribute("mensagem", "Usuário inválido!");
+                    status = "INATIVO";
                 }
+                request.getSession().setAttribute("status", status);
+                request.getSession().setAttribute("userPsq", usuarioPesquisado);
+                request.getSession().setAttribute("filialPesquisada", filPesquisada);
+
             }
 
         }
