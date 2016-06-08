@@ -48,6 +48,31 @@ public class AdministracaoServlet extends HttpServlet {
 
     }
 
+    public Boolean validarCPF(String cpf) {
+        int soma = 0, indice = 8, contador = 10;
+        Integer vetor[] = new Integer[11];
+        Character vetorChar[] = new Character[11];
+
+        for (int i = 0; i < cpf.length(); i++) {
+            vetorChar[i] = cpf.charAt(i);
+            vetor[i] = Character.getNumericValue(vetorChar[i]);
+        }
+        for (int i = 0; i < cpf.length() - 2; i++) {
+            soma = soma + (vetor[i] * contador);
+            contador--;
+        }
+        int pDigito = 11 - (soma % 11);
+
+        contador = 11;
+        soma = 0;
+        for (int i = 0; i < cpf.length() - 1; i++) {
+            soma = soma + (vetor[i] * contador);
+            contador--;
+        }
+        int sDigito = 11 - (soma % 11);
+        return false;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -89,6 +114,7 @@ public class AdministracaoServlet extends HttpServlet {
         if (request.getParameter("cadastrar") != null) {
 
             idUsuario = request.getParameter("cpf");
+            validarCPF(idUsuario);
             nome = request.getParameter("nome");
             senha = request.getParameter("senha");
             String cnfSenha = request.getParameter("cnfSenha");
